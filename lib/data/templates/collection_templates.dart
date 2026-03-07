@@ -56,6 +56,7 @@ abstract final class CollectionTemplates {
     tools,
     vinyls,
     collections,
+    gym,
   ];
 
   static const books = CollectionTemplate(
@@ -433,6 +434,50 @@ abstract final class CollectionTemplates {
           name: 'Photo', type: FieldType.image, showInList: false),
       TemplateField(
           name: 'Notes', type: FieldType.textArea, showInCard: false),
+    ],
+  );
+
+  static const gym = CollectionTemplate(
+    id: 'gym',
+    name: 'Musculation',
+    emoji: '\u{1F4AA}',
+    colorKey: 'blue',
+    description: 'Suivi de vos performances en salle',
+    fields: [
+      TemplateField(
+          name: 'Machine',
+          type: FieldType.text,
+          isRequired: true,
+          sortable: true),
+      TemplateField(
+        name: 'Groupe musculaire',
+        type: FieldType.select,
+        options: {
+          'options': [
+            'Pectoraux',
+            'Dos',
+            'Épaules',
+            'Biceps',
+            'Triceps',
+            'Jambes',
+            'Abdominaux',
+            'Fessiers',
+            'Mollets',
+            'Autre',
+          ]
+        },
+      ),
+      TemplateField(
+        name: 'Poids',
+        type: FieldType.tracker,
+        options: {
+          'unit': 'kg',
+          'improvementDirection': 'up',
+          'step': 2.5,
+        },
+      ),
+      TemplateField(
+          name: 'Photo', type: FieldType.image, showInList: false, showInCard: false),
     ],
   );
 }

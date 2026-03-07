@@ -72,6 +72,7 @@ const _$FieldTypeEnumMap = {
   FieldType.range: 'range',
   FieldType.duration: 'duration',
   FieldType.checklist: 'checklist',
+  FieldType.tracker: 'tracker',
 };
 
 const _$SyncStatusEnumMap = {

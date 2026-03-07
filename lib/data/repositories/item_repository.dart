@@ -24,6 +24,9 @@ abstract class ItemRepository {
     required Map<String, dynamic> fieldValues,
   });
 
+  /// Search items across all collections by field values.
+  Future<List<ItemWithFields>> searchItems(String query);
+
   /// Delete an item.
   Future<void> deleteItem(String id);
 

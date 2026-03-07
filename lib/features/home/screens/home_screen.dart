@@ -27,9 +27,7 @@ class HomeScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(LucideIcons.search),
-            onPressed: () {
-              // TODO: navigation vers la recherche
-            },
+            onPressed: () => context.push(AppRoutes.search),
           ),
           IconButton(
             icon: const Icon(LucideIcons.settings),

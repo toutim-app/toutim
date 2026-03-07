@@ -40,9 +40,40 @@ class CollectionDetailScreen extends ConsumerWidget {
           error: (_, _) => const Text('Erreur'),
         ),
         actions: [
-          IconButton(
-            icon: Icon(LucideIcons.trash2, color: AppColors.red),
-            onPressed: () => _confirmDeleteCollection(context, ref),
+          PopupMenuButton<String>(
+            icon: Icon(LucideIcons.moreVertical,
+                color: AppColors.textSecondary, size: 20),
+            onSelected: (value) {
+              if (value == 'fields') {
+                context.push('/collection/$collectionId/fields');
+              } else if (value == 'delete') {
+                _confirmDeleteCollection(context, ref);
+              }
+            },
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                value: 'fields',
+                child: Row(
+                  children: [
+                    Icon(LucideIcons.settings2,
+                        size: 18, color: AppColors.textSecondary),
+                    const SizedBox(width: 8),
+                    Text('Gérer les champs'),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 'delete',
+                child: Row(
+                  children: [
+                    Icon(LucideIcons.trash2, size: 18, color: AppColors.red),
+                    const SizedBox(width: 8),
+                    Text('Supprimer',
+                        style: TextStyle(color: AppColors.red)),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

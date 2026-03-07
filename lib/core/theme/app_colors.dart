@@ -14,7 +14,7 @@ abstract final class AppColors {
   static const teal = Color(0xFF2ABFBF);
 
   /// Divertissement, actions secondaires
-  static const orange = Color(0xFFF2994A);
+  static const orange = Color(0xFFEB6800);
 
   /// Validation, succès, nature/finance
   static const green = Color(0xFF27AE60);

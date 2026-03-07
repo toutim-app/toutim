@@ -4,7 +4,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../features/collection/screens/collection_detail_screen.dart';
 import '../../features/collection/screens/create_collection_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/field_editor/screens/field_editor_screen.dart';
 import '../../features/item/screens/item_form_screen.dart';
+import '../../features/search/screens/search_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -14,6 +16,8 @@ abstract final class AppRoutes {
   static const collection = '/collection/:id';
   static const createItem = '/collection/:collectionId/item/new';
   static const editItem = '/collection/:collectionId/item/:id';
+  static const fieldEditor = '/collection/:collectionId/fields';
+  static const search = '/search';
   static const createCollection = '/create-collection';
   static const settings = '/settings';
 }
@@ -29,6 +33,11 @@ GoRouter appRouter(AppRouterRef ref) {
         builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
+        path: AppRoutes.search,
+        name: 'search',
+        builder: (context, state) => const SearchScreen(),
+      ),
+      GoRoute(
         path: AppRoutes.createCollection,
         name: 'createCollection',
         builder: (context, state) => const CreateCollectionScreen(),
@@ -39,6 +48,14 @@ GoRouter appRouter(AppRouterRef ref) {
         builder: (context, state) {
           final id = state.pathParameters['id']!;
           return CollectionDetailScreen(collectionId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.fieldEditor,
+        name: 'fieldEditor',
+        builder: (context, state) {
+          final collectionId = state.pathParameters['collectionId']!;
+          return FieldEditorScreen(collectionId: collectionId);
         },
       ),
       GoRoute(

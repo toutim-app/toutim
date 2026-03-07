@@ -149,6 +149,47 @@ class ItemLocalDataSource {
     return query.watchSingle().map((row) => row.read(count) ?? 0);
   }
 
+  // ── Search ────────────────────────────────────────────────
+
+  /// Search items across all collections by matching field values.
+  /// Only searches text-based fields marked as searchable.
+  Future<List<models.ItemWithFields>> searchItems(String query) async {
+    final pattern = '%$query%';
+    const searchableTypes = [
+      'text', 'textArea', 'select', 'email', 'url', 'phone', 'barcode',
+    ];
+
+    // Find distinct item IDs that have a matching searchable field value.
+    final matchingItemIds = await _db.customSelect(
+      '''
+      SELECT DISTINCT i.id
+      FROM items i
+      INNER JOIN item_field_values fv ON fv.item_id = i.id
+      INNER JOIN field_definitions fd ON fd.id = fv.field_definition_id
+      WHERE fd.searchable = 1
+        AND fd.type IN (${searchableTypes.map((_) => '?').join(', ')})
+        AND fv.value LIKE ?
+      ORDER BY i.updated_at DESC
+      LIMIT 50
+      ''',
+      variables: [
+        ...searchableTypes.map((t) => Variable.withString(t)),
+        Variable.withString(pattern),
+      ],
+    ).get();
+
+    final ids = matchingItemIds.map((row) => row.read<String>('id')).toList();
+    if (ids.isEmpty) return [];
+
+    // Load full ItemWithFields for each matching item.
+    final results = <models.ItemWithFields>[];
+    for (final id in ids) {
+      final item = await getItemWithFields(id);
+      if (item != null) results.add(item);
+    }
+    return results;
+  }
+
   // ── Mapping helpers ────────────────────────────────────────
 
   models.Item _rowToItem(Item row) {

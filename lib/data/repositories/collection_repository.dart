@@ -22,6 +22,9 @@ abstract class CollectionRepository {
   /// Update an existing collection.
   Future<void> updateCollection(Collection collection);
 
+  /// Search collections by name.
+  Future<List<Collection>> searchCollections(String query);
+
   /// Delete a collection and all related data.
   Future<void> deleteCollection(String id);
 

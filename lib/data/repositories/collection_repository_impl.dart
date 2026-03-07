@@ -52,6 +52,11 @@ class CollectionRepositoryImpl implements CollectionRepository {
   }
 
   @override
+  Future<List<Collection>> searchCollections(String query) {
+    return _localDataSource.searchCollections(query);
+  }
+
+  @override
   Future<void> deleteCollection(String id) {
     return _localDataSource.deleteCollection(id);
   }

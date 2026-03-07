@@ -80,6 +80,17 @@ class CollectionLocalDataSource {
     });
   }
 
+  // ── Search ────────────────────────────────────────────────
+
+  /// Search collections by name.
+  Future<List<models.Collection>> searchCollections(String query) async {
+    final q = _db.select(_db.collections)
+      ..where((t) => t.name.like('%$query%'))
+      ..orderBy([(t) => OrderingTerm.desc(t.updatedAt)]);
+    final rows = await q.get();
+    return rows.map(_rowToCollection).toList();
+  }
+
   // ── Field Definitions ──────────────────────────────────────
 
   /// Get all field definitions for a collection, ordered by sortOrder.

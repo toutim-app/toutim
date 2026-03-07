@@ -90,6 +90,11 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
+  Future<List<ItemWithFields>> searchItems(String query) {
+    return _localDataSource.searchItems(query);
+  }
+
+  @override
   Future<void> deleteItem(String id) {
     return _localDataSource.deleteItem(id);
   }

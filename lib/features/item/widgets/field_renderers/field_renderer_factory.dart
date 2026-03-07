@@ -10,6 +10,7 @@ import 'rating_field_renderer.dart';
 import 'select_field_renderer.dart';
 import 'text_area_renderer.dart';
 import 'text_field_renderer.dart';
+import 'tracker_field_renderer.dart';
 import 'unsupported_field_renderer.dart';
 
 /// Builds the appropriate field renderer widget for a given field definition.
@@ -71,6 +72,13 @@ Widget buildFieldRenderer({
       ),
     FieldType.image =>
       ImageFieldRenderer(
+        key: ValueKey(definition.id),
+        definition: definition,
+        value: value,
+        onChanged: onChanged,
+      ),
+    FieldType.tracker =>
+      TrackerFieldRenderer(
         key: ValueKey(definition.id),
         definition: definition,
         value: value,

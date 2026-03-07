@@ -138,6 +138,17 @@ class ItemCard extends ConsumerWidget {
     if (val is int && val >= 1 && val <= 5) {
       return '${'★' * val}${'☆' * (5 - val)}';
     }
+    // Tracker field: show last value
+    if (val is List && val.isNotEmpty) {
+      final lastEntry = val.last;
+      if (lastEntry is Map && lastEntry.containsKey('value')) {
+        final v = lastEntry['value'];
+        if (v is double && v.truncateToDouble() == v) {
+          return v.toInt().toString();
+        }
+        return v.toString();
+      }
+    }
     final str = val.toString();
     return str.isEmpty ? null : str;
   }

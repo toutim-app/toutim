@@ -136,7 +136,7 @@ static const darkText       = Color(0xFFE8E8E8);
 text, textArea, number, decimal, currency, boolean, date, dateTime, time,
 image, barcode, qrCode, rating, url, email, phone,
 select, multiSelect, tags, color, location, slider, range,
-duration, checklist
+duration, checklist, tracker
 ```
 
 ### Architecture du moteur
@@ -186,12 +186,14 @@ Proposés à l'onboarding pour démarrer rapidement. Chaque template a une **cou
 | 🧱 LEGO | `orange` | Nom, N° Set, Thème, Pièces, Prix, Complet ? |
 | 🎬 Films | `green` | Titre, Réalisateur, Année, Genre, Note, Vu ?, Affiche |
 | 🍷 Vins | `red` | Nom, Domaine, Année, Cépage, Note, Photo |
+| 🍳 Recettes | `orange` | Nom, Catégorie, Temps prépa/cuisson, Portions, Ingrédients, Instructions, Note, Photo |
 | 💳 Cartes fidélité | `yellow` | Enseigne, N° Carte, Logo, Expiration |
 | 🎮 Jeux vidéo | `purple` | Titre, Plateforme, Genre, Note, Terminé ?, Jaquette |
 | 🌱 Plantes | `green` | Nom, Espèce, Photo, Date achat, Arrosage, Emplacement |
 | 🔧 Outils | `orange` | Nom, Marque, Photo, Catégorie, Emplacement, Prêté à ? |
 | 📀 Vinyles | `teal` | Artiste, Album, Année, Genre, Label, État, Photo |
 | 🏅 Collections | `blue` | Nom, Catégorie, Année, État, Valeur, Photo, Notes |
+| 💪 Musculation | `blue` | Machine, Groupe musculaire, Poids (tracker), Photo |
 
 > Pour les collections personnalisées, l'utilisateur choisit sa couleur parmi la palette.
 

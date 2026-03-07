@@ -25,4 +25,5 @@ enum FieldType {
   range,
   duration,
   checklist,
+  tracker,
 }
