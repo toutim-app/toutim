@@ -202,7 +202,7 @@ abstract final class CollectionTemplates {
           type: FieldType.text,
           isRequired: true,
           sortable: true),
-      TemplateField(name: 'N\u00B0 Carte', type: FieldType.text),
+      TemplateField(name: 'N\u00B0 Carte', type: FieldType.barcode),
       TemplateField(
           name: 'Logo', type: FieldType.image, showInList: false),
       TemplateField(name: 'Expiration', type: FieldType.date),

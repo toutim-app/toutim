@@ -57,6 +57,11 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
       appBar: AppBar(
         title: Text(widget.isEditing ? 'Modifier' : 'Nouvel objet'),
         actions: [
+          if (widget.isEditing)
+            IconButton(
+              icon: Icon(LucideIcons.trash2, color: AppColors.red),
+              onPressed: _saving ? null : _delete,
+            ),
           fieldsAsync.when(
             data: (fields) => TextButton.icon(
               onPressed: _saving ? null : () => _save(fields),
@@ -111,6 +116,32 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
         );
       },
     );
+  }
+
+  Future<void> _delete() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Supprimer'),
+        content: const Text('Voulez-vous supprimer cet objet ?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Annuler'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: TextButton.styleFrom(foregroundColor: AppColors.red),
+            child: const Text('Supprimer'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    await ref.read(itemRepositoryProvider).deleteItem(widget.itemId!);
+    if (mounted) context.pop();
   }
 
   Future<void> _save(List<FieldDefinition> fields) async {
