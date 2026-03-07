@@ -441,7 +441,7 @@ abstract final class CollectionTemplates {
     id: 'gym',
     name: 'Musculation',
     emoji: '\u{1F4AA}',
-    colorKey: 'blue',
+    colorKey: 'orange',
     description: 'Suivi de vos performances en salle',
     fields: [
       TemplateField(

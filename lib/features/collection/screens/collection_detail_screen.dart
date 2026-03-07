@@ -7,7 +7,9 @@ import '../../../core/extensions/collection_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/providers/repository_providers.dart';
 import '../providers/collection_providers.dart';
+import '../../../data/models/collection.dart';
 import '../widgets/collection_empty_state.dart';
+import '../widgets/edit_collection_sheet.dart';
 import '../widgets/item_card.dart';
 
 /// Screen displaying the contents of a single collection.
@@ -44,13 +46,29 @@ class CollectionDetailScreen extends ConsumerWidget {
             icon: Icon(LucideIcons.moreVertical,
                 color: AppColors.textSecondary, size: 20),
             onSelected: (value) {
-              if (value == 'fields') {
+              if (value == 'edit') {
+                final collection = collectionAsync.valueOrNull;
+                if (collection != null) {
+                  _showEditSheet(context, ref, collection);
+                }
+              } else if (value == 'fields') {
                 context.push('/collection/$collectionId/fields');
               } else if (value == 'delete') {
                 _confirmDeleteCollection(context, ref);
               }
             },
             itemBuilder: (_) => [
+              PopupMenuItem(
+                value: 'edit',
+                child: Row(
+                  children: [
+                    Icon(LucideIcons.pencil,
+                        size: 18, color: AppColors.textSecondary),
+                    const SizedBox(width: 8),
+                    Text('Modifier'),
+                  ],
+                ),
+              ),
               PopupMenuItem(
                 value: 'fields',
                 child: Row(
@@ -139,6 +157,29 @@ class CollectionDetailScreen extends ConsumerWidget {
         child: const Icon(LucideIcons.plus, color: Colors.white),
       ),
     );
+  }
+
+  Future<void> _showEditSheet(
+      BuildContext context, WidgetRef ref, Collection collection) async {
+    final result = await showModalBottomSheet<EditCollectionResult>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) => EditCollectionSheet(collection: collection),
+    );
+
+    if (result == null) return;
+
+    await ref.read(collectionRepositoryProvider).updateCollection(
+          collection.copyWith(
+            name: result.name,
+            icon: result.icon,
+            color: result.colorKey,
+          ),
+        );
+    ref.invalidate(collectionByIdProvider(collectionId));
   }
 
   Future<void> _confirmDeleteCollection(
