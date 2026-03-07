@@ -1,4 +1,4 @@
-package be.upsource.toutim
+package app.toutim
 
 import io.flutter.embedding.android.FlutterActivity
 
