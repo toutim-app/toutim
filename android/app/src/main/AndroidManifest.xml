@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="toutim"
+        android:label="Toutim"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

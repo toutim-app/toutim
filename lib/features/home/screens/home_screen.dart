@@ -19,9 +19,20 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Toutim',
-          style: Theme.of(context).textTheme.headlineMedium,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/icon/app_icon_foreground.png',
+              width: 38,
+              height: 38,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              'Toutim',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
         ),
         centerTitle: false,
         actions: [
