@@ -69,4 +69,15 @@ abstract final class AppColors {
     red,
     purple,
   ];
+
+  /// Clés correspondantes à [palette], pour stocker la couleur en DB.
+  static const List<String> paletteKeys = [
+    'blue',
+    'teal',
+    'green',
+    'orange',
+    'yellow',
+    'red',
+    'purple',
+  ];
 }

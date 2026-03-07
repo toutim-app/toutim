@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../providers/home_providers.dart';
+import '../widgets/home_collection_list.dart';
+import '../widgets/home_empty_state.dart';
 
-/// Écran d'accueil — liste des collections de l'utilisateur.
-class HomeScreen extends StatelessWidget {
+/// Home screen — displays the user's collections.
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final collectionsAsync = ref.watch(collectionsStreamProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Toutim',
-          style: theme.textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         centerTitle: false,
         actions: [
@@ -33,38 +39,22 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                LucideIcons.layoutGrid,
-                size: 64,
-                color: AppColors.textTertiary,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Aucune collection',
-                style: theme.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Appuyez sur + pour créer votre première collection',
-                style: theme.textTheme.bodyMedium?.copyWith(
+      body: collectionsAsync.when(
+        data: (collections) => collections.isEmpty
+            ? const HomeEmptyState()
+            : HomeCollectionList(collections: collections),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, _) => Center(
+          child: Text(
+            'Une erreur est survenue',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.textSecondary,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: création de collection
-        },
+        onPressed: () => context.push(AppRoutes.createCollection),
         backgroundColor: AppColors.blue,
         child: const Icon(LucideIcons.plus, color: Colors.white),
       ),
