@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
-import '../../models/enums/enums.dart';
-import '../../models/collection.dart' as model;
-import '../../models/field_definition.dart' as model;
+import '../../models/models.dart' as models;
 import 'app_database.dart';
 
 /// Datasource for collection and field definition CRUD operations.
@@ -16,7 +14,7 @@ class CollectionLocalDataSource {
   // ── Collections ────────────────────────────────────────────
 
   /// Watch all collections, ordered by updatedAt desc.
-  Stream<List<model.Collection>> watchAllCollections() {
+  Stream<List<models.Collection>> watchAllCollections() {
     final query = _db.select(_db.collections)
       ..orderBy([
         (t) => OrderingTerm.desc(t.updatedAt),
@@ -27,7 +25,7 @@ class CollectionLocalDataSource {
   }
 
   /// Get a single collection by id.
-  Future<model.Collection?> getCollectionById(String id) async {
+  Future<models.Collection?> getCollectionById(String id) async {
     final query = _db.select(_db.collections)
       ..where((t) => t.id.equals(id));
     final row = await query.getSingleOrNull();
@@ -35,8 +33,8 @@ class CollectionLocalDataSource {
   }
 
   /// Insert a new collection.
-  Future<model.Collection> insertCollection(
-      model.Collection collection) async {
+  Future<models.Collection> insertCollection(
+      models.Collection collection) async {
     await _db.into(_db.collections).insert(
           _collectionToCompanion(collection),
         );
@@ -44,7 +42,7 @@ class CollectionLocalDataSource {
   }
 
   /// Update an existing collection.
-  Future<void> updateCollection(model.Collection collection) async {
+  Future<void> updateCollection(models.Collection collection) async {
     await (_db.update(_db.collections)
           ..where((t) => t.id.equals(collection.id)))
         .write(_collectionToCompanion(collection));
@@ -85,7 +83,7 @@ class CollectionLocalDataSource {
   // ── Field Definitions ──────────────────────────────────────
 
   /// Get all field definitions for a collection, ordered by sortOrder.
-  Future<List<model.FieldDefinition>> getFieldDefinitions(
+  Future<List<models.FieldDefinition>> getFieldDefinitions(
       String collectionId) async {
     final query = _db.select(_db.fieldDefinitions)
       ..where((t) => t.collectionId.equals(collectionId))
@@ -95,7 +93,7 @@ class CollectionLocalDataSource {
   }
 
   /// Watch field definitions for a collection, ordered by sortOrder.
-  Stream<List<model.FieldDefinition>> watchFieldDefinitions(
+  Stream<List<models.FieldDefinition>> watchFieldDefinitions(
       String collectionId) {
     final query = _db.select(_db.fieldDefinitions)
       ..where((t) => t.collectionId.equals(collectionId))
@@ -106,8 +104,8 @@ class CollectionLocalDataSource {
   }
 
   /// Insert a field definition.
-  Future<model.FieldDefinition> insertFieldDefinition(
-      model.FieldDefinition definition) async {
+  Future<models.FieldDefinition> insertFieldDefinition(
+      models.FieldDefinition definition) async {
     await _db.into(_db.fieldDefinitions).insert(
           _fieldDefinitionToCompanion(definition),
         );
@@ -116,7 +114,7 @@ class CollectionLocalDataSource {
 
   /// Update a field definition.
   Future<void> updateFieldDefinition(
-      model.FieldDefinition definition) async {
+      models.FieldDefinition definition) async {
     await (_db.update(_db.fieldDefinitions)
           ..where((t) => t.id.equals(definition.id)))
         .write(_fieldDefinitionToCompanion(definition));
@@ -136,7 +134,7 @@ class CollectionLocalDataSource {
 
   /// Reorder field definitions (batch update sortOrder).
   Future<void> reorderFieldDefinitions(
-      List<model.FieldDefinition> definitions) async {
+      List<models.FieldDefinition> definitions) async {
     await _db.transaction(() async {
       for (final def in definitions) {
         await (_db.update(_db.fieldDefinitions)
@@ -150,23 +148,23 @@ class CollectionLocalDataSource {
 
   // ── Mapping helpers ────────────────────────────────────────
 
-  model.Collection _rowToCollection(CollectionData row) {
-    return model.Collection(
+  models.Collection _rowToCollection(Collection row) {
+    return models.Collection(
       id: row.id,
       name: row.name,
       description: row.description,
       icon: row.icon,
       color: row.color,
       templateId: row.templateId,
-      viewMode: ViewMode.values.byName(row.viewMode),
-      syncStatus: SyncStatus.values.byName(row.syncStatus),
+      viewMode: models.ViewMode.values.byName(row.viewMode),
+      syncStatus: models.SyncStatus.values.byName(row.syncStatus),
       serverId: row.serverId,
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
     );
   }
 
-  CollectionsCompanion _collectionToCompanion(model.Collection c) {
+  CollectionsCompanion _collectionToCompanion(models.Collection c) {
     return CollectionsCompanion(
       id: Value(c.id),
       name: Value(c.name),
@@ -182,12 +180,12 @@ class CollectionLocalDataSource {
     );
   }
 
-  model.FieldDefinition _rowToFieldDefinition(FieldDefinitionData row) {
-    return model.FieldDefinition(
+  models.FieldDefinition _rowToFieldDefinition(FieldDefinition row) {
+    return models.FieldDefinition(
       id: row.id,
       collectionId: row.collectionId,
       name: row.name,
-      type: FieldType.values.byName(row.type),
+      type: models.FieldType.values.byName(row.type),
       sortOrder: row.sortOrder,
       isRequired: row.isRequired,
       showInList: row.showInList,
@@ -198,13 +196,13 @@ class CollectionLocalDataSource {
           row.defaultValue != null ? jsonDecode(row.defaultValue!) : null,
       options:
           (jsonDecode(row.options) as Map<String, dynamic>?) ?? {},
-      syncStatus: SyncStatus.values.byName(row.syncStatus),
+      syncStatus: models.SyncStatus.values.byName(row.syncStatus),
       serverId: row.serverId,
     );
   }
 
   FieldDefinitionsCompanion _fieldDefinitionToCompanion(
-      model.FieldDefinition d) {
+      models.FieldDefinition d) {
     return FieldDefinitionsCompanion(
       id: Value(d.id),
       collectionId: Value(d.collectionId),

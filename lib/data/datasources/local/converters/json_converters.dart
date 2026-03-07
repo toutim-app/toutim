@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
-/// Converts a Map<String, dynamic> to/from a JSON text column.
+/// Converts a `Map<String, dynamic>` to/from a JSON text column.
 class JsonMapConverter extends TypeConverter<Map<String, dynamic>, String> {
   const JsonMapConverter();
 

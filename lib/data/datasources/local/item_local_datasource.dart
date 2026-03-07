@@ -2,10 +2,7 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
-import '../../models/enums/enums.dart';
-import '../../models/field_value.dart' as model;
-import '../../models/item.dart' as model;
-import '../../models/item_with_fields.dart' as model;
+import '../../models/models.dart' as models;
 import 'app_database.dart';
 
 /// Datasource for item and field value CRUD operations.
@@ -17,7 +14,7 @@ class ItemLocalDataSource {
   // ── Items ──────────────────────────────────────────────────
 
   /// Watch all items in a collection, ordered by updatedAt desc.
-  Stream<List<model.Item>> watchItemsByCollection(String collectionId) {
+  Stream<List<models.Item>> watchItemsByCollection(String collectionId) {
     final query = _db.select(_db.items)
       ..where((t) => t.collectionId.equals(collectionId))
       ..orderBy([(t) => OrderingTerm.desc(t.updatedAt)]);
@@ -27,7 +24,7 @@ class ItemLocalDataSource {
   }
 
   /// Get a single item by id.
-  Future<model.Item?> getItemById(String id) async {
+  Future<models.Item?> getItemById(String id) async {
     final query = _db.select(_db.items)
       ..where((t) => t.id.equals(id));
     final row = await query.getSingleOrNull();
@@ -35,7 +32,7 @@ class ItemLocalDataSource {
   }
 
   /// Get an item with all its field values.
-  Future<model.ItemWithFields?> getItemWithFields(String itemId) async {
+  Future<models.ItemWithFields?> getItemWithFields(String itemId) async {
     final itemRow = await (_db.select(_db.items)
           ..where((t) => t.id.equals(itemId)))
         .getSingleOrNull();
@@ -49,7 +46,7 @@ class ItemLocalDataSource {
   }
 
   /// Watch an item with all its field values.
-  Stream<model.ItemWithFields?> watchItemWithFields(String itemId) {
+  Stream<models.ItemWithFields?> watchItemWithFields(String itemId) {
     final itemQuery = _db.select(_db.items)
       ..where((t) => t.id.equals(itemId));
     final valuesQuery = _db.select(_db.itemFieldValues)
@@ -63,9 +60,9 @@ class ItemLocalDataSource {
   }
 
   /// Insert a new item with its field values (transactional).
-  Future<model.ItemWithFields> insertItemWithFields({
-    required model.Item item,
-    required List<model.FieldValue> fieldValues,
+  Future<models.ItemWithFields> insertItemWithFields({
+    required models.Item item,
+    required List<models.FieldValue> fieldValues,
   }) async {
     await _db.transaction(() async {
       await _db.into(_db.items).insert(_itemToCompanion(item));
@@ -76,17 +73,17 @@ class ItemLocalDataSource {
       }
     });
 
-    final valuesMap = <String, model.FieldValue>{};
+    final valuesMap = <String, models.FieldValue>{};
     for (final fv in fieldValues) {
       valuesMap[fv.fieldDefinitionId] = fv;
     }
-    return model.ItemWithFields(item: item, fieldValues: valuesMap);
+    return models.ItemWithFields(item: item, fieldValues: valuesMap);
   }
 
   /// Update an item and its field values (transactional).
   Future<void> updateItemWithFields({
-    required model.Item item,
-    required List<model.FieldValue> fieldValues,
+    required models.Item item,
+    required List<models.FieldValue> fieldValues,
   }) async {
     await _db.transaction(() async {
       await (_db.update(_db.items)..where((t) => t.id.equals(item.id)))
@@ -124,7 +121,7 @@ class ItemLocalDataSource {
   // ── Field Values ───────────────────────────────────────────
 
   /// Get all field values for an item.
-  Future<List<model.FieldValue>> getFieldValues(String itemId) async {
+  Future<List<models.FieldValue>> getFieldValues(String itemId) async {
     final rows = await (_db.select(_db.itemFieldValues)
           ..where((t) => t.itemId.equals(itemId)))
         .get();
@@ -154,19 +151,19 @@ class ItemLocalDataSource {
 
   // ── Mapping helpers ────────────────────────────────────────
 
-  model.Item _rowToItem(ItemData row) {
-    return model.Item(
+  models.Item _rowToItem(Item row) {
+    return models.Item(
       id: row.id,
       collectionId: row.collectionId,
       favorite: row.favorite,
-      syncStatus: SyncStatus.values.byName(row.syncStatus),
+      syncStatus: models.SyncStatus.values.byName(row.syncStatus),
       serverId: row.serverId,
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
     );
   }
 
-  ItemsCompanion _itemToCompanion(model.Item item) {
+  ItemsCompanion _itemToCompanion(models.Item item) {
     return ItemsCompanion(
       id: Value(item.id),
       collectionId: Value(item.collectionId),
@@ -178,8 +175,8 @@ class ItemLocalDataSource {
     );
   }
 
-  model.FieldValue _rowToFieldValue(ItemFieldValueData row) {
-    return model.FieldValue(
+  models.FieldValue _rowToFieldValue(ItemFieldValue row) {
+    return models.FieldValue(
       id: row.id,
       itemId: row.itemId,
       fieldDefinitionId: row.fieldDefinitionId,
@@ -188,7 +185,7 @@ class ItemLocalDataSource {
     );
   }
 
-  ItemFieldValuesCompanion _fieldValueToCompanion(model.FieldValue fv) {
+  ItemFieldValuesCompanion _fieldValueToCompanion(models.FieldValue fv) {
     return ItemFieldValuesCompanion(
       id: Value(fv.id),
       itemId: Value(fv.itemId),
@@ -198,15 +195,15 @@ class ItemLocalDataSource {
     );
   }
 
-  model.ItemWithFields _buildItemWithFields(
-    ItemData itemRow,
-    List<ItemFieldValueData> valueRows,
+  models.ItemWithFields _buildItemWithFields(
+    Item itemRow,
+    List<ItemFieldValue> valueRows,
   ) {
-    final valuesMap = <String, model.FieldValue>{};
+    final valuesMap = <String, models.FieldValue>{};
     for (final row in valueRows) {
       valuesMap[row.fieldDefinitionId] = _rowToFieldValue(row);
     }
-    return model.ItemWithFields(
+    return models.ItemWithFields(
       item: _rowToItem(itemRow),
       fieldValues: valuesMap,
     );
