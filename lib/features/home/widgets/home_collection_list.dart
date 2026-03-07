@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../data/models/collection.dart';
 import 'collection_card.dart';
@@ -19,7 +20,7 @@ class HomeCollectionList extends StatelessWidget {
         final collection = collections[index];
         return CollectionCard(
           collection: collection,
-          // Collection detail screen will be added in Phase 3
+          onTap: () => context.push('/collection/${collection.id}'),
         );
       },
     );

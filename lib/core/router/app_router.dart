@@ -1,8 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../features/collection/screens/collection_detail_screen.dart';
 import '../../features/collection/screens/create_collection_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/item/screens/item_form_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -10,7 +12,8 @@ part 'app_router.g.dart';
 abstract final class AppRoutes {
   static const home = '/';
   static const collection = '/collection/:id';
-  static const item = '/collection/:collectionId/item/:id';
+  static const createItem = '/collection/:collectionId/item/new';
+  static const editItem = '/collection/:collectionId/item/:id';
   static const createCollection = '/create-collection';
   static const settings = '/settings';
 }
@@ -30,8 +33,34 @@ GoRouter appRouter(AppRouterRef ref) {
         name: 'createCollection',
         builder: (context, state) => const CreateCollectionScreen(),
       ),
-      // Les routes collection, item et settings seront ajoutées
-      // au fur et à mesure du développement des features.
+      GoRoute(
+        path: AppRoutes.collection,
+        name: 'collection',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return CollectionDetailScreen(collectionId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.createItem,
+        name: 'createItem',
+        builder: (context, state) {
+          final collectionId = state.pathParameters['collectionId']!;
+          return ItemFormScreen(collectionId: collectionId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.editItem,
+        name: 'editItem',
+        builder: (context, state) {
+          final collectionId = state.pathParameters['collectionId']!;
+          final itemId = state.pathParameters['id']!;
+          return ItemFormScreen(
+            collectionId: collectionId,
+            itemId: itemId,
+          );
+        },
+      ),
     ],
   );
 }

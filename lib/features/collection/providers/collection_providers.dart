@@ -1,10 +1,20 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../data/models/collection.dart';
 import '../../../data/models/field_definition.dart';
 import '../../../data/models/item.dart';
 import '../../../data/providers/repository_providers.dart';
 
 part 'collection_providers.g.dart';
+
+/// Fetches a single collection by id.
+@riverpod
+Future<Collection?> collectionById(
+  CollectionByIdRef ref,
+  String collectionId,
+) {
+  return ref.watch(collectionRepositoryProvider).getCollectionById(collectionId);
+}
 
 /// Watches field definitions for a specific collection.
 @riverpod

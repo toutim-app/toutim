@@ -6,8 +6,7 @@ part of 'collection_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fieldDefinitionsStreamHash() =>
-    r'23f69c1585c4ab26dff1461fde1c79acf6afc8b6';
+String _$collectionByIdHash() => r'ce57d4acda9a6aaf34a2ac25fb71f42ede26e16d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,6 +28,140 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// Fetches a single collection by id.
+///
+/// Copied from [collectionById].
+@ProviderFor(collectionById)
+const collectionByIdProvider = CollectionByIdFamily();
+
+/// Fetches a single collection by id.
+///
+/// Copied from [collectionById].
+class CollectionByIdFamily extends Family<AsyncValue<Collection?>> {
+  /// Fetches a single collection by id.
+  ///
+  /// Copied from [collectionById].
+  const CollectionByIdFamily();
+
+  /// Fetches a single collection by id.
+  ///
+  /// Copied from [collectionById].
+  CollectionByIdProvider call(String collectionId) {
+    return CollectionByIdProvider(collectionId);
+  }
+
+  @override
+  CollectionByIdProvider getProviderOverride(
+    covariant CollectionByIdProvider provider,
+  ) {
+    return call(provider.collectionId);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'collectionByIdProvider';
+}
+
+/// Fetches a single collection by id.
+///
+/// Copied from [collectionById].
+class CollectionByIdProvider extends AutoDisposeFutureProvider<Collection?> {
+  /// Fetches a single collection by id.
+  ///
+  /// Copied from [collectionById].
+  CollectionByIdProvider(String collectionId)
+    : this._internal(
+        (ref) => collectionById(ref as CollectionByIdRef, collectionId),
+        from: collectionByIdProvider,
+        name: r'collectionByIdProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$collectionByIdHash,
+        dependencies: CollectionByIdFamily._dependencies,
+        allTransitiveDependencies:
+            CollectionByIdFamily._allTransitiveDependencies,
+        collectionId: collectionId,
+      );
+
+  CollectionByIdProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.collectionId,
+  }) : super.internal();
+
+  final String collectionId;
+
+  @override
+  Override overrideWith(
+    FutureOr<Collection?> Function(CollectionByIdRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CollectionByIdProvider._internal(
+        (ref) => create(ref as CollectionByIdRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        collectionId: collectionId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Collection?> createElement() {
+    return _CollectionByIdProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CollectionByIdProvider &&
+        other.collectionId == collectionId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, collectionId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin CollectionByIdRef on AutoDisposeFutureProviderRef<Collection?> {
+  /// The parameter `collectionId` of this provider.
+  String get collectionId;
+}
+
+class _CollectionByIdProviderElement
+    extends AutoDisposeFutureProviderElement<Collection?>
+    with CollectionByIdRef {
+  _CollectionByIdProviderElement(super.provider);
+
+  @override
+  String get collectionId => (origin as CollectionByIdProvider).collectionId;
+}
+
+String _$fieldDefinitionsStreamHash() =>
+    r'23f69c1585c4ab26dff1461fde1c79acf6afc8b6';
 
 /// Watches field definitions for a specific collection.
 ///
