@@ -49,6 +49,7 @@ abstract final class CollectionTemplates {
     lego,
     movies,
     wines,
+    recipes,
     loyaltyCards,
     videoGames,
     plants,
@@ -184,6 +185,44 @@ abstract final class CollectionTemplates {
           ]
         },
       ),
+      TemplateField(name: 'Note', type: FieldType.rating),
+      TemplateField(
+          name: 'Photo', type: FieldType.image, showInList: false),
+    ],
+  );
+
+  static const recipes = CollectionTemplate(
+    id: 'recipes',
+    name: 'Recettes',
+    emoji: '\u{1F373}',
+    colorKey: 'orange',
+    description: 'Vos recettes de cuisine',
+    fields: [
+      TemplateField(
+          name: 'Nom', type: FieldType.text, isRequired: true, sortable: true),
+      TemplateField(
+        name: 'Catégorie',
+        type: FieldType.select,
+        options: {
+          'options': [
+            'Entrée',
+            'Plat',
+            'Dessert',
+            'Apéritif',
+            'Boisson',
+            'Sauce',
+            'Autre'
+          ]
+        },
+      ),
+      TemplateField(name: 'Temps de préparation', type: FieldType.text),
+      TemplateField(name: 'Temps de cuisson', type: FieldType.text),
+      TemplateField(
+          name: 'Portions', type: FieldType.number),
+      TemplateField(
+          name: 'Ingrédients', type: FieldType.textArea, showInCard: false),
+      TemplateField(
+          name: 'Instructions', type: FieldType.textArea, showInCard: false),
       TemplateField(name: 'Note', type: FieldType.rating),
       TemplateField(
           name: 'Photo', type: FieldType.image, showInList: false),
