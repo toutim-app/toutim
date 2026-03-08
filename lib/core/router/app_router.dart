@@ -7,6 +7,7 @@ import '../../features/home/screens/home_screen.dart';
 import '../../features/field_editor/screens/field_editor_screen.dart';
 import '../../features/item/screens/item_form_screen.dart';
 import '../../features/search/screens/search_screen.dart';
+import '../../features/settings/screens/settings_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -36,6 +37,11 @@ GoRouter appRouter(AppRouterRef ref) {
         path: AppRoutes.search,
         name: 'search',
         builder: (context, state) => const SearchScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        name: 'settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
         path: AppRoutes.createCollection,

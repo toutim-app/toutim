@@ -42,9 +42,7 @@ class HomeScreen extends ConsumerWidget {
           ),
           IconButton(
             icon: const Icon(LucideIcons.settings),
-            onPressed: () {
-              // TODO: navigation vers les paramètres
-            },
+            onPressed: () => context.push(AppRoutes.settings),
           ),
         ],
       ),

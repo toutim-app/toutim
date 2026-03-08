@@ -45,5 +45,24 @@ final itemRepositoryProvider = Provider<ItemRepository>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ItemRepositoryRef = ProviderRef<ItemRepository>;
+String _$syncRepositoryHash() => r'975b53b50d79c0eabed31aa7383110e6539b8027';
+
+/// Provides the [SyncRepository] implementation.
+///
+/// Copied from [syncRepository].
+@ProviderFor(syncRepository)
+final syncRepositoryProvider = FutureProvider<SyncRepository>.internal(
+  syncRepository,
+  name: r'syncRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$syncRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SyncRepositoryRef = FutureProviderRef<SyncRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

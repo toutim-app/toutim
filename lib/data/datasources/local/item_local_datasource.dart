@@ -249,4 +249,58 @@ class ItemLocalDataSource {
       fieldValues: valuesMap,
     );
   }
+
+  // ── Sync helpers ─────────────────────────────────────────
+
+  /// Get all items that need syncing (not synced).
+  Future<List<models.Item>> getPendingItems() async {
+    final query = _db.select(_db.items)
+      ..where((t) => t.syncStatus.isNotIn(['synced']));
+    final rows = await query.get();
+    return rows.map(_rowToItem).toList();
+  }
+
+  /// Get all field values for pending/modified items.
+  Future<List<models.FieldValue>> getPendingFieldValues() async {
+    final rows = await _db.customSelect(
+      '''
+      SELECT fv.* FROM item_field_values fv
+      INNER JOIN items i ON i.id = fv.item_id
+      WHERE i.sync_status != 'synced'
+      ''',
+    ).get();
+    return rows.map((row) => models.FieldValue(
+          id: row.read<String>('id'),
+          itemId: row.read<String>('item_id'),
+          fieldDefinitionId: row.read<String>('field_definition_id'),
+          value: row.readNullable<String>('value') != null
+              ? jsonDecode(row.read<String>('value'))
+              : null,
+          updatedAt: row.read<DateTime>('updated_at'),
+        )).toList();
+  }
+
+  /// Upsert an item received from the server.
+  Future<void> upsertItemFromServer(models.Item item) async {
+    await _db.into(_db.items).insertOnConflictUpdate(_itemToCompanion(item));
+  }
+
+  /// Upsert a field value received from the server.
+  Future<void> upsertFieldValueFromServer(models.FieldValue fieldValue) async {
+    await _db
+        .into(_db.itemFieldValues)
+        .insertOnConflictUpdate(_fieldValueToCompanion(fieldValue));
+  }
+
+  /// Mark an item as synced.
+  Future<void> markItemSynced(String id) async {
+    await (_db.update(_db.items)..where((t) => t.id.equals(id))).write(
+      const ItemsCompanion(syncStatus: Value('synced')),
+    );
+  }
+
+  /// Permanently delete an item (after server confirmed deletion).
+  Future<void> deleteItemPermanently(String id) async {
+    await deleteItem(id);
+  }
 }

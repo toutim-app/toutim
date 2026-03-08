@@ -232,4 +232,57 @@ class CollectionLocalDataSource {
       serverId: Value(d.serverId),
     );
   }
+
+  // ── Sync helpers ─────────────────────────────────────────
+
+  /// Get all collections that need syncing (not synced).
+  Future<List<models.Collection>> getPendingCollections() async {
+    final query = _db.select(_db.collections)
+      ..where((t) => t.syncStatus.isNotIn(['synced']));
+    final rows = await query.get();
+    return rows.map(_rowToCollection).toList();
+  }
+
+  /// Get all field definitions that need syncing.
+  Future<List<models.FieldDefinition>> getPendingFieldDefinitions() async {
+    final query = _db.select(_db.fieldDefinitions)
+      ..where((t) => t.syncStatus.isNotIn(['synced']));
+    final rows = await query.get();
+    return rows.map(_rowToFieldDefinition).toList();
+  }
+
+  /// Upsert a collection received from the server.
+  Future<void> upsertCollectionFromServer(models.Collection collection) async {
+    await _db
+        .into(_db.collections)
+        .insertOnConflictUpdate(_collectionToCompanion(collection));
+  }
+
+  /// Upsert a field definition received from the server.
+  Future<void> upsertFieldDefinitionFromServer(
+      models.FieldDefinition definition) async {
+    await _db
+        .into(_db.fieldDefinitions)
+        .insertOnConflictUpdate(_fieldDefinitionToCompanion(definition));
+  }
+
+  /// Mark a collection as synced.
+  Future<void> markCollectionSynced(String id) async {
+    await (_db.update(_db.collections)..where((t) => t.id.equals(id))).write(
+      const CollectionsCompanion(syncStatus: Value('synced')),
+    );
+  }
+
+  /// Mark a field definition as synced.
+  Future<void> markFieldDefinitionSynced(String id) async {
+    await (_db.update(_db.fieldDefinitions)..where((t) => t.id.equals(id)))
+        .write(
+      const FieldDefinitionsCompanion(syncStatus: Value('synced')),
+    );
+  }
+
+  /// Permanently delete a collection (after server confirmed deletion).
+  Future<void> deleteCollectionPermanently(String id) async {
+    await deleteCollection(id);
+  }
 }
