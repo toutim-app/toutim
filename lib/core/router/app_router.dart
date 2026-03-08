@@ -5,6 +5,7 @@ import '../../features/collection/screens/collection_detail_screen.dart';
 import '../../features/collection/screens/create_collection_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/field_editor/screens/field_editor_screen.dart';
+import '../../features/item/screens/item_detail_screen.dart';
 import '../../features/item/screens/item_form_screen.dart';
 import '../../features/search/screens/search_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
@@ -16,7 +17,8 @@ abstract final class AppRoutes {
   static const home = '/';
   static const collection = '/collection/:id';
   static const createItem = '/collection/:collectionId/item/new';
-  static const editItem = '/collection/:collectionId/item/:id';
+  static const viewItem = '/collection/:collectionId/item/:id';
+  static const editItem = '/collection/:collectionId/item/:id/edit';
   static const fieldEditor = '/collection/:collectionId/fields';
   static const search = '/search';
   static const createCollection = '/create-collection';
@@ -70,6 +72,18 @@ GoRouter appRouter(AppRouterRef ref) {
         builder: (context, state) {
           final collectionId = state.pathParameters['collectionId']!;
           return ItemFormScreen(collectionId: collectionId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.viewItem,
+        name: 'viewItem',
+        builder: (context, state) {
+          final collectionId = state.pathParameters['collectionId']!;
+          final itemId = state.pathParameters['id']!;
+          return ItemDetailScreen(
+            collectionId: collectionId,
+            itemId: itemId,
+          );
         },
       ),
       GoRoute(

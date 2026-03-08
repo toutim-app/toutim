@@ -2,45 +2,12 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
-
-/// A single data point in a tracker field.
-class TrackerEntry {
-  final DateTime date;
-  final double value;
-
-  const TrackerEntry({required this.date, required this.value});
-
-  Map<String, dynamic> toJson() => {
-        'date': date.toIso8601String().split('T').first,
-        'value': value,
-      };
-
-  factory TrackerEntry.fromJson(Map<String, dynamic> json) {
-    return TrackerEntry(
-      date: DateTime.parse(json['date'] as String),
-      value: (json['value'] as num).toDouble(),
-    );
-  }
-}
-
-List<TrackerEntry> _parseEntries(dynamic value) {
-  if (value == null || value is! List) return [];
-  return value
-      .cast<Map<String, dynamic>>()
-      .map((e) => TrackerEntry.fromJson(e))
-      .toList()
-    ..sort((a, b) => a.date.compareTo(b.date));
-}
-
-List<Map<String, dynamic>> _serializeEntries(List<TrackerEntry> entries) {
-  return entries.map((e) => e.toJson()).toList();
-}
+import 'tracker_utils.dart';
 
 /// Renderer for tracker field type — stores a history of numeric values
 /// with dates and displays a mini line chart.
@@ -63,7 +30,7 @@ class TrackerFieldRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final entries = _parseEntries(value);
+    final entries = parseTrackerEntries(value);
     final lastEntry = entries.isNotEmpty ? entries.last : null;
     final previousEntry =
         entries.length >= 2 ? entries[entries.length - 2] : null;
@@ -290,166 +257,16 @@ class TrackerFieldRenderer extends StatelessWidget {
 
   Future<void> _showAddEntrySheet(
       BuildContext context, List<TrackerEntry> entries) async {
-    final result = await showModalBottomSheet<TrackerEntry>(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (ctx) => _AddTrackerEntrySheet(
-        unit: _unit,
-        lastValue: entries.isNotEmpty ? entries.last.value : null,
-      ),
+    final result = await showAddTrackerEntrySheet(
+      context,
+      unit: _unit,
+      lastValue: entries.isNotEmpty ? entries.last.value : null,
     );
 
     if (result != null) {
       final updatedEntries = [...entries, result]
         ..sort((a, b) => a.date.compareTo(b.date));
-      onChanged(_serializeEntries(updatedEntries));
+      onChanged(serializeTrackerEntries(updatedEntries));
     }
-  }
-}
-
-class _AddTrackerEntrySheet extends StatefulWidget {
-  final String unit;
-  final double? lastValue;
-
-  const _AddTrackerEntrySheet({required this.unit, this.lastValue});
-
-  @override
-  State<_AddTrackerEntrySheet> createState() => _AddTrackerEntrySheetState();
-}
-
-class _AddTrackerEntrySheetState extends State<_AddTrackerEntrySheet> {
-  late final TextEditingController _valueController;
-  DateTime _selectedDate = DateTime.now();
-
-  @override
-  void initState() {
-    super.initState();
-    _valueController = TextEditingController(
-      text: widget.lastValue?.toString() ?? '',
-    );
-  }
-
-  @override
-  void dispose() {
-    _valueController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 16,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Center(
-            child: Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.border,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Nouvelle entrée',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
-                ),
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _valueController,
-            keyboardType:
-                const TextInputType.numberWithOptions(decimal: true),
-            autofocus: true,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[\d.,]')),
-            ],
-            decoration: InputDecoration(
-              labelText: 'Valeur',
-              suffixText: widget.unit.isNotEmpty ? widget.unit : null,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.border),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          InkWell(
-            onTap: () async {
-              final picked = await showDatePicker(
-                context: context,
-                initialDate: _selectedDate,
-                firstDate: DateTime(2000),
-                lastDate: DateTime.now(),
-              );
-              if (picked != null) {
-                setState(() => _selectedDate = picked);
-              }
-            },
-            borderRadius: BorderRadius.circular(12),
-            child: InputDecorator(
-              decoration: InputDecoration(
-                labelText: 'Date',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.border),
-                ),
-                suffixIcon: Icon(
-                  LucideIcons.calendar,
-                  color: AppColors.textTertiary,
-                ),
-              ),
-              child: Text(
-                DateFormat.yMMMMd('fr_FR').format(_selectedDate),
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.textPrimary,
-                    ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          FilledButton(
-            onPressed: () {
-              final parsed = double.tryParse(
-                _valueController.text.replaceAll(',', '.'),
-              );
-              if (parsed == null) return;
-              Navigator.pop(
-                context,
-                TrackerEntry(date: _selectedDate, value: parsed),
-              );
-            },
-            style: FilledButton.styleFrom(
-              backgroundColor: AppColors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-            ),
-            child: const Text('Valider'),
-          ),
-        ],
-      ),
-    );
   }
 }

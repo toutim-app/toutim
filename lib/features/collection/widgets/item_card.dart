@@ -149,6 +149,11 @@ class ItemCard extends ConsumerWidget {
         return v.toString();
       }
     }
+    // Barcode field: extract data from Map
+    if (val is Map && val.containsKey('data')) {
+      final data = val['data']?.toString();
+      return (data == null || data.isEmpty) ? null : data;
+    }
     final str = val.toString();
     return str.isEmpty ? null : str;
   }

@@ -39,6 +39,13 @@ dependencies:
   # Charts
   fl_chart: ^0.70.2
 
+  # Barcode
+  barcode_widget: ^2.0.4
+  mobile_scanner: ^6.0.2
+
+  # URL launcher
+  url_launcher: ^6.3.1
+
   # Networking & Storage
   http: ^1.2.0
   flutter_secure_storage: ^9.2.0
