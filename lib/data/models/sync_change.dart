@@ -115,16 +115,26 @@ class SyncConflict {
       );
 }
 
+/// Breakdown of synced entities by type.
+class SyncEntityCounts {
+  final int collections;
+  final int items;
+
+  const SyncEntityCounts({this.collections = 0, this.items = 0});
+
+  bool get isEmpty => collections == 0 && items == 0;
+}
+
 /// Result of a sync operation (push + pull).
 class SyncResult {
-  final int pushed;
-  final int pulled;
+  final SyncEntityCounts pushed;
+  final SyncEntityCounts pulled;
   final int conflicts;
   final int newVersion;
 
   const SyncResult({
-    required this.pushed,
-    required this.pulled,
+    this.pushed = const SyncEntityCounts(),
+    this.pulled = const SyncEntityCounts(),
     required this.conflicts,
     required this.newVersion,
   });

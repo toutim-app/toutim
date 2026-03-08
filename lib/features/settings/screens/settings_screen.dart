@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../data/models/sync_change.dart';
 import '../providers/settings_providers.dart';
 import '../widgets/auth_section.dart';
 import '../widgets/auto_sync_section.dart';
@@ -104,8 +105,7 @@ class _SyncSection extends ConsumerWidget {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  '${syncAction.value!.pushed} envoyé(s), '
-                                  '${syncAction.value!.pulled} reçu(s)',
+                                  _formatSyncResult(syncAction.value!),
                                   style: const TextStyle(
                                     color: AppColors.green,
                                     fontWeight: FontWeight.w500,
@@ -180,5 +180,31 @@ class _SyncSection extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String _formatSyncResult(SyncResult result) {
+    final parts = <String>[];
+
+    final sent = _formatCounts(result.pushed);
+    final received = _formatCounts(result.pulled);
+
+    if (sent != null) parts.add('$sent envoyé(s)');
+    if (received != null) parts.add('$received reçu(s)');
+
+    if (parts.isEmpty) return 'Tout est à jour';
+    return parts.join(', ');
+  }
+
+  String? _formatCounts(SyncEntityCounts counts) {
+    if (counts.isEmpty) return null;
+    final parts = <String>[];
+    if (counts.collections > 0) {
+      parts.add('${counts.collections} collection(s)');
+    }
+    if (counts.items > 0) {
+      parts.add('${counts.items} item(s)');
+    }
+    if (parts.isEmpty) return null;
+    return parts.join(', ');
   }
 }

@@ -41,6 +41,20 @@ const _barcodeFormats = [
   ('itf', 'ITF'),
 ];
 
+/// Hint text describing expected data format for each barcode type.
+String? _formatHint(String format) {
+  return switch (format) {
+    'ean13' => '13 chiffres (ex: 3760012345678)',
+    'ean8' => '8 chiffres (ex: 96385074)',
+    'upcA' => '12 chiffres',
+    'upcE' => '8 chiffres',
+    'code128' => 'Texte ou chiffres (format universel)',
+    'qrCode' => 'Texte libre',
+    'itf' => 'Nombre pair de chiffres',
+    _ => null,
+  };
+}
+
 /// Renderer for text and barcode field types.
 class TextFieldRenderer extends StatefulWidget {
   final FieldDefinition definition;
@@ -183,6 +197,16 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
             }
           },
         ),
+        if (_formatHint(_barcodeFormat) != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 12, top: 4),
+            child: Text(
+              _formatHint(_barcodeFormat)!,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.textTertiary,
+                  ),
+            ),
+          ),
       ],
     );
   }

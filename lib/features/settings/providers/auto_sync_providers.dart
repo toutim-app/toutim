@@ -134,8 +134,9 @@ class SyncManager extends _$SyncManager {
       final syncRepo = await ref.read(syncRepositoryProvider.future);
       final result = await syncRepo.sync();
       debugPrint(
-        '[AutoSync] Sync terminée : ${result.pushed} envoyé(s), '
-        '${result.pulled} reçu(s)',
+        '[AutoSync] Sync terminée : '
+        '${result.pushed.collections} collection(s), ${result.pushed.items} item(s) envoyés — '
+        '${result.pulled.collections} collection(s), ${result.pulled.items} item(s) reçus',
       );
     } catch (e) {
       debugPrint('[AutoSync] Erreur de sync : $e');

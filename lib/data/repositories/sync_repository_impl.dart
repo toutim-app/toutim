@@ -61,30 +61,33 @@ class SyncRepositoryImpl implements SyncRepository {
     final changes = await _collectLocalChanges();
 
     // 2. Push local changes to server.
-    int pushed = 0;
+    var pushedCounts = const SyncEntityCounts();
+    int versionAfterPush = lastVersion;
     if (changes.isNotEmpty) {
       final pushResponse =
           await _apiClient.pushChanges(changes, lastVersion);
-      pushed = pushResponse.applied;
+      versionAfterPush = pushResponse.version;
+      pushedCounts = _countEntities(changes);
 
       // 3. Mark pushed entities as synced.
       await _markEntitiesSynced(changes);
     }
 
-    // 3. Pull remote changes.
-    final pullResponse = await _apiClient.pullChanges(lastVersion);
-    int pulled = 0;
+    // 4. Pull remote changes (since the version after push to avoid
+    //    re-downloading the changes we just pushed).
+    final pullResponse = await _apiClient.pullChanges(versionAfterPush);
+    var pulledCounts = const SyncEntityCounts();
     if (pullResponse.changes.isNotEmpty) {
       await _applyRemoteChanges(pullResponse.changes);
-      pulled = pullResponse.changes.length;
+      pulledCounts = _countEntities(pullResponse.changes);
     }
 
-    // 4. Save the new version cursor.
+    // 5. Save the new version cursor.
     await _apiClient.setSyncVersion(pullResponse.version);
 
     return SyncResult(
-      pushed: pushed,
-      pulled: pulled,
+      pushed: pushedCounts,
+      pulled: pulledCounts,
       conflicts: 0,
       newVersion: pullResponse.version,
     );
@@ -316,5 +319,20 @@ class SyncRepositoryImpl implements SyncRepository {
     if (value is int) return value != 0;
     if (value is String) return value == 'true' || value == '1';
     return false;
+  }
+
+  /// Count only user-visible entities (collections and items).
+  SyncEntityCounts _countEntities(List<SyncChange> changes) {
+    int collections = 0;
+    int items = 0;
+    for (final c in changes) {
+      switch (c.entity) {
+        case 'collection':
+          collections++;
+        case 'item':
+          items++;
+      }
+    }
+    return SyncEntityCounts(collections: collections, items: items);
   }
 }

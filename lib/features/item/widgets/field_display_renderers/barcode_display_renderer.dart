@@ -93,12 +93,24 @@ class BarcodeDisplayRenderer extends StatelessWidget {
                 width: _isQrLike ? 180 : double.infinity,
                 height: _isQrLike ? 180 : 80,
                 drawText: false,
-                errorBuilder: (context, error) => Text(
-                  data,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppColors.textPrimary,
-                        fontFamily: 'monospace',
-                      ),
+                errorBuilder: (context, error) => Column(
+                  children: [
+                    Text(
+                      data,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: AppColors.textPrimary,
+                            fontFamily: 'monospace',
+                            letterSpacing: 2,
+                          ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Format incompatible avec les données',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.orange,
+                          ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 8),

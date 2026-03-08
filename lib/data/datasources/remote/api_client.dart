@@ -231,6 +231,8 @@ class ApiClient {
     await _secureStorage.write(
         key: _kRefreshToken, value: data['refresh_token'] as String);
     await _secureStorage.write(key: _kUserEmail, value: email);
+    // Reset sync cursor so first sync pulls all data from the new account.
+    await _prefs.remove(_kSyncVersion);
   }
 
   Future<void> _clearTokens() async {
