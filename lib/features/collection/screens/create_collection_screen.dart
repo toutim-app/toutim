@@ -5,6 +5,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../data/templates/collection_templates.dart';
+import '../../settings/providers/auto_sync_providers.dart';
 import '../providers/create_collection_provider.dart';
 import '../widgets/custom_collection_form.dart';
 import '../widgets/template_selection_grid.dart';
@@ -30,6 +31,7 @@ class _CreateCollectionScreenState
     try {
       final service = ref.read(collectionCreationServiceProvider);
       await service.createFromTemplate(template);
+      ref.read(syncTriggerProvider.notifier).notifyDataChanged();
       if (mounted) context.pop();
     } finally {
       if (mounted) setState(() => _isCreating = false);

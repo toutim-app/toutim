@@ -5,6 +5,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../../../core/theme/app_colors.dart';
 import '../providers/settings_providers.dart';
 import '../widgets/auth_section.dart';
+import '../widgets/auto_sync_section.dart';
 import '../widgets/server_config_section.dart';
 
 /// Settings screen with server configuration, account, and sync.
@@ -28,6 +29,8 @@ class SettingsScreen extends ConsumerWidget {
           const AuthSection(),
           const SizedBox(height: 12),
           _SyncSection(),
+          const SizedBox(height: 12),
+          const AutoSyncSection(),
         ],
       ),
     );

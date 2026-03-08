@@ -25,6 +25,22 @@ String? _barcodeFormatKey(BarcodeFormat format) {
   };
 }
 
+/// User-selectable barcode formats with display labels.
+const _barcodeFormats = [
+  ('code128', 'Code 128'),
+  ('ean13', 'EAN-13'),
+  ('ean8', 'EAN-8'),
+  ('qrCode', 'QR Code'),
+  ('upcA', 'UPC-A'),
+  ('upcE', 'UPC-E'),
+  ('code39', 'Code 39'),
+  ('code93', 'Code 93'),
+  ('aztec', 'Aztec'),
+  ('dataMatrix', 'Data Matrix'),
+  ('pdf417', 'PDF 417'),
+  ('itf', 'ITF'),
+];
+
 /// Renderer for text and barcode field types.
 class TextFieldRenderer extends StatefulWidget {
   final FieldDefinition definition;
@@ -44,11 +60,13 @@ class TextFieldRenderer extends StatefulWidget {
 
 class _TextFieldRendererState extends State<TextFieldRenderer> {
   late final TextEditingController _controller;
+  late String _barcodeFormat;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController(text: _extractData(widget.value));
+    _barcodeFormat = _extractFormat(widget.value);
   }
 
   @override
@@ -67,6 +85,12 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
     return value as String? ?? '';
   }
 
+  /// Extracts the barcode format from a value, defaulting to code128.
+  static String _extractFormat(dynamic value) {
+    if (value is Map) return (value['format'] as String?) ?? 'code128';
+    return 'code128';
+  }
+
   Future<void> _scan() async {
     final result = await Navigator.push<_ScanResult>(
       context,
@@ -74,6 +98,7 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
     );
     if (result != null && mounted) {
       _controller.text = result.data;
+      setState(() => _barcodeFormat = result.format);
       widget.onChanged({
         'data': result.data,
         'format': result.format,
@@ -83,7 +108,7 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    final textField = TextFormField(
       controller: _controller,
       decoration: InputDecoration(
         labelText: widget.definition.name,
@@ -104,19 +129,61 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
       ),
       onChanged: (text) {
         if (_isBarcode) {
-          // Manual input: keep existing format if any, default to code128
-          final existingFormat =
-              widget.value is Map ? widget.value['format'] : null;
           widget.onChanged(text.isEmpty
               ? null
               : {
                   'data': text,
-                  'format': existingFormat ?? 'code128',
+                  'format': _barcodeFormat,
                 });
         } else {
           widget.onChanged(text.isEmpty ? null : text);
         }
       },
+    );
+
+    if (!_isBarcode) return textField;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textField,
+        const SizedBox(height: 8),
+        DropdownMenu<String>(
+          key: ValueKey(_barcodeFormat),
+          initialSelection: _barcodeFormat,
+          label: Text('Type de code',
+              style: TextStyle(color: AppColors.textSecondary)),
+          expandedInsets: EdgeInsets.zero,
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.border),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          ),
+          dropdownMenuEntries: _barcodeFormats
+              .map((entry) => DropdownMenuEntry(
+                    value: entry.$1,
+                    label: entry.$2,
+                  ))
+              .toList(),
+          onSelected: (format) {
+            if (format == null) return;
+            setState(() => _barcodeFormat = format);
+            final text = _controller.text;
+            if (text.isNotEmpty) {
+              widget.onChanged({
+                'data': text,
+                'format': format,
+              });
+            }
+          },
+        ),
+      ],
     );
   }
 }

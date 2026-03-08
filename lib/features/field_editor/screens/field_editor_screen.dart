@@ -7,6 +7,7 @@ import '../../../data/models/enums/field_type.dart';
 import '../../../data/models/field_definition.dart';
 import '../../../data/providers/repository_providers.dart';
 import '../../collection/providers/collection_providers.dart';
+import '../../settings/providers/auto_sync_providers.dart';
 import '../widgets/field_form_sheet.dart';
 
 /// Screen for managing (add, edit, reorder, delete) field definitions
@@ -103,6 +104,7 @@ class FieldEditorScreen extends ConsumerWidget {
       updated.add(reordered[i].copyWith(sortOrder: i));
     }
     ref.read(collectionRepositoryProvider).reorderFieldDefinitions(updated);
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
   }
 
   Future<void> _showAddSheet(
@@ -130,6 +132,7 @@ class FieldEditorScreen extends ConsumerWidget {
           sortable: result.sortable,
           options: result.options,
         );
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
   }
 
   Future<void> _showEditSheet(
@@ -155,6 +158,7 @@ class FieldEditorScreen extends ConsumerWidget {
             options: result.options,
           ),
         );
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
   }
 
   Future<void> _confirmDelete(
@@ -183,6 +187,7 @@ class FieldEditorScreen extends ConsumerWidget {
 
     if (confirmed != true) return;
     await ref.read(collectionRepositoryProvider).deleteFieldDefinition(field.id);
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
   }
 }
 

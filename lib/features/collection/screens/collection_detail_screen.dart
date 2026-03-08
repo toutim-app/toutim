@@ -6,6 +6,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../../../core/extensions/collection_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/providers/repository_providers.dart';
+import '../../settings/providers/auto_sync_providers.dart';
 import '../providers/collection_providers.dart';
 import '../../../data/models/collection.dart';
 import '../widgets/collection_empty_state.dart';
@@ -113,6 +114,7 @@ class CollectionDetailScreen extends ConsumerWidget {
                   confirmDismiss: (_) => _confirmDelete(context),
                   onDismissed: (_) {
                     ref.read(itemRepositoryProvider).deleteItem(item.id);
+                    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
                   },
                   background: Container(
                     alignment: Alignment.centerRight,
@@ -179,6 +181,7 @@ class CollectionDetailScreen extends ConsumerWidget {
             color: result.colorKey,
           ),
         );
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
     ref.invalidate(collectionByIdProvider(collectionId));
   }
 
@@ -208,6 +211,7 @@ class CollectionDetailScreen extends ConsumerWidget {
     if (confirmed != true || !context.mounted) return;
 
     await ref.read(collectionRepositoryProvider).deleteCollection(collectionId);
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
     if (context.mounted) context.go('/');
   }
 

@@ -7,6 +7,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../data/models/field_definition.dart';
 import '../../../data/providers/repository_providers.dart';
 import '../../collection/providers/collection_providers.dart';
+import '../../settings/providers/auto_sync_providers.dart';
 import '../providers/item_providers.dart';
 import '../widgets/field_renderers/field_renderer_factory.dart';
 
@@ -141,6 +142,7 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
     if (confirmed != true || !mounted) return;
 
     await ref.read(itemRepositoryProvider).deleteItem(widget.itemId!);
+    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
     if (mounted) context.pop();
   }
 
@@ -179,6 +181,8 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
           fieldValues: nonNullValues,
         );
       }
+
+      ref.read(syncTriggerProvider.notifier).notifyDataChanged();
 
       if (mounted) {
         context.pop();

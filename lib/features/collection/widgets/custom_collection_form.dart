@@ -4,6 +4,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/color_picker_row.dart';
+import '../../settings/providers/auto_sync_providers.dart';
 import '../providers/create_collection_provider.dart';
 
 /// Form for creating a custom collection (name + color).
@@ -45,6 +46,7 @@ class _CustomCollectionFormState extends ConsumerState<CustomCollectionForm> {
             ? null
             : _descriptionController.text.trim(),
       );
+      ref.read(syncTriggerProvider.notifier).notifyDataChanged();
       widget.onCreated();
     } finally {
       if (mounted) setState(() => _isCreating = false);
