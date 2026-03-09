@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 
 /// A single data point in a tracker field.
@@ -107,7 +108,7 @@ class _AddTrackerEntrySheetState extends State<AddTrackerEntrySheet> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: AppColors.border,
+                color: context.appBorder,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -117,7 +118,7 @@ class _AddTrackerEntrySheetState extends State<AddTrackerEntrySheet> {
             'Nouvelle entrée',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
+                  color: context.appTextPrimary,
                 ),
           ),
           const SizedBox(height: 16),
@@ -137,7 +138,7 @@ class _AddTrackerEntrySheetState extends State<AddTrackerEntrySheet> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.border),
+                borderSide: BorderSide(color: context.appBorder),
               ),
             ),
           ),
@@ -163,17 +164,17 @@ class _AddTrackerEntrySheetState extends State<AddTrackerEntrySheet> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.border),
+                  borderSide: BorderSide(color: context.appBorder),
                 ),
                 suffixIcon: Icon(
                   LucideIcons.calendar,
-                  color: AppColors.textTertiary,
+                  color: context.appTextTertiary,
                 ),
               ),
               child: Text(
                 DateFormat.yMMMMd('fr_FR').format(_selectedDate),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.textPrimary,
+                      color: context.appTextPrimary,
                     ),
               ),
             ),

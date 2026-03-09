@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/color_picker_row.dart';
 import '../../settings/providers/auto_sync_providers.dart';
@@ -61,7 +62,7 @@ class _CustomCollectionFormState extends ConsumerState<CustomCollectionForm> {
         Text(
           'Nouvelle collection',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: AppColors.textPrimary,
+                color: context.appTextPrimary,
                 fontWeight: FontWeight.w700,
               ),
         ),
@@ -92,7 +93,7 @@ class _CustomCollectionFormState extends ConsumerState<CustomCollectionForm> {
         Text(
           'Couleur',
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
                 fontWeight: FontWeight.w600,
               ),
         ),

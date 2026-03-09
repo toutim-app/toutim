@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../data/models/enums/field_type.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -35,7 +35,7 @@ class DateDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 4),
@@ -46,7 +46,7 @@ class DateDisplayRenderer extends StatelessWidget {
             Text(
               formatted,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: AppColors.textPrimary,
+                    color: context.appTextPrimary,
                   ),
             ),
           ],

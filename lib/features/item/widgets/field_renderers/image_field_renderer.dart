@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -68,7 +69,7 @@ class ImageFieldRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 8),
@@ -79,7 +80,7 @@ class ImageFieldRenderer extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               color: AppColors.surfaceAlt,
-              border: Border.all(color: AppColors.border),
+              border: Border.all(color: context.appBorder),
               borderRadius: BorderRadius.circular(12),
             ),
             child: hasImage
@@ -119,7 +120,7 @@ class ImageFieldRenderer extends StatelessWidget {
                     children: [
                       Icon(
                         LucideIcons.imagePlus,
-                        color: AppColors.textTertiary,
+                        color: context.appTextTertiary,
                         size: 32,
                       ),
                       const SizedBox(height: 8),
@@ -127,7 +128,7 @@ class ImageFieldRenderer extends StatelessWidget {
                         'Ajouter une image',
                         style:
                             Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.textTertiary,
+                                  color: context.appTextTertiary,
                                 ),
                       ),
                     ],

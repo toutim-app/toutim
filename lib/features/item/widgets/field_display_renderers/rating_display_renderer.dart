@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -25,7 +26,7 @@ class RatingDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 4),
@@ -38,7 +39,7 @@ class RatingDisplayRenderer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: Icon(
                   LucideIcons.star,
-                  color: isFilled ? AppColors.yellow : AppColors.border,
+                  color: isFilled ? AppColors.yellow : context.appBorder,
                   size: 24,
                 ),
               );
@@ -47,7 +48,7 @@ class RatingDisplayRenderer extends StatelessWidget {
             Text(
               '$rating/5',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.appTextSecondary,
                   ),
             ),
           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-import '../../../core/theme/app_colors.dart';
+import '../../../core/extensions/color_extensions.dart';
 
 /// Empty state shown when the user has no collections yet.
 class HomeEmptyState extends StatelessWidget {
@@ -20,7 +20,7 @@ class HomeEmptyState extends StatelessWidget {
             Icon(
               LucideIcons.layoutGrid,
               size: 64,
-              color: AppColors.textTertiary,
+              color: context.appTextTertiary,
             ),
             const SizedBox(height: 16),
             Text(
@@ -31,7 +31,7 @@ class HomeEmptyState extends StatelessWidget {
             Text(
               'Appuyez sur + pour créer votre première collection',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
               textAlign: TextAlign.center,
             ),

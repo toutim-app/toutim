@@ -9,7 +9,7 @@ abstract final class AppTypography {
   static TextTheme textTheme(Brightness brightness) {
     final color = brightness == Brightness.light
         ? const Color(0xFF333333)
-        : const Color(0xFFE8E8E8);
+        : const Color(0xFFE6E1E5);
 
     return TextTheme(
       // ── Display ──

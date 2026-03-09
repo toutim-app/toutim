@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/enums/field_type.dart';
 import '../../../data/models/field_definition.dart';
@@ -46,19 +47,19 @@ class FieldEditorScreen extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(LucideIcons.layoutList,
-              size: 48, color: AppColors.textTertiary),
+              size: 48, color: context.appTextTertiary),
           const SizedBox(height: 12),
           Text(
             'Aucun champ défini',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textTertiary,
+                  color: context.appTextTertiary,
                 ),
           ),
           const SizedBox(height: 4),
           Text(
             'Appuyez sur + pour ajouter un champ',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.textTertiary,
+                  color: context.appTextTertiary,
                 ),
           ),
         ],
@@ -211,7 +212,7 @@ class _FieldTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: AppColors.border),
+        side: BorderSide(color: context.appBorder),
       ),
       child: InkWell(
         onTap: onTap,
@@ -240,7 +241,7 @@ class _FieldTile extends StatelessWidget {
                       field.name,
                       style:
                           Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: AppColors.textPrimary,
+                                color: context.appTextPrimary,
                                 fontWeight: FontWeight.w500,
                               ),
                     ),
@@ -248,7 +249,7 @@ class _FieldTile extends StatelessWidget {
                       _labelForType(field.type),
                       style:
                           Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: AppColors.textTertiary,
+                                color: context.appTextTertiary,
                               ),
                     ),
                   ],
@@ -274,13 +275,13 @@ class _FieldTile extends StatelessWidget {
               GestureDetector(
                 onTap: onDelete,
                 child: Icon(LucideIcons.trash2,
-                    size: 16, color: AppColors.textTertiary),
+                    size: 16, color: context.appTextTertiary),
               ),
               const SizedBox(width: 8),
               ReorderableDragStartListener(
                 index: 0, // Overridden by ReorderableListView
                 child: Icon(LucideIcons.gripVertical,
-                    size: 18, color: AppColors.textTertiary),
+                    size: 18, color: context.appTextTertiary),
               ),
             ],
           ),

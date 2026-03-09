@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -35,7 +36,7 @@ class UrlDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 4),

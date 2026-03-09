@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../data/models/field_definition.dart';
 
 /// Renderer for textArea field type.
@@ -24,14 +24,14 @@ class TextAreaRenderer extends StatelessWidget {
       minLines: 3,
       decoration: InputDecoration(
         labelText: definition.name,
-        labelStyle: TextStyle(color: AppColors.textSecondary),
+        labelStyle: TextStyle(color: context.appTextSecondary),
         alignLabelWithHint: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: context.appBorder),
         ),
       ),
       onChanged: (text) => onChanged(text.isEmpty ? null : text),

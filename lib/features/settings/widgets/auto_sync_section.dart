@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../providers/auto_sync_providers.dart';
 import '../providers/settings_providers.dart';
@@ -52,7 +53,7 @@ class AutoSyncSection extends ConsumerWidget {
                   return Text(
                     'Connectez-vous pour activer la synchronisation automatique.',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
+                          color: context.appTextSecondary,
                         ),
                   );
                 }
@@ -79,7 +80,7 @@ class AutoSyncSection extends ConsumerWidget {
                             : 'Synchronisation manuelle uniquement',
                         style:
                             Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.textTertiary,
+                                  color: context.appTextTertiary,
                                 ),
                       ),
                       value: enabled,
@@ -96,7 +97,7 @@ class AutoSyncSection extends ConsumerWidget {
                         'Intervalle',
                         style:
                             Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.textSecondary,
+                                  color: context.appTextSecondary,
                                   fontWeight: FontWeight.w600,
                                 ),
                       ),

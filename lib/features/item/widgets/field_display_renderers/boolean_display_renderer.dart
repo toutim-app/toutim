@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -20,7 +21,7 @@ class BooleanDisplayRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isTrue = value == true;
-    final chipColor = isTrue ? AppColors.green : AppColors.textTertiary;
+    final chipColor = isTrue ? AppColors.green : context.appTextTertiary;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +29,7 @@ class BooleanDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 4),

@@ -39,16 +39,16 @@ abstract final class AppTheme {
     final base = FlexThemeData.dark(
       colors: const FlexSchemeColor(
         primary: Color(0xFF5BB8E8),
-        primaryContainer: Color(0xFF1A3A5C),
+        primaryContainer: Color(0xFF1E3448),
         secondary: Color(0xFF4DD4D4),
-        secondaryContainer: Color(0xFF1A3D3D),
+        secondaryContainer: Color(0xFF1E3838),
         tertiary: Color(0xFFF5AD6E),
-        tertiaryContainer: Color(0xFF5C3A1A),
+        tertiaryContainer: Color(0xFF48301E),
         error: Color(0xFFFF8A80),
-        errorContainer: Color(0xFF5C1A1A),
+        errorContainer: Color(0xFF48201E),
       ),
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-      blendLevel: 10,
+      blendLevel: 4,
       subThemesData: _subThemes,
       useMaterial3: true,
     );

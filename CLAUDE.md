@@ -91,12 +91,16 @@ static const border     = Color(0xFFE8E8E8);
 ### Dark Mode
 
 ```dart
-static const darkSurface    = Color(0xFF1A1A2E);
-static const darkSurfaceAlt = Color(0xFF222236);
-static const darkBorder     = Color(0xFF2E2E44);
-static const darkText       = Color(0xFFE8E8E8);
+static const darkSurface        = Color(0xFF141218);
+static const darkSurfaceAlt     = Color(0xFF1C1B1F);
+static const darkBorder         = Color(0xFF3A383E);
+static const darkText           = Color(0xFFE6E1E5);
+static const darkTextSecondary  = Color(0xFFB0ABB0);
+static const darkTextTertiary   = Color(0xFF7A767A);
 // Les couleurs principales sont légèrement éclaircies en dark mode
 // Les backgrounds de chips/tags utilisent la couleur à 15-20% d'opacité
+// Utiliser context.appTextPrimary/appBorder/etc. (extension color_extensions.dart)
+// pour obtenir automatiquement la bonne couleur selon le mode
 ```
 
 ### Typographie

@@ -1,6 +1,7 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/enums/field_type.dart';
 import '../../../../data/models/field_definition.dart';
@@ -73,7 +74,7 @@ class BarcodeDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 8),
@@ -81,9 +82,9 @@ class BarcodeDisplayRenderer extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.appSurface,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.appBorder),
           ),
           child: Column(
             children: [
@@ -98,7 +99,7 @@ class BarcodeDisplayRenderer extends StatelessWidget {
                     Text(
                       data,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: AppColors.textPrimary,
+                            color: context.appTextPrimary,
                             fontFamily: 'monospace',
                             letterSpacing: 2,
                           ),
@@ -117,7 +118,7 @@ class BarcodeDisplayRenderer extends StatelessWidget {
               Text(
                 data,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.textSecondary,
+                      color: context.appTextSecondary,
                       letterSpacing: 2,
                       fontFamily: 'monospace',
                     ),

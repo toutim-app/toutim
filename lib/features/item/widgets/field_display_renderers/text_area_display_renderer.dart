@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../data/models/field_definition.dart';
 
 /// Read-only display for multiline text fields.
@@ -22,7 +22,7 @@ class TextAreaDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         const SizedBox(height: 4),
@@ -30,13 +30,13 @@ class TextAreaDisplayRenderer extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.surfaceAlt,
+            color: context.appSurfaceAlt,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
             value.toString(),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.appTextPrimary,
                   height: 1.5,
                 ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/datasources/remote/api_client.dart';
 import '../../../data/providers/repository_providers.dart';
@@ -161,7 +162,7 @@ class _AuthSectionState extends ConsumerState<AuthSection> {
                   return Text(
                     'Configurez l\'URL du serveur pour accéder à votre compte.',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
+                          color: context.appTextSecondary,
                         ),
                   );
                 }
@@ -205,7 +206,7 @@ class _AuthSectionState extends ConsumerState<AuthSection> {
           data: (email) => Text(
             email ?? '',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.appTextSecondary,
                 ),
           ),
           loading: () => const SizedBox.shrink(),

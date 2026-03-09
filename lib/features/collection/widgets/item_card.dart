@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-import '../../../core/theme/app_colors.dart';
+import '../../../core/extensions/color_extensions.dart';
 import '../../../data/models/field_definition.dart';
 import '../../../data/models/field_value.dart' as models;
 import '../../item/providers/item_providers.dart';
@@ -35,7 +35,7 @@ class ItemCard extends ConsumerWidget {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: AppColors.border),
+          side: BorderSide(color: context.appBorder),
         ),
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -82,7 +82,7 @@ class ItemCard extends ConsumerWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: AppColors.border),
+        side: BorderSide(color: context.appBorder),
       ),
       child: InkWell(
         onTap: onTap,
@@ -99,7 +99,7 @@ class ItemCard extends ConsumerWidget {
                       title,
                       style:
                           Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: AppColors.textPrimary,
+                                color: context.appTextPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                       maxLines: 1,
@@ -111,7 +111,7 @@ class ItemCard extends ConsumerWidget {
                         subtitleParts.join(' · '),
                         style:
                             Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.textSecondary,
+                                  color: context.appTextSecondary,
                                 ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -122,7 +122,7 @@ class ItemCard extends ConsumerWidget {
               ),
               Icon(
                 LucideIcons.chevronRight,
-                color: AppColors.textTertiary,
+                color: context.appTextTertiary,
                 size: 20,
               ),
             ],

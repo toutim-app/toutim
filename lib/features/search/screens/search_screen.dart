@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/extensions/collection_extensions.dart';
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/collection.dart';
 import '../../../data/models/item_with_fields.dart';
@@ -51,18 +52,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           autofocus: true,
           onChanged: _onQueryChanged,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: AppColors.textPrimary,
+                color: context.appTextPrimary,
               ),
           decoration: InputDecoration(
             hintText: 'Rechercher...',
             hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textTertiary,
+                  color: context.appTextTertiary,
                 ),
             border: InputBorder.none,
             suffixIcon: _controller.text.isNotEmpty
                 ? IconButton(
                     icon: Icon(LucideIcons.x,
-                        size: 18, color: AppColors.textTertiary),
+                        size: 18, color: context.appTextTertiary),
                     onPressed: () {
                       _controller.clear();
                       ref.read(searchQueryProvider.notifier).state = '';
@@ -90,12 +91,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(LucideIcons.search, size: 48, color: AppColors.textTertiary),
+          Icon(LucideIcons.search, size: 48, color: context.appTextTertiary),
           const SizedBox(height: 12),
           Text(
             'Rechercher dans vos collections',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textTertiary,
+                  color: context.appTextTertiary,
                 ),
           ),
         ],
@@ -108,12 +109,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(LucideIcons.searchX, size: 48, color: AppColors.textTertiary),
+          Icon(LucideIcons.searchX, size: 48, color: context.appTextTertiary),
           const SizedBox(height: 12),
           Text(
             'Aucun résultat',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textTertiary,
+                  color: context.appTextTertiary,
                 ),
           ),
         ],
@@ -143,7 +144,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       child: Text(
         title,
         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: AppColors.textTertiary,
+              color: context.appTextTertiary,
               fontWeight: FontWeight.w600,
             ),
       ),
@@ -169,11 +170,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       title: Text(
         collection.name,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: AppColors.textPrimary,
+              color: context.appTextPrimary,
             ),
       ),
       trailing: Icon(LucideIcons.chevronRight,
-          size: 18, color: AppColors.textTertiary),
+          size: 18, color: context.appTextTertiary),
       onTap: () => context.push('/collection/${collection.id}'),
     );
   }
@@ -215,7 +216,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           title: Text(
             title,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.appTextPrimary,
                 ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -224,12 +225,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ? Text(
                   collectionName,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.textTertiary,
+                        color: context.appTextTertiary,
                       ),
                 )
               : null,
           trailing: Icon(LucideIcons.chevronRight,
-              size: 18, color: AppColors.textTertiary),
+              size: 18, color: context.appTextTertiary),
           onTap: () => context.push(
             '/collection/${item.collectionId}/item/${item.id}',
           ),

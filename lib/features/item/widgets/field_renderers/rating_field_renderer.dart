@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -24,7 +25,7 @@ class RatingFieldRenderer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.appBorder),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -33,7 +34,7 @@ class RatingFieldRenderer extends StatelessWidget {
           Text(
             definition.name,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.appTextSecondary,
                 ),
           ),
           const SizedBox(height: 8),
@@ -48,7 +49,7 @@ class RatingFieldRenderer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Icon(
                     isFilled ? LucideIcons.star : LucideIcons.star,
-                    color: isFilled ? AppColors.yellow : AppColors.border,
+                    color: isFilled ? AppColors.yellow : context.appBorder,
                     size: 32,
                   ),
                 ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 import '../field_renderers/tracker_utils.dart';
@@ -62,7 +63,7 @@ class TrackerDisplayRenderer extends StatelessWidget {
         Text(
           definition.name,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
               ),
         ),
         if (onChanged != null)
@@ -108,7 +109,7 @@ class TrackerDisplayRenderer extends StatelessWidget {
         Text(
           '$formattedValue${_unit.isNotEmpty ? ' $_unit' : ''}',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: AppColors.textPrimary,
+                color: context.appTextPrimary,
                 fontWeight: FontWeight.w700,
               ),
         ),
@@ -120,7 +121,7 @@ class TrackerDisplayRenderer extends StatelessWidget {
         Text(
           DateFormat.yMMMd('fr_FR').format(last.date),
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textTertiary,
+                color: context.appTextTertiary,
               ),
         ),
       ],
@@ -188,10 +189,12 @@ class TrackerDisplayRenderer extends StatelessWidget {
                     return const SizedBox.shrink();
                   }
                   if (i == 0 || i == entries.length - 1) {
-                    return Text(
-                      DateFormat('dd/MM').format(entries[i].date),
-                      style: TextStyle(
-                          color: AppColors.textTertiary, fontSize: 10),
+                    return Builder(
+                      builder: (context) => Text(
+                        DateFormat('dd/MM').format(entries[i].date),
+                        style: TextStyle(
+                            color: context.appTextTertiary, fontSize: 10),
+                      ),
                     );
                   }
                   return const SizedBox.shrink();
@@ -239,12 +242,12 @@ class TrackerDisplayRenderer extends StatelessWidget {
         child: Column(
           children: [
             Icon(LucideIcons.lineChart,
-                color: AppColors.textTertiary, size: 32),
+                color: context.appTextTertiary, size: 32),
             const SizedBox(height: 8),
             Text(
               'Aucune donnée enregistrée',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textTertiary,
+                    color: context.appTextTertiary,
                   ),
             ),
           ],

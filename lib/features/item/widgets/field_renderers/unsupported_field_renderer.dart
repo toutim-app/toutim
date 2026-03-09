@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -19,18 +20,18 @@ class UnsupportedFieldRenderer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
         color: AppColors.surfaceAlt,
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.appBorder),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          Icon(LucideIcons.info, color: AppColors.textTertiary, size: 20),
+          Icon(LucideIcons.info, color: context.appTextTertiary, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               '${definition.name} — type "${definition.type.name}" non supporté',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textTertiary,
+                    color: context.appTextTertiary,
                   ),
             ),
           ),

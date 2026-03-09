@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/enums/field_type.dart';
 import '../../../data/models/field_definition.dart';
@@ -147,7 +148,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: AppColors.border,
+                  color: context.appBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -157,7 +158,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
               widget.isEditing ? 'Modifier le champ' : 'Nouveau champ',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: context.appTextPrimary,
                   ),
             ),
             const SizedBox(height: 16),
@@ -174,7 +175,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.border),
+                  borderSide: BorderSide(color: context.appBorder),
                 ),
               ),
             ),
@@ -194,7 +195,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: AppColors.border),
+                      borderSide: BorderSide(color: context.appBorder),
                     ),
                   ),
                   items: _supportedTypes.map((type) {
@@ -203,7 +204,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                       child: Row(
                         children: [
                           Icon(_iconForType(type),
-                              size: 18, color: AppColors.textSecondary),
+                              size: 18, color: context.appTextSecondary),
                           const SizedBox(width: 8),
                           Text(_labelForType(type)),
                         ],
@@ -267,7 +268,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
           Text(
             label,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.appTextPrimary,
                 ),
           ),
           Switch.adaptive(
@@ -287,7 +288,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
         Text(
           'Options',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.appTextSecondary,
                 fontWeight: FontWeight.w600,
               ),
         ),
@@ -302,13 +303,13 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 10),
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.border),
+                      border: Border.all(color: context.appBorder),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
                       entry.value,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.textPrimary,
+                            color: context.appTextPrimary,
                           ),
                     ),
                   ),
@@ -319,7 +320,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                     setState(() => _selectOptions.removeAt(entry.key));
                   },
                   child: Icon(LucideIcons.x,
-                      size: 18, color: AppColors.textTertiary),
+                      size: 18, color: context.appTextTertiary),
                 ),
               ],
             ),
@@ -340,7 +341,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.border),
+                    borderSide: BorderSide(color: context.appBorder),
                   ),
                 ),
                 onSubmitted: (_) => _addSelectOption(),
@@ -386,7 +387,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.border),
+              borderSide: BorderSide(color: context.appBorder),
             ),
           ),
         ),
@@ -397,7 +398,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
             Text(
               'Amélioration',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textPrimary,
+                    color: context.appTextPrimary,
                   ),
             ),
             SegmentedButton<String>(

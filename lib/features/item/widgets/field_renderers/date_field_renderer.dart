@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../data/models/field_definition.dart';
 
 /// Renderer for date field type.
@@ -46,25 +46,25 @@ class DateFieldRenderer extends StatelessWidget {
       child: InputDecorator(
         decoration: InputDecoration(
           labelText: definition.name,
-          labelStyle: TextStyle(color: AppColors.textSecondary),
+          labelStyle: TextStyle(color: context.appTextSecondary),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: AppColors.border),
+            borderSide: BorderSide(color: context.appBorder),
           ),
           suffixIcon: Icon(
             LucideIcons.calendar,
-            color: AppColors.textTertiary,
+            color: context.appTextTertiary,
           ),
         ),
         child: Text(
           displayText,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: date != null
-                    ? AppColors.textPrimary
-                    : AppColors.textTertiary,
+                    ? context.appTextPrimary
+                    : context.appTextTertiary,
               ),
         ),
       ),

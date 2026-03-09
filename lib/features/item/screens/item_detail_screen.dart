@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/extensions/collection_extensions.dart';
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/enums/field_type.dart';
 import '../../../data/models/field_definition.dart';
@@ -55,7 +56,7 @@ class ItemDetailScreen extends ConsumerWidget {
         actions: [
           PopupMenuButton<String>(
             icon: Icon(LucideIcons.moreVertical,
-                color: AppColors.textSecondary, size: 20),
+                color: context.appTextSecondary, size: 20),
             onSelected: (value) {
               if (value == 'edit') {
                 context.push(
@@ -70,7 +71,7 @@ class ItemDetailScreen extends ConsumerWidget {
                 child: Row(
                   children: [
                     Icon(LucideIcons.pencil,
-                        size: 18, color: AppColors.textSecondary),
+                        size: 18, color: context.appTextSecondary),
                     const SizedBox(width: 8),
                     const Text('Modifier'),
                   ],
@@ -99,7 +100,7 @@ class ItemDetailScreen extends ConsumerWidget {
                 child: Text(
                   'Objet introuvable',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.textSecondary,
+                        color: context.appTextSecondary,
                       ),
                 ),
               );
@@ -112,7 +113,7 @@ class ItemDetailScreen extends ConsumerWidget {
             child: Text(
               'Erreur de chargement',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.appTextSecondary,
                   ),
             ),
           ),
@@ -122,7 +123,7 @@ class ItemDetailScreen extends ConsumerWidget {
           child: Text(
             'Erreur de chargement',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.appTextSecondary,
                 ),
           ),
         ),
@@ -211,7 +212,7 @@ class ItemDetailScreen extends ConsumerWidget {
               'Créé le ${DateFormat.yMMMMd('fr_FR').format(itemWithFields.item.createdAt)}'
               ' · Modifié le ${DateFormat.yMMMMd('fr_FR').format(itemWithFields.item.updatedAt)}',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textTertiary,
+                    color: context.appTextTertiary,
                   ),
               textAlign: TextAlign.center,
             ),

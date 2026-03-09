@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/extensions/collection_extensions.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/extensions/color_extensions.dart';
 import '../../../data/models/collection.dart';
 import '../../collection/providers/collection_providers.dart';
 
@@ -28,7 +28,7 @@ class CollectionCard extends ConsumerWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: AppColors.border),
+        side: BorderSide(color: context.appBorder),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -68,7 +68,7 @@ class CollectionCard extends ConsumerWidget {
                                 .textTheme
                                 .titleMedium
                                 ?.copyWith(
-                                  color: AppColors.textPrimary,
+                                  color: context.appTextPrimary,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -79,14 +79,14 @@ class CollectionCard extends ConsumerWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
-                                  ?.copyWith(color: AppColors.textSecondary),
+                                  ?.copyWith(color: context.appTextSecondary),
                             ),
                             loading: () => Text(
                               '...',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
-                                  ?.copyWith(color: AppColors.textTertiary),
+                                  ?.copyWith(color: context.appTextTertiary),
                             ),
                             error: (_, _) => const SizedBox.shrink(),
                           ),
@@ -95,7 +95,7 @@ class CollectionCard extends ConsumerWidget {
                     ),
                     Icon(
                       LucideIcons.chevronRight,
-                      color: AppColors.textTertiary,
+                      color: context.appTextTertiary,
                       size: 20,
                     ),
                   ],

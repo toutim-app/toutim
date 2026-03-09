@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/field_definition.dart';
 import '../../../data/providers/repository_providers.dart';
@@ -91,7 +92,7 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
           child: Text(
             'Erreur de chargement',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.appTextSecondary,
                 ),
           ),
         ),

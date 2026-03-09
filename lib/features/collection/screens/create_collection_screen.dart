@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/templates/collection_templates.dart';
 import '../../settings/providers/auto_sync_providers.dart';
@@ -66,7 +67,7 @@ class _CreateCollectionScreenState
                   Text(
                     'Création en cours...',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
+                          color: context.appTextSecondary,
                         ),
                   ),
                 ],

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/extensions/collection_extensions.dart';
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/providers/repository_providers.dart';
 import '../../settings/providers/auto_sync_providers.dart';
@@ -45,7 +46,7 @@ class CollectionDetailScreen extends ConsumerWidget {
         actions: [
           PopupMenuButton<String>(
             icon: Icon(LucideIcons.moreVertical,
-                color: AppColors.textSecondary, size: 20),
+                color: context.appTextSecondary, size: 20),
             onSelected: (value) {
               if (value == 'edit') {
                 final collection = collectionAsync.valueOrNull;
@@ -64,7 +65,7 @@ class CollectionDetailScreen extends ConsumerWidget {
                 child: Row(
                   children: [
                     Icon(LucideIcons.pencil,
-                        size: 18, color: AppColors.textSecondary),
+                        size: 18, color: context.appTextSecondary),
                     const SizedBox(width: 8),
                     Text('Modifier'),
                   ],
@@ -75,7 +76,7 @@ class CollectionDetailScreen extends ConsumerWidget {
                 child: Row(
                   children: [
                     Icon(LucideIcons.settings2,
-                        size: 18, color: AppColors.textSecondary),
+                        size: 18, color: context.appTextSecondary),
                     const SizedBox(width: 8),
                     Text('Gérer les champs'),
                   ],
@@ -148,7 +149,7 @@ class CollectionDetailScreen extends ConsumerWidget {
           child: Text(
             'Une erreur est survenue',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.appTextSecondary,
                 ),
           ),
         ),

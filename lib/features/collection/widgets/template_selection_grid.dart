@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/templates/collection_templates.dart';
 import 'template_card.dart';
@@ -53,7 +54,7 @@ class _CustomCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: AppColors.border,
+          color: context.appBorder,
           style: BorderStyle.solid,
         ),
       ),
@@ -83,7 +84,7 @@ class _CustomCard extends StatelessWidget {
               Text(
                 'Personnalisée',
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: AppColors.textPrimary,
+                      color: context.appTextPrimary,
                       fontWeight: FontWeight.w600,
                     ),
                 textAlign: TextAlign.center,
@@ -92,7 +93,7 @@ class _CustomCard extends StatelessWidget {
               Text(
                 'Créer la vôtre',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.textTertiary,
+                      color: context.appTextTertiary,
                     ),
               ),
             ],

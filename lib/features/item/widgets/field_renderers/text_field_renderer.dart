@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/enums/field_type.dart';
 import '../../../../data/models/field_definition.dart';
@@ -126,13 +127,13 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
       controller: _controller,
       decoration: InputDecoration(
         labelText: widget.definition.name,
-        labelStyle: TextStyle(color: AppColors.textSecondary),
+        labelStyle: TextStyle(color: context.appTextSecondary),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: context.appBorder),
         ),
         suffixIcon: _isBarcode
             ? IconButton(
@@ -166,7 +167,7 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
           key: ValueKey(_barcodeFormat),
           initialSelection: _barcodeFormat,
           label: Text('Type de code',
-              style: TextStyle(color: AppColors.textSecondary)),
+              style: TextStyle(color: context.appTextSecondary)),
           expandedInsets: EdgeInsets.zero,
           inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(
@@ -174,7 +175,7 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.border),
+              borderSide: BorderSide(color: context.appBorder),
             ),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -203,7 +204,7 @@ class _TextFieldRendererState extends State<TextFieldRenderer> {
             child: Text(
               _formatHint(_barcodeFormat)!,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textTertiary,
+                    color: context.appTextTertiary,
                   ),
             ),
           ),

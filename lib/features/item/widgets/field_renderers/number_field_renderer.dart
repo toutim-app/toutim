@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/extensions/color_extensions.dart';
 import '../../../../data/models/enums/field_type.dart';
 import '../../../../data/models/field_definition.dart';
 
@@ -33,14 +33,14 @@ class NumberFieldRenderer extends StatelessWidget {
           : [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
         labelText: definition.name,
-        labelStyle: TextStyle(color: AppColors.textSecondary),
+        labelStyle: TextStyle(color: context.appTextSecondary),
         suffixText: _isCurrency ? '€' : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: BorderSide(color: context.appBorder),
         ),
       ),
       onChanged: (text) {

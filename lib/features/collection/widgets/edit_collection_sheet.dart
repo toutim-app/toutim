@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/collection.dart';
 import '../../../shared/widgets/color_picker_row.dart';
@@ -83,7 +84,7 @@ class _EditCollectionSheetState extends State<EditCollectionSheet> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: AppColors.border,
+                  color: context.appBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -93,7 +94,7 @@ class _EditCollectionSheetState extends State<EditCollectionSheet> {
               'Modifier la collection',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: context.appTextPrimary,
                   ),
             ),
             const SizedBox(height: 16),
@@ -107,7 +108,7 @@ class _EditCollectionSheetState extends State<EditCollectionSheet> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.border),
+                  borderSide: BorderSide(color: context.appBorder),
                 ),
               ),
             ),
@@ -122,7 +123,7 @@ class _EditCollectionSheetState extends State<EditCollectionSheet> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.border),
+                  borderSide: BorderSide(color: context.appBorder),
                 ),
               ),
             ),
@@ -130,7 +131,7 @@ class _EditCollectionSheetState extends State<EditCollectionSheet> {
             Text(
               'Couleur',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.appTextSecondary,
                     fontWeight: FontWeight.w600,
                   ),
             ),

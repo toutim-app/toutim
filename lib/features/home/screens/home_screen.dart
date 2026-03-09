@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/router/app_router.dart';
+import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../providers/home_providers.dart';
 import '../widgets/home_collection_list.dart';
@@ -55,7 +56,7 @@ class HomeScreen extends ConsumerWidget {
           child: Text(
             'Une erreur est survenue',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.appTextSecondary,
                 ),
           ),
         ),
