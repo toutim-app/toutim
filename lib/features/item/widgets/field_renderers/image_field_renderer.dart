@@ -79,7 +79,7 @@ class ImageFieldRenderer extends StatelessWidget {
             height: 160,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: AppColors.surfaceAlt,
+              color: context.appSurfaceAlt,
               border: Border.all(color: context.appBorder),
               borderRadius: BorderRadius.circular(12),
             ),

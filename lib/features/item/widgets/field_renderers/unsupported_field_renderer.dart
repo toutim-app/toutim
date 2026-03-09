@@ -19,7 +19,7 @@ class UnsupportedFieldRenderer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
-        color: AppColors.surfaceAlt,
+        color: context.appSurfaceAlt,
         border: Border.all(color: context.appBorder),
         borderRadius: BorderRadius.circular(12),
       ),
