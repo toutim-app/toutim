@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/extensions/color_extensions.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../data/models/enums/field_type.dart';
 import '../../../data/models/field_definition.dart';
 import '../../../data/models/field_value.dart' as models;
 import '../../item/providers/item_providers.dart';
 
 /// A card displaying a single item in a collection list.
 ///
-/// Watches its own field values via [itemWithFieldsStreamProvider].
+/// Shows a rich layout with optional image thumbnail, visual star rating,
+/// and boolean status chips when available.
 class ItemCard extends ConsumerWidget {
   final String itemId;
   final List<FieldDefinition> fieldDefinitions;
@@ -57,27 +62,73 @@ class ItemCard extends ConsumerWidget {
     final sorted = [...fieldDefinitions]
       ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
 
-    // First required field is the title
+    // --- Categorize fields ---
+
+    // Title: first required field (or first field)
     final titleField = sorted.firstWhere(
       (f) => f.isRequired,
       orElse: () => sorted.first,
     );
     final titleValue = fieldValues[titleField.id]?.value;
-    final title = _formatValue(titleValue) ?? 'Sans titre';
+    final title = _formatTextValue(titleValue) ?? 'Sans titre';
 
-    // Other showInCard fields for subtitle
+    // Image: first image field with showInCard
+    String? imagePath;
+    for (final field in sorted) {
+      if (field.type == FieldType.image && field.showInCard) {
+        final val = fieldValues[field.id]?.value;
+        if (val is String && val.isNotEmpty && File(val).existsSync()) {
+          imagePath = val;
+          break;
+        }
+      }
+    }
+
+    // Rating: first rating field with showInCard
+    int? ratingValue;
+    for (final field in sorted) {
+      if (field.type == FieldType.rating && field.showInCard) {
+        final val = fieldValues[field.id]?.value;
+        if (val is int && val >= 1 && val <= 5) {
+          ratingValue = val;
+        }
+        break;
+      }
+    }
+
+    // Booleans with true value and showInCard
+    final booleanChips = <String>[];
+    for (final field in sorted) {
+      if (field.type == FieldType.boolean && field.showInCard) {
+        final val = fieldValues[field.id]?.value;
+        if (val == true) {
+          booleanChips.add(field.name);
+        }
+      }
+    }
+
+    // Subtitle: other showInCard text fields (not image, rating, boolean, title)
     final subtitleParts = <String>[];
+    const skipTypes = {
+      FieldType.image,
+      FieldType.rating,
+      FieldType.boolean,
+    };
     for (final field in sorted) {
       if (field.id == titleField.id) continue;
       if (!field.showInCard) continue;
+      if (skipTypes.contains(field.type)) continue;
       final val = fieldValues[field.id]?.value;
-      final formatted = _formatValue(val);
+      final formatted = _formatTextValue(val);
       if (formatted != null) {
         subtitleParts.add(formatted);
       }
       if (subtitleParts.length >= 3) break;
     }
 
+    final hasBottomRow = ratingValue != null || booleanChips.isNotEmpty;
+
+    // --- Build layout ---
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -88,9 +139,23 @@ class ItemCard extends ConsumerWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.all(12),
           child: Row(
             children: [
+              // Thumbnail
+              if (imagePath != null) ...[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.file(
+                    File(imagePath),
+                    width: 70,
+                    height: 90,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(width: 12),
+              ],
+              // Content
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +173,7 @@ class ItemCard extends ConsumerWidget {
                     if (subtitleParts.isNotEmpty) ...[
                       const SizedBox(height: 2),
                       Text(
-                        subtitleParts.join(' · '),
+                        subtitleParts.join(' | '),
                         style:
                             Theme.of(context).textTheme.bodySmall?.copyWith(
                                   color: context.appTextSecondary,
@@ -117,13 +182,54 @@ class ItemCard extends ConsumerWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
+                    if (hasBottomRow) ...[
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          // Rating stars
+                          if (ratingValue case final rating?)
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(5, (index) {
+                                final isFilled = (index + 1) <= rating;
+                                return Icon(
+                                  LucideIcons.star,
+                                  color: isFilled
+                                      ? AppColors.yellow
+                                      : context.appBorder,
+                                  size: 16,
+                                );
+                              }),
+                            ),
+                          const Spacer(),
+                          // Boolean chips
+                          ...booleanChips.map((label) => Padding(
+                                padding: const EdgeInsets.only(left: 6),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        AppColors.green.withValues(alpha: 0.12),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    label,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: AppColors.green,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
-              ),
-              Icon(
-                LucideIcons.chevronRight,
-                color: context.appTextTertiary,
-                size: 20,
               ),
             ],
           ),
@@ -132,12 +238,11 @@ class ItemCard extends ConsumerWidget {
     );
   }
 
-  String? _formatValue(dynamic val) {
+  /// Formats a field value as text for the subtitle.
+  /// Skips image, rating and boolean fields (handled separately).
+  String? _formatTextValue(dynamic val) {
     if (val == null) return null;
-    if (val is bool) return val ? 'Oui' : null;
-    if (val is int && val >= 1 && val <= 5) {
-      return '${'★' * val}${'☆' * (5 - val)}';
-    }
+    if (val is bool) return null; // handled as chips
     // Tracker field: show last value
     if (val is List && val.isNotEmpty) {
       final lastEntry = val.last;
