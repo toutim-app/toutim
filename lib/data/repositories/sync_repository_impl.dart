@@ -28,7 +28,7 @@ class SyncRepositoryImpl implements SyncRepository {
   Future<bool> get isAuthenticated => _apiClient.isAuthenticated;
 
   @override
-  String? get serverUrl => _apiClient.serverUrl;
+  String get serverUrl => _apiClient.serverUrl;
 
   @override
   Future<String?> get userEmail => _apiClient.userEmail;

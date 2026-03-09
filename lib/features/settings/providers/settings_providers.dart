@@ -19,7 +19,7 @@ Future<AuthState> authState(AuthStateRef ref) async {
 
 /// Provides the current server URL.
 @riverpod
-Future<String?> serverUrl(ServerUrlRef ref) async {
+Future<String> serverUrl(ServerUrlRef ref) async {
   final syncRepo = await ref.watch(syncRepositoryProvider.future);
   return syncRepo.serverUrl;
 }

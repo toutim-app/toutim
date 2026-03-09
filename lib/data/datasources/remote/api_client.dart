@@ -36,7 +36,10 @@ class ApiClient {
 
   // ── Configuration ─────────────────────────────────────────
 
-  String? get serverUrl => _prefs.getString(_kServerUrl);
+  static const defaultServerUrl = 'https://api.toutim.app';
+
+  String get serverUrl =>
+      _prefs.getString(_kServerUrl) ?? defaultServerUrl;
 
   Future<void> setServerUrl(String url) async {
     // Normalize: remove trailing slash.
@@ -50,7 +53,7 @@ class ApiClient {
     await _prefs.setInt(_kSyncVersion, version);
   }
 
-  bool get isConfigured => serverUrl != null && serverUrl!.isNotEmpty;
+  bool get isConfigured => serverUrl.isNotEmpty;
 
   Future<bool> get isAuthenticated async {
     final token = await _secureStorage.read(key: _kAccessToken);

@@ -25,13 +25,13 @@ final authStateProvider = AutoDisposeFutureProvider<AuthState>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AuthStateRef = AutoDisposeFutureProviderRef<AuthState>;
-String _$serverUrlHash() => r'7fb60809b5c2277246ad62da7979ac0e7e8cb3fe';
+String _$serverUrlHash() => r'309ba086c956e6b13964eb3db8a5cdfc5d4fd31e';
 
 /// Provides the current server URL.
 ///
 /// Copied from [serverUrl].
 @ProviderFor(serverUrl)
-final serverUrlProvider = AutoDisposeFutureProvider<String?>.internal(
+final serverUrlProvider = AutoDisposeFutureProvider<String>.internal(
   serverUrl,
   name: r'serverUrlProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -43,7 +43,7 @@ final serverUrlProvider = AutoDisposeFutureProvider<String?>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef ServerUrlRef = AutoDisposeFutureProviderRef<String?>;
+typedef ServerUrlRef = AutoDisposeFutureProviderRef<String>;
 String _$userEmailSettingHash() => r'818692961591cb0533c07f6e853883a9535a4280';
 
 /// Provides the authenticated user's email.

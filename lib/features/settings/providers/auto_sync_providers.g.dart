@@ -60,7 +60,7 @@ final syncTriggerProvider = NotifierProvider<SyncTrigger, int>.internal(
 );
 
 typedef _$SyncTrigger = Notifier<int>;
-String _$syncManagerHash() => r'cd7fcd04727e10212a6df71b8c3af7a5bbd656bc';
+String _$syncManagerHash() => r'10de3337304f065bd9f67e08a56f3c011c0a1659';
 
 /// Gestionnaire de synchronisation automatique en arrière-plan.
 ///

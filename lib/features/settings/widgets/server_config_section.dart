@@ -28,7 +28,7 @@ class _ServerConfigSectionState extends ConsumerState<ServerConfigSection> {
 
   Future<void> _loadUrl() async {
     final url = await ref.read(serverUrlProvider.future);
-    if (url != null && mounted) {
+    if (mounted) {
       _urlController.text = url;
     }
   }

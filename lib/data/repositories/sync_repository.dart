@@ -9,7 +9,7 @@ abstract class SyncRepository {
   Future<bool> get isAuthenticated;
 
   /// Get the current server URL.
-  String? get serverUrl;
+  String get serverUrl;
 
   /// Get the authenticated user's email.
   Future<String?> get userEmail;
