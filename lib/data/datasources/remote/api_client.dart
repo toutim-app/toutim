@@ -116,6 +116,10 @@ class ApiClient {
     await _prefs.remove(_kSyncVersion);
   }
 
+  Future<void> forgotPassword(String email) async {
+    await _post('/api/auth/forgot-password', {'email': email});
+  }
+
   // ── Sync ──────────────────────────────────────────────────
 
   Future<PushResponse> pushChanges(

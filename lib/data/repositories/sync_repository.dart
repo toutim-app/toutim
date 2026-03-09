@@ -32,6 +32,9 @@ abstract class SyncRepository {
   /// Delete the current account.
   Future<void> deleteAccount();
 
+  /// Request a password reset email.
+  Future<void> forgotPassword(String email);
+
   /// Run a full sync cycle (push local changes, then pull remote changes).
   Future<SyncResult> sync();
 }

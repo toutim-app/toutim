@@ -54,6 +54,10 @@ class SyncRepositoryImpl implements SyncRepository {
   Future<void> deleteAccount() => _apiClient.deleteAccount();
 
   @override
+  Future<void> forgotPassword(String email) =>
+      _apiClient.forgotPassword(email);
+
+  @override
   Future<SyncResult> sync() async {
     final lastVersion = _apiClient.syncVersion;
 

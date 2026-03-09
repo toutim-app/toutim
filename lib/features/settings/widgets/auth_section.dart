@@ -30,6 +30,120 @@ class _AuthSectionState extends ConsumerState<AuthSection> {
     super.dispose();
   }
 
+  Future<void> _forgotPassword() async {
+    final emailController = TextEditingController(
+      text: _emailController.text.trim(),
+    );
+    final sent = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        var sending = false;
+        String? dialogError;
+        return StatefulBuilder(
+          builder: (context, setDialogState) => AlertDialog(
+            title: const Text('Mot de passe oublié'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Entrez votre adresse email pour recevoir un lien de réinitialisation.',
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    prefixIcon: const Icon(LucideIcons.mail),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  textCapitalization: TextCapitalization.none,
+                  autofocus: true,
+                ),
+                if (dialogError != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    dialogError!,
+                    style:
+                        const TextStyle(color: AppColors.red, fontSize: 13),
+                  ),
+                ],
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed:
+                    sending ? null : () => Navigator.pop(context, false),
+                child: const Text('Annuler'),
+              ),
+              FilledButton(
+                onPressed: sending
+                    ? null
+                    : () async {
+                        final email = emailController.text.trim();
+                        if (email.isEmpty) {
+                          setDialogState(
+                              () => dialogError = 'Email requis');
+                          return;
+                        }
+                        setDialogState(() {
+                          sending = true;
+                          dialogError = null;
+                        });
+                        try {
+                          final syncRepo = await ref
+                              .read(syncRepositoryProvider.future);
+                          await syncRepo.forgotPassword(email);
+                          if (context.mounted) {
+                            Navigator.pop(context, true);
+                          }
+                        } on ApiException catch (e) {
+                          setDialogState(() {
+                            sending = false;
+                            dialogError = e.message;
+                          });
+                        } catch (e) {
+                          setDialogState(() {
+                            sending = false;
+                            dialogError = e.toString();
+                          });
+                        }
+                      },
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.blue,
+                ),
+                child: sending
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text('Envoyer'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (sent == true && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Si un compte existe avec cette adresse, un email de réinitialisation a été envoyé.',
+          ),
+        ),
+      );
+    }
+    emailController.dispose();
+  }
+
   Future<void> _submit() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
@@ -305,16 +419,34 @@ class _AuthSectionState extends ConsumerState<AuthSection> {
           ),
         ),
         const SizedBox(height: 8),
-        TextButton(
-          onPressed: () =>
-              setState(() => _isRegisterMode = !_isRegisterMode),
-          child: Text(
-            _isRegisterMode
-                ? 'Déjà un compte ? Se connecter'
-                : 'Pas de compte ? Créer un compte',
-            style: const TextStyle(color: AppColors.blue),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () =>
+                  setState(() => _isRegisterMode = !_isRegisterMode),
+              child: Text(
+                _isRegisterMode
+                    ? 'Déjà un compte ? Se connecter'
+                    : 'Pas de compte ? Créer un compte',
+                style: const TextStyle(color: AppColors.blue),
+              ),
+            ),
+          ],
         ),
+        if (!_isRegisterMode)
+          Center(
+            child: TextButton(
+              onPressed: _loading ? null : _forgotPassword,
+              child: Text(
+                'Mot de passe oublié ?',
+                style: TextStyle(
+                  color: context.appTextTertiary,
+                  fontSize: 13,
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }
