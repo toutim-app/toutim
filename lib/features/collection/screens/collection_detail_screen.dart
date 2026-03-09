@@ -193,7 +193,7 @@ class CollectionDetailScreen extends ConsumerWidget {
       builder: (ctx) => AlertDialog(
         title: const Text('Supprimer la collection'),
         content: const Text(
-          'Cette action supprimera la collection et tous ses objets. Cette action est irréversible.',
+          'Cette action supprimera la collection et tous ses éléments. Cette action est irréversible.',
         ),
         actions: [
           TextButton(
@@ -221,7 +221,7 @@ class CollectionDetailScreen extends ConsumerWidget {
           context: context,
           builder: (ctx) => AlertDialog(
             title: const Text('Supprimer'),
-            content: const Text('Voulez-vous supprimer cet objet ?'),
+            content: const Text('Voulez-vous supprimer cet élément ?'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx, false),

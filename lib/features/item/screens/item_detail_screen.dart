@@ -98,7 +98,7 @@ class ItemDetailScreen extends ConsumerWidget {
             if (itemWithFields == null) {
               return Center(
                 child: Text(
-                  'Objet introuvable',
+                  'Élément introuvable',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: context.appTextSecondary,
                       ),
@@ -257,7 +257,7 @@ class ItemDetailScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Supprimer'),
-        content: const Text('Voulez-vous supprimer cet objet ?'),
+        content: const Text('Voulez-vous supprimer cet élément ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),

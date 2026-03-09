@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/enums/field_type.dart';
 import '../../../../data/models/field_definition.dart';
 import 'boolean_field_renderer.dart';
@@ -18,6 +19,7 @@ Widget buildFieldRenderer({
   required FieldDefinition definition,
   required dynamic value,
   required ValueChanged<dynamic> onChanged,
+  Color? collectionColor,
 }) {
   return switch (definition.type) {
     FieldType.text || FieldType.barcode || FieldType.url ||
@@ -83,6 +85,7 @@ Widget buildFieldRenderer({
         definition: definition,
         value: value,
         onChanged: onChanged,
+        collectionColor: collectionColor ?? AppColors.blue,
       ),
     _ =>
       UnsupportedFieldRenderer(

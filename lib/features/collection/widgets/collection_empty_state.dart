@@ -20,14 +20,14 @@ class CollectionEmptyState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Aucun objet',
+            'Aucun élément',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: context.appTextSecondary,
                 ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Appuyez sur + pour ajouter un objet',
+            'Appuyez sur + pour ajouter un élément',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: context.appTextTertiary,
                 ),

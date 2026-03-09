@@ -61,6 +61,198 @@ Future<TrackerEntry?> showAddTrackerEntrySheet(
   );
 }
 
+/// Shows a bottom sheet with the full history of tracker entries.
+/// Returns the updated list if entries were deleted, or null if unchanged.
+Future<List<TrackerEntry>?> showTrackerHistorySheet(
+  BuildContext context, {
+  required List<TrackerEntry> entries,
+  required String unit,
+}) {
+  return showModalBottomSheet<List<TrackerEntry>>(
+    context: context,
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (ctx) => TrackerHistorySheet(entries: entries, unit: unit),
+  );
+}
+
+/// Bottom sheet listing all tracker entries with delete capability.
+class TrackerHistorySheet extends StatefulWidget {
+  final List<TrackerEntry> entries;
+  final String unit;
+
+  const TrackerHistorySheet({
+    super.key,
+    required this.entries,
+    required this.unit,
+  });
+
+  @override
+  State<TrackerHistorySheet> createState() => _TrackerHistorySheetState();
+}
+
+class _TrackerHistorySheetState extends State<TrackerHistorySheet> {
+  late List<TrackerEntry> _entries;
+  bool _modified = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Copy and reverse so most recent is on top
+    _entries = [...widget.entries];
+  }
+
+  void _deleteEntry(int index) {
+    setState(() {
+      _entries.removeAt(index);
+      _modified = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop && _modified) {
+          // Return is handled by Navigator.pop in the close button or back gesture
+        }
+      },
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.5,
+        minChildSize: 0.3,
+        maxChildSize: 0.85,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: Column(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: context.appBorder,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Historique',
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: context.appTextPrimary,
+                                ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pop(
+                          context,
+                          _modified ? _entries : null,
+                        ),
+                        child: Icon(
+                          LucideIcons.x,
+                          color: context.appTextTertiary,
+                          size: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            ),
+            Expanded(
+              child: _entries.isEmpty
+                  ? Center(
+                      child: Text(
+                        'Aucune entrée',
+                        style:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: context.appTextTertiary,
+                                ),
+                      ),
+                    )
+                  : ListView.separated(
+                      controller: scrollController,
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      itemCount: _entries.length,
+                      separatorBuilder: (_, _) => Divider(
+                        height: 1,
+                        color: context.appBorder,
+                      ),
+                      itemBuilder: (context, index) {
+                        // Show most recent first
+                        final reversedIndex = _entries.length - 1 - index;
+                        final entry = _entries[reversedIndex];
+                        final formattedValue =
+                            entry.value.truncateToDouble() == entry.value
+                                ? entry.value.toInt().toString()
+                                : entry.value.toStringAsFixed(1);
+
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '$formattedValue${widget.unit.isNotEmpty ? ' ${widget.unit}' : ''}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            color: context.appTextPrimary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      DateFormat.yMMMd('fr_FR')
+                                          .format(entry.date),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: context.appTextTertiary,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => _deleteEntry(reversedIndex),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Icon(
+                                    LucideIcons.trash2,
+                                    size: 18,
+                                    color: AppColors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// Bottom sheet widget for adding a tracker entry.
 class AddTrackerEntrySheet extends StatefulWidget {
   final String unit;

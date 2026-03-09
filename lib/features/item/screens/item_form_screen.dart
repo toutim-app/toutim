@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/extensions/collection_extensions.dart';
 import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/field_definition.dart';
@@ -38,6 +39,13 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
   Widget build(BuildContext context) {
     final fieldsAsync =
         ref.watch(fieldDefinitionsStreamProvider(widget.collectionId));
+    final collectionAsync =
+        ref.watch(collectionByIdProvider(widget.collectionId));
+    final collectionColor = collectionAsync.when(
+      data: (c) => c?.resolvedColor ?? AppColors.blue,
+      loading: () => AppColors.blue,
+      error: (_, _) => AppColors.blue,
+    );
 
     // Load existing values when editing
     if (widget.isEditing && !_initialized) {
@@ -57,24 +65,31 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.isEditing ? 'Modifier' : 'Nouvel objet'),
+        title: Text(widget.isEditing ? 'Modifier' : 'Nouvel élément'),
         actions: [
           if (widget.isEditing)
             IconButton(
-              icon: Icon(LucideIcons.trash2, color: AppColors.red),
+              icon: Icon(LucideIcons.trash2, color: AppColors.red, size: 20),
               onPressed: _saving ? null : _delete,
             ),
           fieldsAsync.when(
             data: (fields) => TextButton.icon(
               onPressed: _saving ? null : () => _save(fields),
+              style: TextButton.styleFrom(foregroundColor: collectionColor),
               icon: _saving
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 16,
                       height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: collectionColor,
+                      ),
                     )
                   : const Icon(LucideIcons.check),
-              label: const Text('Enregistrer'),
+              label: const Text(
+                'Enregistrer',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
             ),
             loading: () => const SizedBox.shrink(),
             error: (_, _) => const SizedBox.shrink(),
@@ -85,7 +100,7 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
         data: (fields) {
           final sorted = [...fields]
             ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
-          return _buildForm(sorted);
+          return _buildForm(sorted, collectionColor);
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, _) => Center(
@@ -100,7 +115,7 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
     );
   }
 
-  Widget _buildForm(List<FieldDefinition> fields) {
+  Widget _buildForm(List<FieldDefinition> fields, Color collectionColor) {
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: fields.length,
@@ -115,6 +130,7 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
               _values[field.id] = newValue;
             });
           },
+          collectionColor: collectionColor,
         );
       },
     );
@@ -125,7 +141,7 @@ class _ItemFormScreenState extends ConsumerState<ItemFormScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Supprimer'),
-        content: const Text('Voulez-vous supprimer cet objet ?'),
+        content: const Text('Voulez-vous supprimer cet élément ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),

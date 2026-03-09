@@ -67,30 +67,64 @@ class TrackerDisplayRenderer extends StatelessWidget {
               ),
         ),
         if (onChanged != null)
-          GestureDetector(
-            onTap: () => _showAddEntrySheet(context, entries),
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: collectionColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(LucideIcons.plus, size: 16, color: collectionColor),
-                  const SizedBox(width: 4),
-                  Text(
-                    'Ajouter',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: collectionColor,
-                          fontWeight: FontWeight.w600,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (entries.isNotEmpty)
+                GestureDetector(
+                  onTap: () => _showHistorySheet(context, entries),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: context.appBorder.withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(LucideIcons.list,
+                            size: 16, color: context.appTextSecondary),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Historique',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: context.appTextSecondary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                         ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () => _showAddEntrySheet(context, entries),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: collectionColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(LucideIcons.plus, size: 16, color: collectionColor),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Ajouter',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: collectionColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
       ],
     );
@@ -183,21 +217,22 @@ class TrackerDisplayRenderer extends StatelessWidget {
               sideTitles: SideTitles(
                 showTitles: true,
                 reservedSize: 22,
+                interval: max(1, entries.length - 1).toDouble(),
                 getTitlesWidget: (index, meta) {
-                  final i = index.toInt();
+                  final i = index.round();
+                  if ((index - i).abs() > 0.01) {
+                    return const SizedBox.shrink();
+                  }
                   if (i < 0 || i >= entries.length) {
                     return const SizedBox.shrink();
                   }
-                  if (i == 0 || i == entries.length - 1) {
-                    return Builder(
-                      builder: (context) => Text(
-                        DateFormat('dd/MM').format(entries[i].date),
-                        style: TextStyle(
-                            color: context.appTextTertiary, fontSize: 10),
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
+                  return Builder(
+                    builder: (context) => Text(
+                      DateFormat('dd/MM').format(entries[i].date),
+                      style: TextStyle(
+                          color: context.appTextTertiary, fontSize: 10),
+                    ),
+                  );
                 },
               ),
             ),
@@ -267,6 +302,19 @@ class TrackerDisplayRenderer extends StatelessWidget {
     if (result != null && onChanged != null) {
       final updatedEntries = [...entries, result]
         ..sort((a, b) => a.date.compareTo(b.date));
+      onChanged!(serializeTrackerEntries(updatedEntries));
+    }
+  }
+
+  Future<void> _showHistorySheet(
+      BuildContext context, List<TrackerEntry> entries) async {
+    final updatedEntries = await showTrackerHistorySheet(
+      context,
+      entries: entries,
+      unit: _unit,
+    );
+
+    if (updatedEntries != null && onChanged != null) {
       onChanged!(serializeTrackerEntries(updatedEntries));
     }
   }

@@ -131,7 +131,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ...results.collections.map((c) => _buildCollectionTile(context, c)),
         ],
         if (results.items.isNotEmpty) ...[
-          _buildSectionHeader(context, 'Objets'),
+          _buildSectionHeader(context, 'Éléments'),
           ...results.items.map((item) => _buildItemTile(context, item)),
         ],
       ],

@@ -75,7 +75,7 @@ class CollectionCard extends ConsumerWidget {
                           const SizedBox(height: 2),
                           itemCountAsync.when(
                             data: (count) => Text(
-                              '$count objet${count > 1 ? 's' : ''}',
+                              '$count élément${count > 1 ? 's' : ''}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
