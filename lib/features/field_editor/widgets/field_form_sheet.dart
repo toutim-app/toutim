@@ -55,6 +55,26 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
   late final TextEditingController _trackerUnitController;
   late String _improvementDirection;
 
+  /// Types where searching makes no sense.
+  static const _nonSearchableTypes = {
+    FieldType.image,
+    FieldType.boolean,
+    FieldType.rating,
+    FieldType.tracker,
+  };
+
+  /// Types where sorting makes no sense.
+  static const _nonSortableTypes = {
+    FieldType.image,
+    FieldType.boolean,
+    FieldType.tracker,
+    FieldType.textArea,
+    FieldType.barcode,
+  };
+
+  bool get _supportsSearchable => !_nonSearchableTypes.contains(_selectedType);
+  bool get _supportsSortable => !_nonSortableTypes.contains(_selectedType);
+
   static const _supportedTypes = [
     FieldType.text,
     FieldType.textArea,
@@ -235,10 +255,14 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
                 (v) => setState(() => _isRequired = v)),
             _buildSwitch('Afficher dans la carte', _showInCard,
                 (v) => setState(() => _showInCard = v)),
-            _buildSwitch('Cherchable', _searchable,
-                (v) => setState(() => _searchable = v)),
-            _buildSwitch('Triable', _sortable,
-                (v) => setState(() => _sortable = v)),
+            if (_supportsSearchable) ...[
+              _buildSwitch('Cherchable', _searchable,
+                  (v) => setState(() => _searchable = v)),
+            ],
+            if (_supportsSortable) ...[
+              _buildSwitch('Triable', _sortable,
+                  (v) => setState(() => _sortable = v)),
+            ],
 
             const SizedBox(height: 16),
 
