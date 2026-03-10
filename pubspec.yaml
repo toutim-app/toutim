@@ -1,7 +1,7 @@
 name: toutim
 description: "Application de gestion de collections universelles avec moteur de champs dynamiques."
 publish_to: "none"
-version: 1.0.8+8
+version: 1.0.9+9
 
 environment:
   sdk: ^3.11.0
