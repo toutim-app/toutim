@@ -70,7 +70,7 @@ class ItemCard extends ConsumerWidget {
       orElse: () => sorted.first,
     );
     final titleValue = fieldValues[titleField.id]?.value;
-    final title = _formatTextValue(titleValue) ?? 'Sans titre';
+    final title = _formatTextValue(titleValue, titleField) ?? 'Sans titre';
 
     // Image: first image field with showInCard
     String? imagePath;
