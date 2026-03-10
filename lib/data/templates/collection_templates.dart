@@ -477,7 +477,7 @@ abstract final class CollectionTemplates {
         },
       ),
       TemplateField(
-          name: 'Photo', type: FieldType.image, showInList: false, showInCard: false),
+          name: 'Photo', type: FieldType.image, showInList: false),
     ],
   );
 }

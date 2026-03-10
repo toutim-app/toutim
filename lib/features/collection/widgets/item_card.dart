@@ -119,7 +119,7 @@ class ItemCard extends ConsumerWidget {
       if (!field.showInCard) continue;
       if (skipTypes.contains(field.type)) continue;
       final val = fieldValues[field.id]?.value;
-      final formatted = _formatTextValue(val);
+      final formatted = _formatTextValue(val, field);
       if (formatted != null) {
         subtitleParts.add(formatted);
       }
@@ -240,18 +240,22 @@ class ItemCard extends ConsumerWidget {
 
   /// Formats a field value as text for the subtitle.
   /// Skips image, rating and boolean fields (handled separately).
-  String? _formatTextValue(dynamic val) {
+  String? _formatTextValue(dynamic val, FieldDefinition field) {
     if (val == null) return null;
     if (val is bool) return null; // handled as chips
-    // Tracker field: show last value
+    // Tracker field: show last value with unit
     if (val is List && val.isNotEmpty) {
       final lastEntry = val.last;
       if (lastEntry is Map && lastEntry.containsKey('value')) {
         final v = lastEntry['value'];
+        final unit = field.options['unit'] as String? ?? '';
+        String formatted;
         if (v is double && v.truncateToDouble() == v) {
-          return v.toInt().toString();
+          formatted = v.toInt().toString();
+        } else {
+          formatted = v.toString();
         }
-        return v.toString();
+        return unit.isNotEmpty ? '$formatted $unit' : formatted;
       }
     }
     // Barcode field: extract data from Map

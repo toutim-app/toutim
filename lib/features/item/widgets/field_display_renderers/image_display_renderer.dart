@@ -34,12 +34,15 @@ class ImageDisplayRenderer extends StatelessWidget {
               ),
         ),
         const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.file(
-            file,
-            width: double.infinity,
-            fit: BoxFit.cover,
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 220),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.file(
+              file,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ],

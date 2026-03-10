@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -53,8 +54,32 @@ class ImageFieldRenderer extends StatelessWidget {
       imageQuality: 85,
     );
 
-    if (picked != null) {
-      onChanged(picked.path);
+    if (picked == null) return;
+
+    final cropped = await ImageCropper().cropImage(
+      sourcePath: picked.path,
+      compressQuality: 85,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Recadrer',
+          toolbarColor: AppColors.blue,
+          toolbarWidgetColor: Colors.white,
+          activeControlsWidgetColor: AppColors.blue,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Recadrer',
+          cancelButtonTitle: 'Annuler',
+          doneButtonTitle: 'Valider',
+        ),
+      ],
+    );
+
+    if (cropped != null) {
+      onChanged(cropped.path);
     }
   }
 
