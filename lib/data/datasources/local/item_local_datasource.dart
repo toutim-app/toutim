@@ -128,6 +128,36 @@ class ItemLocalDataSource {
     return rows.map(_rowToFieldValue).toList();
   }
 
+  // ── Bulk loading ─────────────────────────────────────────────
+
+  /// Watch all items with their field values for a collection.
+  /// Loads field values in a single batch query (no N+1).
+  Stream<List<models.ItemWithFields>> watchAllItemsWithFields(
+      String collectionId) {
+    final itemQuery = _db.select(_db.items)
+      ..where((t) => t.collectionId.equals(collectionId))
+      ..orderBy([(t) => OrderingTerm.desc(t.updatedAt)]);
+
+    return itemQuery.watch().asyncMap((itemRows) async {
+      if (itemRows.isEmpty) return <models.ItemWithFields>[];
+
+      final itemIds = itemRows.map((r) => r.id).toList();
+      final allValues = await (_db.select(_db.itemFieldValues)
+            ..where((t) => t.itemId.isIn(itemIds)))
+          .get();
+
+      final valuesByItem = <String, List<ItemFieldValue>>{};
+      for (final v in allValues) {
+        valuesByItem.putIfAbsent(v.itemId, () => []).add(v);
+      }
+
+      return itemRows.map((itemRow) {
+        final vals = valuesByItem[itemRow.id] ?? [];
+        return _buildItemWithFields(itemRow, vals);
+      }).toList();
+    });
+  }
+
   // ── Count ──────────────────────────────────────────────────
 
   /// Count items in a collection.

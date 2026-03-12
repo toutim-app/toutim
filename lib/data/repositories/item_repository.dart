@@ -12,6 +12,9 @@ abstract class ItemRepository {
   /// Watch an item with all its field values.
   Stream<ItemWithFields?> watchItemWithFields(String itemId);
 
+  /// Watch all items with their field values for a collection.
+  Stream<List<ItemWithFields>> watchAllItemsWithFields(String collectionId);
+
   /// Create a new item with field values.
   Future<ItemWithFields> createItem({
     required String collectionId,

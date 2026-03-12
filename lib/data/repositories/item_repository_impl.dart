@@ -29,6 +29,11 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
+  Stream<List<ItemWithFields>> watchAllItemsWithFields(String collectionId) {
+    return _localDataSource.watchAllItemsWithFields(collectionId);
+  }
+
+  @override
   Future<ItemWithFields> createItem({
     required String collectionId,
     required Map<String, dynamic> fieldValues,

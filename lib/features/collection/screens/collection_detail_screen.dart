@@ -9,8 +9,10 @@ import '../../../core/theme/app_colors.dart';
 import '../../../data/providers/repository_providers.dart';
 import '../../settings/providers/auto_sync_providers.dart';
 import '../providers/collection_providers.dart';
+import '../providers/filter_providers.dart';
 import '../../../data/models/collection.dart';
 import '../widgets/collection_empty_state.dart';
+import '../widgets/collection_filter_bar.dart';
 import '../widgets/edit_collection_sheet.dart';
 import '../widgets/item_card.dart';
 
@@ -24,7 +26,11 @@ class CollectionDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final collectionAsync = ref.watch(collectionByIdProvider(collectionId));
     final fieldsAsync = ref.watch(fieldDefinitionsStreamProvider(collectionId));
-    final itemsAsync = ref.watch(itemsStreamProvider(collectionId));
+    final allItemsAsync =
+        ref.watch(allItemsWithFieldsStreamProvider(collectionId));
+    final filterableFieldsList =
+        ref.watch(filterableFieldsProvider(collectionId));
+    final filteredItemsList = ref.watch(filteredItemsProvider(collectionId));
 
     final collectionColor = collectionAsync.when(
       data: (c) => c?.resolvedColor ?? AppColors.blue,
@@ -97,47 +103,67 @@ class CollectionDetailScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: itemsAsync.when(
-        data: (items) {
-          if (items.isEmpty) {
+      body: allItemsAsync.when(
+        data: (allItems) {
+          if (allItems.isEmpty) {
             return const CollectionEmptyState();
           }
           return fieldsAsync.when(
-            data: (fields) => ListView.separated(
-              padding: const EdgeInsets.all(16),
-              itemCount: items.length,
-              separatorBuilder: (_, _) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final item = items[index];
-                return Dismissible(
-                  key: ValueKey(item.id),
-                  direction: DismissDirection.endToStart,
-                  confirmDismiss: (_) => _confirmDelete(context),
-                  onDismissed: (_) {
-                    ref.read(itemRepositoryProvider).deleteItem(item.id);
-                    ref.read(syncTriggerProvider.notifier).notifyDataChanged();
-                  },
-                  background: Container(
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: 20),
-                    decoration: BoxDecoration(
-                      color: AppColors.red,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Icon(
-                      LucideIcons.trash2,
-                      color: Colors.white,
-                    ),
+            data: (fields) => Column(
+              children: [
+                if (filterableFieldsList.isNotEmpty)
+                  CollectionFilterBar(
+                    collectionId: collectionId,
+                    filterableFields: filterableFieldsList,
+                    collectionColor: collectionColor,
                   ),
-                  child: ItemCard(
-                    itemId: item.id,
-                    fieldDefinitions: fields,
-                    onTap: () => context.push(
-                      '/collection/$collectionId/item/${item.id}',
-                    ),
-                  ),
-                );
-              },
+                Expanded(
+                  child: filteredItemsList.isEmpty
+                      ? _buildNoResultsState(context, ref)
+                      : ListView.separated(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: filteredItemsList.length,
+                          separatorBuilder: (_, _) =>
+                              const SizedBox(height: 12),
+                          itemBuilder: (context, index) {
+                            final itemWithFields = filteredItemsList[index];
+                            return Dismissible(
+                              key: ValueKey(itemWithFields.item.id),
+                              direction: DismissDirection.endToStart,
+                              confirmDismiss: (_) =>
+                                  _confirmDelete(context),
+                              onDismissed: (_) {
+                                ref
+                                    .read(itemRepositoryProvider)
+                                    .deleteItem(itemWithFields.item.id);
+                                ref
+                                    .read(syncTriggerProvider.notifier)
+                                    .notifyDataChanged();
+                              },
+                              background: Container(
+                                alignment: Alignment.centerRight,
+                                padding: const EdgeInsets.only(right: 20),
+                                decoration: BoxDecoration(
+                                  color: AppColors.red,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: const Icon(
+                                  LucideIcons.trash2,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              child: ItemCard(
+                                itemId: itemWithFields.item.id,
+                                fieldDefinitions: fields,
+                                onTap: () => context.push(
+                                  '/collection/$collectionId/item/${itemWithFields.item.id}',
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
             ),
             loading: () =>
                 const Center(child: CircularProgressIndicator()),
@@ -214,6 +240,33 @@ class CollectionDetailScreen extends ConsumerWidget {
     await ref.read(collectionRepositoryProvider).deleteCollection(collectionId);
     ref.read(syncTriggerProvider.notifier).notifyDataChanged();
     if (context.mounted) context.go('/');
+  }
+
+  Widget _buildNoResultsState(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(LucideIcons.searchX, size: 48, color: context.appTextTertiary),
+          const SizedBox(height: 12),
+          Text(
+            'Aucun résultat pour ces filtres',
+            style: TextStyle(
+              fontSize: 15,
+              color: context.appTextSecondary,
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextButton.icon(
+            onPressed: () => ref
+                .read(collectionFiltersProvider(collectionId).notifier)
+                .state = {},
+            icon: const Icon(LucideIcons.x, size: 16),
+            label: const Text('Effacer les filtres'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<bool> _confirmDelete(BuildContext context) async {
