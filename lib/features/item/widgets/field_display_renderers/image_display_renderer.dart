@@ -35,7 +35,7 @@ class ImageDisplayRenderer extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 220),
+          constraints: const BoxConstraints(maxHeight: 320),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.file(
