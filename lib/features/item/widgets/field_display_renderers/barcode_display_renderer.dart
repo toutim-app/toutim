@@ -93,6 +93,8 @@ class BarcodeDisplayRenderer extends StatelessWidget {
                 data: data,
                 width: _isQrLike ? 180 : double.infinity,
                 height: _isQrLike ? 180 : 80,
+                color: context.appTextPrimary,
+                backgroundColor: context.appSurface,
                 drawText: false,
                 errorBuilder: (context, error) => Column(
                   children: [
