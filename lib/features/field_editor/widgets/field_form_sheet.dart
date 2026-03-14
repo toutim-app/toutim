@@ -51,6 +51,9 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
   late List<String> _selectOptions;
   final _selectOptionController = TextEditingController();
 
+  // Image options
+  late String _imageDisplayMode;
+
   // Tracker options
   late final TextEditingController _trackerUnitController;
   late String _improvementDirection;
@@ -103,6 +106,7 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
 
     final opts = def?.options ?? {};
     _selectOptions = List<String>.from(opts['options'] ?? []);
+    _imageDisplayMode = opts['imageDisplayMode'] as String? ?? 'square';
     _trackerUnitController =
         TextEditingController(text: opts['unit'] as String? ?? '');
     _improvementDirection =
@@ -121,6 +125,9 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
     final opts = <String, dynamic>{};
     if (_selectedType == FieldType.select && _selectOptions.isNotEmpty) {
       opts['options'] = _selectOptions;
+    }
+    if (_selectedType == FieldType.image) {
+      opts['imageDisplayMode'] = _imageDisplayMode;
     }
     if (_selectedType == FieldType.tracker) {
       if (_trackerUnitController.text.isNotEmpty) {
@@ -242,6 +249,10 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
             if (_selectedType == FieldType.select) ...[
               const SizedBox(height: 16),
               _buildSelectOptionsEditor(),
+            ],
+            if (_selectedType == FieldType.image) ...[
+              const SizedBox(height: 16),
+              _buildImageOptionsEditor(),
             ],
             if (_selectedType == FieldType.tracker) ...[
               const SizedBox(height: 16),
@@ -396,6 +407,46 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
       _selectOptions.add(text);
       _selectOptionController.clear();
     });
+  }
+
+  Widget _buildImageOptionsEditor() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Affichage',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: context.appTextPrimary,
+              ),
+        ),
+        SegmentedButton<String>(
+          segments: const [
+            ButtonSegment(
+              value: 'square',
+              label: Text('Carré'),
+              icon: Icon(LucideIcons.square),
+            ),
+            ButtonSegment(
+              value: 'poster',
+              label: Text('Portrait'),
+              icon: Icon(LucideIcons.smartphone),
+            ),
+            ButtonSegment(
+              value: 'banner',
+              label: Text('Bannière'),
+              icon: Icon(LucideIcons.monitor),
+            ),
+          ],
+          selected: {_imageDisplayMode},
+          onSelectionChanged: (v) {
+            setState(() => _imageDisplayMode = v.first);
+          },
+          style: const ButtonStyle(
+            visualDensity: VisualDensity.compact,
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildTrackerOptionsEditor() {

@@ -244,7 +244,10 @@ abstract final class CollectionTemplates {
           sortable: true),
       TemplateField(name: 'N\u00B0 Carte', type: FieldType.barcode),
       TemplateField(
-          name: 'Logo', type: FieldType.image, showInList: false),
+          name: 'Logo',
+          type: FieldType.image,
+          showInList: false,
+          options: {'imageDisplayMode': 'square'}),
       TemplateField(name: 'Expiration', type: FieldType.date),
     ],
   );

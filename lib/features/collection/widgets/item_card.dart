@@ -74,11 +74,14 @@ class ItemCard extends ConsumerWidget {
 
     // Image: first image field with showInCard
     String? imagePath;
+    String imageDisplayMode = 'square';
     for (final field in sorted) {
       if (field.type == FieldType.image && field.showInCard) {
         final val = fieldValues[field.id]?.value;
         if (val is String && val.isNotEmpty && File(val).existsSync()) {
           imagePath = val;
+          imageDisplayMode =
+              field.options['imageDisplayMode'] as String? ?? 'square';
           break;
         }
       }
@@ -148,8 +151,15 @@ class ItemCard extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.file(
                     File(imagePath),
-                    width: 70,
-                    height: 90,
+                    width: switch (imageDisplayMode) {
+                      'banner' => 110.0,
+                      _ => 70.0,
+                    },
+                    height: switch (imageDisplayMode) {
+                      'poster' => 100.0,
+                      'banner' => 70.0,
+                      _ => 70.0, // square
+                    },
                     fit: BoxFit.cover,
                   ),
                 ),
