@@ -13,11 +13,11 @@ class CollectionLocalDataSource {
 
   // ── Collections ────────────────────────────────────────────
 
-  /// Watch all collections, ordered by updatedAt desc.
+  /// Watch all collections, ordered by sortOrder asc.
   Stream<List<models.Collection>> watchAllCollections() {
     final query = _db.select(_db.collections)
       ..orderBy([
-        (t) => OrderingTerm.desc(t.updatedAt),
+        (t) => OrderingTerm.asc(t.sortOrder),
       ]);
     return query.watch().map(
           (rows) => rows.map(_rowToCollection).toList(),
@@ -77,6 +77,28 @@ class CollectionLocalDataSource {
       // Delete the collection
       await (_db.delete(_db.collections)..where((t) => t.id.equals(id)))
           .go();
+    });
+  }
+
+  /// Get the max sortOrder value across all collections.
+  Future<int> getMaxCollectionSortOrder() async {
+    final query = _db.selectOnly(_db.collections)
+      ..addColumns([_db.collections.sortOrder.max()]);
+    final result = await query.getSingle();
+    return result.read(_db.collections.sortOrder.max()) ?? -1;
+  }
+
+  /// Reorder collections (batch update sortOrder).
+  Future<void> reorderCollections(
+      List<models.Collection> collections) async {
+    await _db.transaction(() async {
+      for (final c in collections) {
+        await (_db.update(_db.collections)
+              ..where((t) => t.id.equals(c.id)))
+            .write(
+          CollectionsCompanion(sortOrder: Value(c.sortOrder)),
+        );
+      }
     });
   }
 
@@ -167,6 +189,7 @@ class CollectionLocalDataSource {
       icon: row.icon,
       color: row.color,
       templateId: row.templateId,
+      sortOrder: row.sortOrder,
       viewMode: models.ViewMode.values.byName(row.viewMode),
       syncStatus: models.SyncStatus.values.byName(row.syncStatus),
       serverId: row.serverId,
@@ -183,6 +206,7 @@ class CollectionLocalDataSource {
       icon: Value(c.icon),
       color: Value(c.color),
       templateId: Value(c.templateId),
+      sortOrder: Value(c.sortOrder),
       viewMode: Value(c.viewMode.name),
       syncStatus: Value(c.syncStatus.name),
       serverId: Value(c.serverId),

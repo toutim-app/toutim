@@ -30,8 +30,9 @@ class CollectionRepositoryImpl implements CollectionRepository {
     String? icon,
     required String color,
     String? templateId,
-  }) {
+  }) async {
     final now = DateTime.now();
+    final maxOrder = await _localDataSource.getMaxCollectionSortOrder();
     final collection = Collection(
       id: _uuid.v4(),
       name: name,
@@ -39,6 +40,7 @@ class CollectionRepositoryImpl implements CollectionRepository {
       icon: icon,
       color: color,
       templateId: templateId,
+      sortOrder: maxOrder + 1,
       createdAt: now,
       updatedAt: now,
     );
@@ -115,5 +117,10 @@ class CollectionRepositoryImpl implements CollectionRepository {
   @override
   Future<void> reorderFieldDefinitions(List<FieldDefinition> definitions) {
     return _localDataSource.reorderFieldDefinitions(definitions);
+  }
+
+  @override
+  Future<void> reorderCollections(List<Collection> collections) {
+    return _localDataSource.reorderCollections(collections);
   }
 }

@@ -238,6 +238,7 @@ CREATE TABLE collections (
     color       TEXT NOT NULL CHECK(length(color) BETWEEN 1 AND 20),
     template_id TEXT,
     view_mode   TEXT NOT NULL DEFAULT 'list',
+    sort_order  INTEGER NOT NULL DEFAULT 0,
     sync_status TEXT NOT NULL DEFAULT 'synced',
     created_at  TEXT NOT NULL,           -- RFC 3339
     updated_at  TEXT NOT NULL

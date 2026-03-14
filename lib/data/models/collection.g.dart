@@ -14,6 +14,7 @@ _$CollectionImpl _$$CollectionImplFromJson(Map<String, dynamic> json) =>
       icon: json['icon'] as String?,
       color: json['color'] as String,
       templateId: json['templateId'] as String?,
+      sortOrder: (json['sortOrder'] as num?)?.toInt() ?? 0,
       viewMode:
           $enumDecodeNullable(_$ViewModeEnumMap, json['viewMode']) ??
           ViewMode.list,
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$CollectionImplToJson(_$CollectionImpl instance) =>
       'icon': instance.icon,
       'color': instance.color,
       'templateId': instance.templateId,
+      'sortOrder': instance.sortOrder,
       'viewMode': _$ViewModeEnumMap[instance.viewMode]!,
       'syncStatus': _$SyncStatusEnumMap[instance.syncStatus]!,
       'serverId': instance.serverId,

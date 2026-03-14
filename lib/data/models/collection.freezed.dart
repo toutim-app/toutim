@@ -27,6 +27,7 @@ mixin _$Collection {
   String? get icon => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   String? get templateId => throw _privateConstructorUsedError;
+  int get sortOrder => throw _privateConstructorUsedError;
   ViewMode get viewMode => throw _privateConstructorUsedError;
   SyncStatus get syncStatus => throw _privateConstructorUsedError;
   String? get serverId => throw _privateConstructorUsedError;
@@ -57,6 +58,7 @@ abstract class $CollectionCopyWith<$Res> {
     String? icon,
     String color,
     String? templateId,
+    int sortOrder,
     ViewMode viewMode,
     SyncStatus syncStatus,
     String? serverId,
@@ -86,6 +88,7 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
     Object? icon = freezed,
     Object? color = null,
     Object? templateId = freezed,
+    Object? sortOrder = null,
     Object? viewMode = null,
     Object? syncStatus = null,
     Object? serverId = freezed,
@@ -118,6 +121,10 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
                 ? _value.templateId
                 : templateId // ignore: cast_nullable_to_non_nullable
                       as String?,
+            sortOrder: null == sortOrder
+                ? _value.sortOrder
+                : sortOrder // ignore: cast_nullable_to_non_nullable
+                      as int,
             viewMode: null == viewMode
                 ? _value.viewMode
                 : viewMode // ignore: cast_nullable_to_non_nullable
@@ -160,6 +167,7 @@ abstract class _$$CollectionImplCopyWith<$Res>
     String? icon,
     String color,
     String? templateId,
+    int sortOrder,
     ViewMode viewMode,
     SyncStatus syncStatus,
     String? serverId,
@@ -188,6 +196,7 @@ class __$$CollectionImplCopyWithImpl<$Res>
     Object? icon = freezed,
     Object? color = null,
     Object? templateId = freezed,
+    Object? sortOrder = null,
     Object? viewMode = null,
     Object? syncStatus = null,
     Object? serverId = freezed,
@@ -220,6 +229,10 @@ class __$$CollectionImplCopyWithImpl<$Res>
             ? _value.templateId
             : templateId // ignore: cast_nullable_to_non_nullable
                   as String?,
+        sortOrder: null == sortOrder
+            ? _value.sortOrder
+            : sortOrder // ignore: cast_nullable_to_non_nullable
+                  as int,
         viewMode: null == viewMode
             ? _value.viewMode
             : viewMode // ignore: cast_nullable_to_non_nullable
@@ -255,6 +268,7 @@ class _$CollectionImpl implements _Collection {
     this.icon,
     required this.color,
     this.templateId,
+    this.sortOrder = 0,
     this.viewMode = ViewMode.list,
     this.syncStatus = SyncStatus.pending,
     this.serverId,
@@ -279,6 +293,9 @@ class _$CollectionImpl implements _Collection {
   final String? templateId;
   @override
   @JsonKey()
+  final int sortOrder;
+  @override
+  @JsonKey()
   final ViewMode viewMode;
   @override
   @JsonKey()
@@ -292,7 +309,7 @@ class _$CollectionImpl implements _Collection {
 
   @override
   String toString() {
-    return 'Collection(id: $id, name: $name, description: $description, icon: $icon, color: $color, templateId: $templateId, viewMode: $viewMode, syncStatus: $syncStatus, serverId: $serverId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Collection(id: $id, name: $name, description: $description, icon: $icon, color: $color, templateId: $templateId, sortOrder: $sortOrder, viewMode: $viewMode, syncStatus: $syncStatus, serverId: $serverId, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -308,6 +325,8 @@ class _$CollectionImpl implements _Collection {
             (identical(other.color, color) || other.color == color) &&
             (identical(other.templateId, templateId) ||
                 other.templateId == templateId) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder) &&
             (identical(other.viewMode, viewMode) ||
                 other.viewMode == viewMode) &&
             (identical(other.syncStatus, syncStatus) ||
@@ -330,6 +349,7 @@ class _$CollectionImpl implements _Collection {
     icon,
     color,
     templateId,
+    sortOrder,
     viewMode,
     syncStatus,
     serverId,
@@ -359,6 +379,7 @@ abstract class _Collection implements Collection {
     final String? icon,
     required final String color,
     final String? templateId,
+    final int sortOrder,
     final ViewMode viewMode,
     final SyncStatus syncStatus,
     final String? serverId,
@@ -381,6 +402,8 @@ abstract class _Collection implements Collection {
   String get color;
   @override
   String? get templateId;
+  @override
+  int get sortOrder;
   @override
   ViewMode get viewMode;
   @override

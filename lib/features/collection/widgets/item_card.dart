@@ -19,12 +19,14 @@ class ItemCard extends ConsumerWidget {
   final String itemId;
   final List<FieldDefinition> fieldDefinitions;
   final VoidCallback? onTap;
+  final Color? collectionColor;
 
   const ItemCard({
     super.key,
     required this.itemId,
     required this.fieldDefinitions,
     this.onTap,
+    this.collectionColor,
   });
 
   @override
@@ -138,13 +140,20 @@ class ItemCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: context.appBorder),
       ),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
+        child: IntrinsicHeight(
           child: Row(
             children: [
+              if (collectionColor != null)
+                Container(width: 4, color: collectionColor),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    children: [
               // Thumbnail
               if (imagePath != null) ...[
                 ClipRRect(
@@ -240,6 +249,10 @@ class ItemCard extends ConsumerWidget {
                     ],
                   ],
                 ),
+              ),
+            ],
+          ),
+        ),
               ),
             ],
           ),

@@ -155,6 +155,7 @@ class CollectionDetailScreen extends ConsumerWidget {
                               child: ItemCard(
                                 itemId: itemWithFields.item.id,
                                 fieldDefinitions: fields,
+                                collectionColor: collectionColor,
                                 onTap: () => context.push(
                                   '/collection/$collectionId/item/${itemWithFields.item.id}',
                                 ),

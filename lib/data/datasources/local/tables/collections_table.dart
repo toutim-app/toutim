@@ -9,6 +9,7 @@ class Collections extends Table {
   TextColumn get color => text().withLength(min: 1, max: 20)();
   TextColumn get templateId => text().nullable()();
   TextColumn get viewMode => text().withDefault(const Constant('list'))();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
   TextColumn get syncStatus =>
       text().withDefault(const Constant('pending'))();
   TextColumn get serverId => text().nullable()();

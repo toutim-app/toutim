@@ -87,6 +87,18 @@ class $CollectionsTable extends Collections
     requiredDuringInsert: false,
     defaultValue: const Constant('list'),
   );
+  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
+    'sortOrder',
+  );
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+    'sort_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _syncStatusMeta = const VerificationMeta(
     'syncStatus',
   );
@@ -141,6 +153,7 @@ class $CollectionsTable extends Collections
     color,
     templateId,
     viewMode,
+    sortOrder,
     syncStatus,
     serverId,
     createdAt,
@@ -204,6 +217,12 @@ class $CollectionsTable extends Collections
       context.handle(
         _viewModeMeta,
         viewMode.isAcceptableOrUnknown(data['view_mode']!, _viewModeMeta),
+      );
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(
+        _sortOrderMeta,
+        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
       );
     }
     if (data.containsKey('sync_status')) {
@@ -271,6 +290,10 @@ class $CollectionsTable extends Collections
         DriftSqlType.string,
         data['${effectivePrefix}view_mode'],
       )!,
+      sortOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_order'],
+      )!,
       syncStatus: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}sync_status'],
@@ -304,6 +327,7 @@ class Collection extends DataClass implements Insertable<Collection> {
   final String color;
   final String? templateId;
   final String viewMode;
+  final int sortOrder;
   final String syncStatus;
   final String? serverId;
   final DateTime createdAt;
@@ -316,6 +340,7 @@ class Collection extends DataClass implements Insertable<Collection> {
     required this.color,
     this.templateId,
     required this.viewMode,
+    required this.sortOrder,
     required this.syncStatus,
     this.serverId,
     required this.createdAt,
@@ -337,6 +362,7 @@ class Collection extends DataClass implements Insertable<Collection> {
       map['template_id'] = Variable<String>(templateId);
     }
     map['view_mode'] = Variable<String>(viewMode);
+    map['sort_order'] = Variable<int>(sortOrder);
     map['sync_status'] = Variable<String>(syncStatus);
     if (!nullToAbsent || serverId != null) {
       map['server_id'] = Variable<String>(serverId);
@@ -359,6 +385,7 @@ class Collection extends DataClass implements Insertable<Collection> {
           ? const Value.absent()
           : Value(templateId),
       viewMode: Value(viewMode),
+      sortOrder: Value(sortOrder),
       syncStatus: Value(syncStatus),
       serverId: serverId == null && nullToAbsent
           ? const Value.absent()
@@ -381,6 +408,7 @@ class Collection extends DataClass implements Insertable<Collection> {
       color: serializer.fromJson<String>(json['color']),
       templateId: serializer.fromJson<String?>(json['templateId']),
       viewMode: serializer.fromJson<String>(json['viewMode']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
       syncStatus: serializer.fromJson<String>(json['syncStatus']),
       serverId: serializer.fromJson<String?>(json['serverId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -398,6 +426,7 @@ class Collection extends DataClass implements Insertable<Collection> {
       'color': serializer.toJson<String>(color),
       'templateId': serializer.toJson<String?>(templateId),
       'viewMode': serializer.toJson<String>(viewMode),
+      'sortOrder': serializer.toJson<int>(sortOrder),
       'syncStatus': serializer.toJson<String>(syncStatus),
       'serverId': serializer.toJson<String?>(serverId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -413,6 +442,7 @@ class Collection extends DataClass implements Insertable<Collection> {
     String? color,
     Value<String?> templateId = const Value.absent(),
     String? viewMode,
+    int? sortOrder,
     String? syncStatus,
     Value<String?> serverId = const Value.absent(),
     DateTime? createdAt,
@@ -425,6 +455,7 @@ class Collection extends DataClass implements Insertable<Collection> {
     color: color ?? this.color,
     templateId: templateId.present ? templateId.value : this.templateId,
     viewMode: viewMode ?? this.viewMode,
+    sortOrder: sortOrder ?? this.sortOrder,
     syncStatus: syncStatus ?? this.syncStatus,
     serverId: serverId.present ? serverId.value : this.serverId,
     createdAt: createdAt ?? this.createdAt,
@@ -443,6 +474,7 @@ class Collection extends DataClass implements Insertable<Collection> {
           ? data.templateId.value
           : this.templateId,
       viewMode: data.viewMode.present ? data.viewMode.value : this.viewMode,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
       syncStatus: data.syncStatus.present
           ? data.syncStatus.value
           : this.syncStatus,
@@ -462,6 +494,7 @@ class Collection extends DataClass implements Insertable<Collection> {
           ..write('color: $color, ')
           ..write('templateId: $templateId, ')
           ..write('viewMode: $viewMode, ')
+          ..write('sortOrder: $sortOrder, ')
           ..write('syncStatus: $syncStatus, ')
           ..write('serverId: $serverId, ')
           ..write('createdAt: $createdAt, ')
@@ -479,6 +512,7 @@ class Collection extends DataClass implements Insertable<Collection> {
     color,
     templateId,
     viewMode,
+    sortOrder,
     syncStatus,
     serverId,
     createdAt,
@@ -495,6 +529,7 @@ class Collection extends DataClass implements Insertable<Collection> {
           other.color == this.color &&
           other.templateId == this.templateId &&
           other.viewMode == this.viewMode &&
+          other.sortOrder == this.sortOrder &&
           other.syncStatus == this.syncStatus &&
           other.serverId == this.serverId &&
           other.createdAt == this.createdAt &&
@@ -509,6 +544,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
   final Value<String> color;
   final Value<String?> templateId;
   final Value<String> viewMode;
+  final Value<int> sortOrder;
   final Value<String> syncStatus;
   final Value<String?> serverId;
   final Value<DateTime> createdAt;
@@ -522,6 +558,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
     this.color = const Value.absent(),
     this.templateId = const Value.absent(),
     this.viewMode = const Value.absent(),
+    this.sortOrder = const Value.absent(),
     this.syncStatus = const Value.absent(),
     this.serverId = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -536,6 +573,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
     required String color,
     this.templateId = const Value.absent(),
     this.viewMode = const Value.absent(),
+    this.sortOrder = const Value.absent(),
     this.syncStatus = const Value.absent(),
     this.serverId = const Value.absent(),
     required DateTime createdAt,
@@ -554,6 +592,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
     Expression<String>? color,
     Expression<String>? templateId,
     Expression<String>? viewMode,
+    Expression<int>? sortOrder,
     Expression<String>? syncStatus,
     Expression<String>? serverId,
     Expression<DateTime>? createdAt,
@@ -568,6 +607,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
       if (color != null) 'color': color,
       if (templateId != null) 'template_id': templateId,
       if (viewMode != null) 'view_mode': viewMode,
+      if (sortOrder != null) 'sort_order': sortOrder,
       if (syncStatus != null) 'sync_status': syncStatus,
       if (serverId != null) 'server_id': serverId,
       if (createdAt != null) 'created_at': createdAt,
@@ -584,6 +624,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
     Value<String>? color,
     Value<String?>? templateId,
     Value<String>? viewMode,
+    Value<int>? sortOrder,
     Value<String>? syncStatus,
     Value<String?>? serverId,
     Value<DateTime>? createdAt,
@@ -598,6 +639,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
       color: color ?? this.color,
       templateId: templateId ?? this.templateId,
       viewMode: viewMode ?? this.viewMode,
+      sortOrder: sortOrder ?? this.sortOrder,
       syncStatus: syncStatus ?? this.syncStatus,
       serverId: serverId ?? this.serverId,
       createdAt: createdAt ?? this.createdAt,
@@ -630,6 +672,9 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
     if (viewMode.present) {
       map['view_mode'] = Variable<String>(viewMode.value);
     }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
     if (syncStatus.present) {
       map['sync_status'] = Variable<String>(syncStatus.value);
     }
@@ -658,6 +703,7 @@ class CollectionsCompanion extends UpdateCompanion<Collection> {
           ..write('color: $color, ')
           ..write('templateId: $templateId, ')
           ..write('viewMode: $viewMode, ')
+          ..write('sortOrder: $sortOrder, ')
           ..write('syncStatus: $syncStatus, ')
           ..write('serverId: $serverId, ')
           ..write('createdAt: $createdAt, ')
@@ -2381,6 +2427,7 @@ typedef $$CollectionsTableCreateCompanionBuilder =
       required String color,
       Value<String?> templateId,
       Value<String> viewMode,
+      Value<int> sortOrder,
       Value<String> syncStatus,
       Value<String?> serverId,
       required DateTime createdAt,
@@ -2396,6 +2443,7 @@ typedef $$CollectionsTableUpdateCompanionBuilder =
       Value<String> color,
       Value<String?> templateId,
       Value<String> viewMode,
+      Value<int> sortOrder,
       Value<String> syncStatus,
       Value<String?> serverId,
       Value<DateTime> createdAt,
@@ -2491,6 +2539,11 @@ class $$CollectionsTableFilterComposer
 
   ColumnFilters<String> get viewMode => $composableBuilder(
     column: $table.viewMode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sortOrder => $composableBuilder(
+    column: $table.sortOrder,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2609,6 +2662,11 @@ class $$CollectionsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get sortOrder => $composableBuilder(
+    column: $table.sortOrder,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
     builder: (column) => ColumnOrderings(column),
@@ -2663,6 +2721,9 @@ class $$CollectionsTableAnnotationComposer
 
   GeneratedColumn<String> get viewMode =>
       $composableBuilder(column: $table.viewMode, builder: (column) => column);
+
+  GeneratedColumn<int> get sortOrder =>
+      $composableBuilder(column: $table.sortOrder, builder: (column) => column);
 
   GeneratedColumn<String> get syncStatus => $composableBuilder(
     column: $table.syncStatus,
@@ -2764,6 +2825,7 @@ class $$CollectionsTableTableManager
                 Value<String> color = const Value.absent(),
                 Value<String?> templateId = const Value.absent(),
                 Value<String> viewMode = const Value.absent(),
+                Value<int> sortOrder = const Value.absent(),
                 Value<String> syncStatus = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -2777,6 +2839,7 @@ class $$CollectionsTableTableManager
                 color: color,
                 templateId: templateId,
                 viewMode: viewMode,
+                sortOrder: sortOrder,
                 syncStatus: syncStatus,
                 serverId: serverId,
                 createdAt: createdAt,
@@ -2792,6 +2855,7 @@ class $$CollectionsTableTableManager
                 required String color,
                 Value<String?> templateId = const Value.absent(),
                 Value<String> viewMode = const Value.absent(),
+                Value<int> sortOrder = const Value.absent(),
                 Value<String> syncStatus = const Value.absent(),
                 Value<String?> serverId = const Value.absent(),
                 required DateTime createdAt,
@@ -2805,6 +2869,7 @@ class $$CollectionsTableTableManager
                 color: color,
                 templateId: templateId,
                 viewMode: viewMode,
+                sortOrder: sortOrder,
                 syncStatus: syncStatus,
                 serverId: serverId,
                 createdAt: createdAt,

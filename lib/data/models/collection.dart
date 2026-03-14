@@ -14,6 +14,7 @@ class Collection with _$Collection {
     String? icon,
     required String color,
     String? templateId,
+    @Default(0) int sortOrder,
     @Default(ViewMode.list) ViewMode viewMode,
     @Default(SyncStatus.pending) SyncStatus syncStatus,
     String? serverId,

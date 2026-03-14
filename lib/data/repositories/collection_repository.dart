@@ -57,4 +57,7 @@ abstract class CollectionRepository {
 
   /// Reorder field definitions.
   Future<void> reorderFieldDefinitions(List<FieldDefinition> definitions);
+
+  /// Reorder collections.
+  Future<void> reorderCollections(List<Collection> collections);
 }
