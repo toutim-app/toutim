@@ -410,39 +410,32 @@ class _FieldFormSheetState extends State<FieldFormSheet> {
   }
 
   Widget _buildImageOptionsEditor() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Affichage',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: context.appTextPrimary,
+          'Affichage dans la carte',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: context.appTextSecondary,
+                fontWeight: FontWeight.w600,
               ),
         ),
-        SegmentedButton<String>(
-          segments: const [
-            ButtonSegment(
-              value: 'square',
-              label: Text('Carré'),
-              icon: Icon(LucideIcons.square),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: double.infinity,
+          child: SegmentedButton<String>(
+            segments: const [
+              ButtonSegment(value: 'square', label: Text('Carré')),
+              ButtonSegment(value: 'poster', label: Text('Portrait')),
+              ButtonSegment(value: 'banner', label: Text('Bannière')),
+            ],
+            selected: {_imageDisplayMode},
+            onSelectionChanged: (v) {
+              setState(() => _imageDisplayMode = v.first);
+            },
+            style: const ButtonStyle(
+              visualDensity: VisualDensity.compact,
             ),
-            ButtonSegment(
-              value: 'poster',
-              label: Text('Portrait'),
-              icon: Icon(LucideIcons.smartphone),
-            ),
-            ButtonSegment(
-              value: 'banner',
-              label: Text('Bannière'),
-              icon: Icon(LucideIcons.monitor),
-            ),
-          ],
-          selected: {_imageDisplayMode},
-          onSelectionChanged: (v) {
-            setState(() => _imageDisplayMode = v.first);
-          },
-          style: const ButtonStyle(
-            visualDensity: VisualDensity.compact,
           ),
         ),
       ],

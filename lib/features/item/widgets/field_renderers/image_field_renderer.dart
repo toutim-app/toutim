@@ -101,7 +101,7 @@ class ImageFieldRenderer extends StatelessWidget {
         GestureDetector(
           onTap: () => _pickImage(context),
           child: Container(
-            height: 160,
+            height: 240,
             width: double.infinity,
             decoration: BoxDecoration(
               color: context.appSurfaceAlt,
