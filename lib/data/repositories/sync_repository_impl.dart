@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 
 import '../datasources/local/collection_local_datasource.dart';
 import '../datasources/local/item_local_datasource.dart';
@@ -180,6 +183,18 @@ class SyncRepositoryImpl implements SyncRepository {
     // Field values (depends on item + field_definition).
     final pendingFieldValues = await _itemDs.getPendingFieldValues();
     for (final fv in pendingFieldValues) {
+      dynamic syncValue = fv.value;
+
+      // Upload local image files before pushing
+      if (_isLocalImagePath(fv.value)) {
+        try {
+          syncValue = await _apiClient.uploadFile(File(fv.value as String));
+        } catch (_) {
+          // Skip this field value if upload fails; retry on next sync cycle
+          continue;
+        }
+      }
+
       changes.add(SyncChange(
         entity: 'field_value',
         id: fv.id,
@@ -189,7 +204,7 @@ class SyncRepositoryImpl implements SyncRepository {
           'id': fv.id,
           'item_id': fv.itemId,
           'field_definition_id': fv.fieldDefinitionId,
-          'value': fv.value != null ? jsonEncode(fv.value) : null,
+          'value': syncValue != null ? jsonEncode(syncValue) : null,
           'updated_at': fv.updatedAt.toUtc().toIso8601String(),
         },
       ));
@@ -299,14 +314,62 @@ class SyncRepositoryImpl implements SyncRepository {
   Future<void> _applyFieldValueChange(SyncChange change) async {
     if (change.action == 'delete') return;
     final data = change.data!;
+    dynamic value =
+        data['value'] != null ? jsonDecode(data['value'] as String) : null;
+
+    // Download server images and cache them locally
+    if (value is String && _isServerFileId(value)) {
+      try {
+        value = await _downloadAndCacheImage(value);
+      } catch (_) {
+        // Keep file_id on failure; display shows nothing but data is preserved
+      }
+    }
+
     final fieldValue = FieldValue(
       id: data['id'] as String,
       itemId: data['item_id'] as String,
       fieldDefinitionId: data['field_definition_id'] as String,
-      value: data['value'] != null ? jsonDecode(data['value'] as String) : null,
+      value: value,
       updatedAt: DateTime.parse(data['updated_at'] as String),
     );
     await _itemDs.upsertFieldValueFromServer(fieldValue);
+  }
+
+  /// Returns true if the value is a local file path pointing to an existing file.
+  bool _isLocalImagePath(dynamic value) {
+    if (value is! String) return false;
+    if (!value.startsWith('/')) return false;
+    return File(value).existsSync();
+  }
+
+  /// Returns true if the value matches the server file_id format `img_<uuid>`.
+  bool _isServerFileId(String value) {
+    return RegExp(
+      r'^img_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+    ).hasMatch(value);
+  }
+
+  /// Download a server file by file_id, save it to the local images cache,
+  /// and return the local file path.
+  Future<String> _downloadAndCacheImage(String fileId) async {
+    final (bytes, contentType) = await _apiClient.downloadFile(fileId);
+
+    final ext = switch (contentType.split(';').first.trim()) {
+      'image/jpeg' => '.jpg',
+      'image/png'  => '.png',
+      'image/webp' => '.webp',
+      'image/gif'  => '.gif',
+      _            => '.jpg',
+    };
+
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final imagesDir = Directory('${appDocDir.path}/toutim_images');
+    await imagesDir.create(recursive: true);
+
+    final filePath = '${imagesDir.path}/$fileId$ext';
+    await File(filePath).writeAsBytes(bytes);
+    return filePath;
   }
 
   ViewMode _parseViewMode(dynamic value) {

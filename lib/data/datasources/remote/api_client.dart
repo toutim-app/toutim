@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -255,6 +256,46 @@ class ApiClient {
     } catch (_) {
       return 'Erreur ${response.statusCode}';
     }
+  }
+
+  // ── File upload/download ───────────────────────────────
+
+  /// Upload a local image file and return the server file_id.
+  Future<String> uploadFile(File file) async {
+    return _doUpload(file, retried: false);
+  }
+
+  Future<String> _doUpload(File file, {required bool retried}) async {
+    final accessToken = await _secureStorage.read(key: _kAccessToken);
+    final uri = Uri.parse('$serverUrl/api/files/upload');
+    final request = http.MultipartRequest('POST', uri)
+      ..headers['Authorization'] = 'Bearer ${accessToken ?? ""}'
+      ..files.add(await http.MultipartFile.fromPath('file', file.path));
+
+    final streamed = await _httpClient.send(request);
+    final response = await http.Response.fromStream(streamed);
+
+    if (response.statusCode == 401 && !retried) {
+      final refreshed = await _refreshToken();
+      if (!refreshed) {
+        await _clearTokens();
+        throw const ApiException(401, 'Session expirée, veuillez vous reconnecter');
+      }
+      return _doUpload(file, retried: true);
+    }
+    if (response.statusCode >= 400) {
+      throw ApiException(response.statusCode, _extractError(response));
+    }
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return data['file_id'] as String;
+  }
+
+  /// Download a server file by its file_id.
+  /// Returns raw bytes and the content-type header value.
+  Future<(Uint8List, String)> downloadFile(String fileId) async {
+    final response = await _authRequest('GET', '/api/files/$fileId');
+    final contentType = response.headers['content-type'] ?? 'image/jpeg';
+    return (response.bodyBytes, contentType);
   }
 }
 
