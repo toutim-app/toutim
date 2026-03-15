@@ -169,24 +169,32 @@ class _AllItemsWithFieldsStreamProviderElement
       (origin as AllItemsWithFieldsStreamProvider).collectionId;
 }
 
-String _$filterableFieldsHash() => r'f5c4249073e056ac4bec57fa8c8cbdcc3d8ceb98';
+String _$filterableFieldsHash() => r'c9e75b21ca0b1a2347e1a8d4380fffa12ed0ce55';
 
 /// Extracts field definitions that can be used as filters.
+/// - select/multiSelect: require predefined options in field definition
+/// - tags: always filterable (options are derived from item values at runtime)
 ///
 /// Copied from [filterableFields].
 @ProviderFor(filterableFields)
 const filterableFieldsProvider = FilterableFieldsFamily();
 
 /// Extracts field definitions that can be used as filters.
+/// - select/multiSelect: require predefined options in field definition
+/// - tags: always filterable (options are derived from item values at runtime)
 ///
 /// Copied from [filterableFields].
 class FilterableFieldsFamily extends Family<List<FieldDefinition>> {
   /// Extracts field definitions that can be used as filters.
+  /// - select/multiSelect: require predefined options in field definition
+  /// - tags: always filterable (options are derived from item values at runtime)
   ///
   /// Copied from [filterableFields].
   const FilterableFieldsFamily();
 
   /// Extracts field definitions that can be used as filters.
+  /// - select/multiSelect: require predefined options in field definition
+  /// - tags: always filterable (options are derived from item values at runtime)
   ///
   /// Copied from [filterableFields].
   FilterableFieldsProvider call(String collectionId) {
@@ -216,11 +224,15 @@ class FilterableFieldsFamily extends Family<List<FieldDefinition>> {
 }
 
 /// Extracts field definitions that can be used as filters.
+/// - select/multiSelect: require predefined options in field definition
+/// - tags: always filterable (options are derived from item values at runtime)
 ///
 /// Copied from [filterableFields].
 class FilterableFieldsProvider
     extends AutoDisposeProvider<List<FieldDefinition>> {
   /// Extracts field definitions that can be used as filters.
+  /// - select/multiSelect: require predefined options in field definition
+  /// - tags: always filterable (options are derived from item values at runtime)
   ///
   /// Copied from [filterableFields].
   FilterableFieldsProvider(String collectionId)
@@ -301,6 +313,146 @@ class _FilterableFieldsProviderElement
 
   @override
   String get collectionId => (origin as FilterableFieldsProvider).collectionId;
+}
+
+String _$uniqueTagValuesHash() => r'2ce58f0507c49c4aa8ac00c3a15b2d04c2e6673f';
+
+/// Collects unique tag values used across all items for each tags field.
+/// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+///
+/// Copied from [uniqueTagValues].
+@ProviderFor(uniqueTagValues)
+const uniqueTagValuesProvider = UniqueTagValuesFamily();
+
+/// Collects unique tag values used across all items for each tags field.
+/// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+///
+/// Copied from [uniqueTagValues].
+class UniqueTagValuesFamily extends Family<Map<String, List<String>>> {
+  /// Collects unique tag values used across all items for each tags field.
+  /// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+  ///
+  /// Copied from [uniqueTagValues].
+  const UniqueTagValuesFamily();
+
+  /// Collects unique tag values used across all items for each tags field.
+  /// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+  ///
+  /// Copied from [uniqueTagValues].
+  UniqueTagValuesProvider call(String collectionId) {
+    return UniqueTagValuesProvider(collectionId);
+  }
+
+  @override
+  UniqueTagValuesProvider getProviderOverride(
+    covariant UniqueTagValuesProvider provider,
+  ) {
+    return call(provider.collectionId);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'uniqueTagValuesProvider';
+}
+
+/// Collects unique tag values used across all items for each tags field.
+/// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+///
+/// Copied from [uniqueTagValues].
+class UniqueTagValuesProvider
+    extends AutoDisposeProvider<Map<String, List<String>>> {
+  /// Collects unique tag values used across all items for each tags field.
+  /// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+  ///
+  /// Copied from [uniqueTagValues].
+  UniqueTagValuesProvider(String collectionId)
+    : this._internal(
+        (ref) => uniqueTagValues(ref as UniqueTagValuesRef, collectionId),
+        from: uniqueTagValuesProvider,
+        name: r'uniqueTagValuesProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$uniqueTagValuesHash,
+        dependencies: UniqueTagValuesFamily._dependencies,
+        allTransitiveDependencies:
+            UniqueTagValuesFamily._allTransitiveDependencies,
+        collectionId: collectionId,
+      );
+
+  UniqueTagValuesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.collectionId,
+  }) : super.internal();
+
+  final String collectionId;
+
+  @override
+  Override overrideWith(
+    Map<String, List<String>> Function(UniqueTagValuesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UniqueTagValuesProvider._internal(
+        (ref) => create(ref as UniqueTagValuesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        collectionId: collectionId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<Map<String, List<String>>> createElement() {
+    return _UniqueTagValuesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UniqueTagValuesProvider &&
+        other.collectionId == collectionId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, collectionId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UniqueTagValuesRef on AutoDisposeProviderRef<Map<String, List<String>>> {
+  /// The parameter `collectionId` of this provider.
+  String get collectionId;
+}
+
+class _UniqueTagValuesProviderElement
+    extends AutoDisposeProviderElement<Map<String, List<String>>>
+    with UniqueTagValuesRef {
+  _UniqueTagValuesProviderElement(super.provider);
+
+  @override
+  String get collectionId => (origin as UniqueTagValuesProvider).collectionId;
 }
 
 String _$filteredItemsHash() => r'f911489ada062403b241bf7cf15d9c39ac1eb06b';

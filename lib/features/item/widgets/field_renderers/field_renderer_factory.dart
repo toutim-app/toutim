@@ -11,6 +11,7 @@ import 'rating_field_renderer.dart';
 import 'select_field_renderer.dart';
 import 'text_area_renderer.dart';
 import 'text_field_renderer.dart';
+import 'tags_field_renderer.dart';
 import 'tracker_field_renderer.dart';
 import 'unsupported_field_renderer.dart';
 
@@ -86,6 +87,13 @@ Widget buildFieldRenderer({
         value: value,
         onChanged: onChanged,
         collectionColor: collectionColor ?? AppColors.blue,
+      ),
+    FieldType.tags =>
+      TagsFieldRenderer(
+        key: ValueKey(definition.id),
+        definition: definition,
+        value: value,
+        onChanged: onChanged,
       ),
     _ =>
       UnsupportedFieldRenderer(

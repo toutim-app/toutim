@@ -35,6 +35,8 @@ const _filterableTypes = {
 };
 
 /// Extracts field definitions that can be used as filters.
+/// - select/multiSelect: require predefined options in field definition
+/// - tags: always filterable (options are derived from item values at runtime)
 @riverpod
 List<FieldDefinition> filterableFields(
   FilterableFieldsRef ref,
@@ -44,11 +46,42 @@ List<FieldDefinition> filterableFields(
   return fieldsAsync.when(
     data: (fields) => fields.where((f) {
       if (!_filterableTypes.contains(f.type)) return false;
+      if (f.type == FieldType.tags) return true;
       final opts = f.options['options'];
       return opts is List && opts.isNotEmpty;
     }).toList(),
     loading: () => [],
     error: (_, _) => [],
+  );
+}
+
+/// Collects unique tag values used across all items for each tags field.
+/// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
+@riverpod
+Map<String, List<String>> uniqueTagValues(
+  UniqueTagValuesRef ref,
+  String collectionId,
+) {
+  final allItemsAsync =
+      ref.watch(allItemsWithFieldsStreamProvider(collectionId));
+  return allItemsAsync.when(
+    data: (items) {
+      final result = <String, Set<String>>{};
+      for (final item in items) {
+        for (final entry in item.fieldValues.entries) {
+          final val = entry.value.value;
+          if (val is List) {
+            final strings = val.whereType<String>().toList();
+            if (strings.isNotEmpty) {
+              result.putIfAbsent(entry.key, () => {}).addAll(strings);
+            }
+          }
+        }
+      }
+      return result.map((k, v) => MapEntry(k, v.toList()..sort()));
+    },
+    loading: () => {},
+    error: (_, _) => {},
   );
 }
 

@@ -13,6 +13,7 @@ import 'rating_display_renderer.dart';
 import 'select_display_renderer.dart';
 import 'text_area_display_renderer.dart';
 import 'text_display_renderer.dart';
+import 'tags_display_renderer.dart';
 import 'tracker_display_renderer.dart';
 import 'unsupported_display_renderer.dart';
 import 'url_display_renderer.dart';
@@ -98,6 +99,12 @@ Widget buildFieldDisplayRenderer({
         value: value,
         collectionColor: collectionColor,
         onChanged: onChanged,
+      ),
+    FieldType.tags => TagsDisplayRenderer(
+        key: ValueKey(definition.id),
+        definition: definition,
+        value: value,
+        collectionColor: collectionColor,
       ),
     _ => UnsupportedDisplayRenderer(
         key: ValueKey(definition.id),

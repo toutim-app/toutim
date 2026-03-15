@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/extensions/color_extensions.dart';
+import '../../../data/models/enums/field_type.dart';
 import '../../../data/models/field_definition.dart';
 import '../providers/filter_providers.dart';
 
@@ -23,6 +24,7 @@ class CollectionFilterBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filters = ref.watch(collectionFiltersProvider(collectionId));
     final hasActiveFilters = filters.values.any((s) => s.isNotEmpty);
+    final uniqueTags = ref.watch(uniqueTagValuesProvider(collectionId));
 
     return SizedBox(
       height: 48,
@@ -47,8 +49,8 @@ class CollectionFilterBar extends ConsumerWidget {
                 isActive: selected.isNotEmpty,
                 selectedCount: selected.length,
                 collectionColor: collectionColor,
-                onTap: () =>
-                    _showFilterOptions(context, ref, field, selected),
+                onTap: () => _showFilterOptions(
+                    context, ref, field, selected, uniqueTags),
               ),
             );
           }),
@@ -62,9 +64,14 @@ class CollectionFilterBar extends ConsumerWidget {
     WidgetRef ref,
     FieldDefinition field,
     Set<String> currentSelection,
+    Map<String, List<String>> uniqueTags,
   ) {
-    final options =
-        (field.options['options'] as List?)?.cast<String>() ?? [];
+    final List<String> options;
+    if (field.type == FieldType.tags) {
+      options = uniqueTags[field.id] ?? [];
+    } else {
+      options = (field.options['options'] as List?)?.cast<String>() ?? [];
+    }
     if (options.isEmpty) return;
 
     showModalBottomSheet(
