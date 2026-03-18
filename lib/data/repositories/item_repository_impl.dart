@@ -1,6 +1,7 @@
 import 'package:uuid/uuid.dart';
 
 import '../datasources/local/item_local_datasource.dart';
+import '../models/enums/sync_status.dart';
 import '../models/field_value.dart';
 import '../models/item.dart';
 import '../models/item_with_fields.dart';
@@ -70,7 +71,10 @@ class ItemRepositoryImpl implements ItemRepository {
     if (existing == null) return;
 
     final now = DateTime.now();
-    final updatedItem = existing.copyWith(updatedAt: now);
+    final updatedItem = existing.copyWith(
+      updatedAt: now,
+      syncStatus: SyncStatus.pending,
+    );
 
     final existingValues = await _localDataSource.getFieldValues(itemId);
     final existingMap = {
