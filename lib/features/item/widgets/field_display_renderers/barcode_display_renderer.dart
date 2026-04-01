@@ -78,54 +78,58 @@ class BarcodeDisplayRenderer extends StatelessWidget {
               ),
         ),
         const SizedBox(height: 8),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: context.appSurface,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: context.appBorder),
-          ),
-          child: Column(
-            children: [
-              BarcodeWidget(
-                barcode: _resolveBarcode(),
-                data: data,
-                width: _isQrLike ? 180 : double.infinity,
-                height: _isQrLike ? 180 : 80,
-                color: context.appTextPrimary,
-                backgroundColor: context.appSurface,
-                drawText: false,
-                errorBuilder: (context, error) => Column(
-                  children: [
-                    Text(
-                      data,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: context.appTextPrimary,
-                            fontFamily: 'monospace',
-                            letterSpacing: 2,
-                          ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Format incompatible avec les données',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColors.orange,
-                          ),
-                    ),
-                  ],
+        Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: _isQrLike ? 220 : 280,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: context.appBorder),
+            ),
+            child: Column(
+              children: [
+                BarcodeWidget(
+                  barcode: _resolveBarcode(),
+                  data: data,
+                  width: _isQrLike ? 180 : double.infinity,
+                  height: _isQrLike ? 180 : 80,
+                  color: Colors.black,
+                  backgroundColor: Colors.white,
+                  drawText: false,
+                  errorBuilder: (context, error) => Column(
+                    children: [
+                      Text(
+                        data,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Colors.black87,
+                              fontFamily: 'monospace',
+                              letterSpacing: 2,
+                            ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Format incompatible avec les données',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.orange,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                data,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: context.appTextSecondary,
-                      letterSpacing: 2,
-                      fontFamily: 'monospace',
-                    ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                Text(
+                  data,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.black54,
+                        letterSpacing: 2,
+                        fontFamily: 'monospace',
+                      ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
