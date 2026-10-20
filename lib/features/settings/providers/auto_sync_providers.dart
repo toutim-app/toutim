@@ -91,9 +91,9 @@ class SyncManager extends _$SyncManager {
 
     _cancelTimers();
 
-    final enabled = enabledAsync.valueOrNull ?? false;
-    final interval = intervalAsync.valueOrNull ?? SyncInterval.fiveMinutes;
-    final isLoggedIn = authAsync.valueOrNull == AuthState.loggedIn;
+    final enabled = enabledAsync.value ?? false;
+    final interval = intervalAsync.value ?? SyncInterval.fiveMinutes;
+    final isLoggedIn = authAsync.value == AuthState.loggedIn;
 
     if (!enabled || !isLoggedIn) return;
 
@@ -118,8 +118,8 @@ class SyncManager extends _$SyncManager {
     final enabledAsync = ref.read(autoSyncEnabledProvider);
     final authAsync = ref.read(authStateProvider);
 
-    final enabled = enabledAsync.valueOrNull ?? false;
-    final isLoggedIn = authAsync.valueOrNull == AuthState.loggedIn;
+    final enabled = enabledAsync.value ?? false;
+    final isLoggedIn = authAsync.value == AuthState.loggedIn;
 
     if (enabled && isLoggedIn) {
       _performSync();

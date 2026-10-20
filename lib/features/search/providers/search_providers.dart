@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/models/collection.dart';
@@ -22,7 +22,7 @@ class SearchResults {
 
 /// Searches collections and items matching the query.
 @riverpod
-Future<SearchResults> searchResults(SearchResultsRef ref) async {
+Future<SearchResults> searchResults(Ref ref) async {
   final query = ref.watch(searchQueryProvider).trim();
   if (query.length < 2) {
     return const SearchResults(collections: [], items: []);

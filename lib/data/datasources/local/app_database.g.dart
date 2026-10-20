@@ -2458,10 +2458,7 @@ final class $$CollectionsTableReferences
   static MultiTypedResultKey<$FieldDefinitionsTable, List<FieldDefinition>>
   _fieldDefinitionsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
     db.fieldDefinitions,
-    aliasName: $_aliasNameGenerator(
-      db.collections.id,
-      db.fieldDefinitions.collectionId,
-    ),
+    aliasName: 'collections__id__field_definitions__collection_id',
   );
 
   $$FieldDefinitionsTableProcessedTableManager get fieldDefinitionsRefs {
@@ -2482,7 +2479,7 @@ final class $$CollectionsTableReferences
     _$AppDatabase db,
   ) => MultiTypedResultKey.fromTable(
     db.items,
-    aliasName: $_aliasNameGenerator(db.collections.id, db.items.collectionId),
+    aliasName: 'collections__id__items__collection_id',
   );
 
   $$ItemsTableProcessedTableManager get itemsRefs {
@@ -2879,7 +2876,7 @@ class $$CollectionsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$CollectionsTable, Collection>(table),
                   $$CollectionsTableReferences(db, table, e),
                 ),
               )
@@ -3005,13 +3002,9 @@ final class $$FieldDefinitionsTableReferences
     super.$_typedResult,
   );
 
-  static $CollectionsTable _collectionIdTable(_$AppDatabase db) =>
-      db.collections.createAlias(
-        $_aliasNameGenerator(
-          db.fieldDefinitions.collectionId,
-          db.collections.id,
-        ),
-      );
+  static $CollectionsTable _collectionIdTable(_$AppDatabase db) => db
+      .collections
+      .createAlias('field_definitions__collection_id__collections__id');
 
   $$CollectionsTableProcessedTableManager get collectionId {
     final $_column = $_itemColumn<String>('collection_id')!;
@@ -3030,10 +3023,7 @@ final class $$FieldDefinitionsTableReferences
   static MultiTypedResultKey<$ItemFieldValuesTable, List<ItemFieldValue>>
   _itemFieldValuesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
     db.itemFieldValues,
-    aliasName: $_aliasNameGenerator(
-      db.fieldDefinitions.id,
-      db.itemFieldValues.fieldDefinitionId,
-    ),
+    aliasName: 'field_definitions__id__item_field_values__field_definition_id',
   );
 
   $$ItemFieldValuesTableProcessedTableManager get itemFieldValuesRefs {
@@ -3480,7 +3470,7 @@ class $$FieldDefinitionsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$FieldDefinitionsTable, FieldDefinition>(table),
                   $$FieldDefinitionsTableReferences(db, table, e),
                 ),
               )
@@ -3599,9 +3589,7 @@ final class $$ItemsTableReferences
   $$ItemsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $CollectionsTable _collectionIdTable(_$AppDatabase db) =>
-      db.collections.createAlias(
-        $_aliasNameGenerator(db.items.collectionId, db.collections.id),
-      );
+      db.collections.createAlias('items__collection_id__collections__id');
 
   $$CollectionsTableProcessedTableManager get collectionId {
     final $_column = $_itemColumn<String>('collection_id')!;
@@ -3620,7 +3608,7 @@ final class $$ItemsTableReferences
   static MultiTypedResultKey<$ItemFieldValuesTable, List<ItemFieldValue>>
   _itemFieldValuesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
     db.itemFieldValues,
-    aliasName: $_aliasNameGenerator(db.items.id, db.itemFieldValues.itemId),
+    aliasName: 'items__id__item_field_values__item_id',
   );
 
   $$ItemFieldValuesTableProcessedTableManager get itemFieldValuesRefs {
@@ -3934,8 +3922,10 @@ class $$ItemsTableTableManager
               ),
           withReferenceMapper: (p0) => p0
               .map(
-                (e) =>
-                    (e.readTable(table), $$ItemsTableReferences(db, table, e)),
+                (e) => (
+                  e.readTable<$ItemsTable, Item>(table),
+                  $$ItemsTableReferences(db, table, e),
+                ),
               )
               .toList(),
           prefetchHooksCallback:
@@ -4050,9 +4040,8 @@ final class $$ItemFieldValuesTableReferences
     super.$_typedResult,
   );
 
-  static $ItemsTable _itemIdTable(_$AppDatabase db) => db.items.createAlias(
-    $_aliasNameGenerator(db.itemFieldValues.itemId, db.items.id),
-  );
+  static $ItemsTable _itemIdTable(_$AppDatabase db) =>
+      db.items.createAlias('item_field_values__item_id__items__id');
 
   $$ItemsTableProcessedTableManager get itemId {
     final $_column = $_itemColumn<String>('item_id')!;
@@ -4070,10 +4059,7 @@ final class $$ItemFieldValuesTableReferences
 
   static $FieldDefinitionsTable _fieldDefinitionIdTable(_$AppDatabase db) =>
       db.fieldDefinitions.createAlias(
-        $_aliasNameGenerator(
-          db.itemFieldValues.fieldDefinitionId,
-          db.fieldDefinitions.id,
-        ),
+        'item_field_values__field_definition_id__field_definitions__id',
       );
 
   $$FieldDefinitionsTableProcessedTableManager get fieldDefinitionId {
@@ -4361,7 +4347,7 @@ class $$ItemFieldValuesTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ItemFieldValuesTable, ItemFieldValue>(table),
                   $$ItemFieldValuesTableReferences(db, table, e),
                 ),
               )

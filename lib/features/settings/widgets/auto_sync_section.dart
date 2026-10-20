@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
@@ -58,9 +58,9 @@ class AutoSyncSection extends ConsumerWidget {
                   );
                 }
 
-                final enabled = enabledAsync.valueOrNull ?? false;
+                final enabled = enabledAsync.value ?? false;
                 final interval =
-                    intervalAsync.valueOrNull ?? SyncInterval.fiveMinutes;
+                    intervalAsync.value ?? SyncInterval.fiveMinutes;
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

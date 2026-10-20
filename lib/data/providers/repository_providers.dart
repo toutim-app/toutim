@@ -12,20 +12,20 @@ part 'repository_providers.g.dart';
 
 /// Provides the [CollectionRepository] implementation.
 @Riverpod(keepAlive: true)
-CollectionRepository collectionRepository(CollectionRepositoryRef ref) {
+CollectionRepository collectionRepository(Ref ref) {
   return CollectionRepositoryImpl(
       ref.watch(collectionLocalDataSourceProvider));
 }
 
 /// Provides the [ItemRepository] implementation.
 @Riverpod(keepAlive: true)
-ItemRepository itemRepository(ItemRepositoryRef ref) {
+ItemRepository itemRepository(Ref ref) {
   return ItemRepositoryImpl(ref.watch(itemLocalDataSourceProvider));
 }
 
 /// Provides the [SyncRepository] implementation.
 @Riverpod(keepAlive: true)
-Future<SyncRepository> syncRepository(SyncRepositoryRef ref) async {
+Future<SyncRepository> syncRepository(Ref ref) async {
   final apiClient = await ref.watch(apiClientProvider.future);
   final collectionDs = ref.watch(collectionLocalDataSourceProvider);
   final itemDs = ref.watch(itemLocalDataSourceProvider);

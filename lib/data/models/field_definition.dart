@@ -6,7 +6,7 @@ part 'field_definition.freezed.dart';
 part 'field_definition.g.dart';
 
 @freezed
-class FieldDefinition with _$FieldDefinition {
+abstract class FieldDefinition with _$FieldDefinition {
   const factory FieldDefinition({
     required String id,
     required String collectionId,

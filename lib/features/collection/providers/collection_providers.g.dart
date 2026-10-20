@@ -6,565 +6,337 @@ part of 'collection_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$collectionByIdHash() => r'ce57d4acda9a6aaf34a2ac25fb71f42ede26e16d';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 /// Fetches a single collection by id.
-///
-/// Copied from [collectionById].
+
 @ProviderFor(collectionById)
-const collectionByIdProvider = CollectionByIdFamily();
+final collectionByIdProvider = CollectionByIdFamily._();
 
 /// Fetches a single collection by id.
-///
-/// Copied from [collectionById].
-class CollectionByIdFamily extends Family<AsyncValue<Collection?>> {
-  /// Fetches a single collection by id.
-  ///
-  /// Copied from [collectionById].
-  const CollectionByIdFamily();
 
+final class CollectionByIdProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Collection?>,
+          Collection?,
+          FutureOr<Collection?>
+        >
+    with $FutureModifier<Collection?>, $FutureProvider<Collection?> {
   /// Fetches a single collection by id.
-  ///
-  /// Copied from [collectionById].
-  CollectionByIdProvider call(String collectionId) {
-    return CollectionByIdProvider(collectionId);
+  CollectionByIdProvider._({
+    required CollectionByIdFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'collectionByIdProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$collectionByIdHash();
+
+  @override
+  String toString() {
+    return r'collectionByIdProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  CollectionByIdProvider getProviderOverride(
-    covariant CollectionByIdProvider provider,
-  ) {
-    return call(provider.collectionId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<Collection?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'collectionByIdProvider';
-}
-
-/// Fetches a single collection by id.
-///
-/// Copied from [collectionById].
-class CollectionByIdProvider extends AutoDisposeFutureProvider<Collection?> {
-  /// Fetches a single collection by id.
-  ///
-  /// Copied from [collectionById].
-  CollectionByIdProvider(String collectionId)
-    : this._internal(
-        (ref) => collectionById(ref as CollectionByIdRef, collectionId),
-        from: collectionByIdProvider,
-        name: r'collectionByIdProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$collectionByIdHash,
-        dependencies: CollectionByIdFamily._dependencies,
-        allTransitiveDependencies:
-            CollectionByIdFamily._allTransitiveDependencies,
-        collectionId: collectionId,
-      );
-
-  CollectionByIdProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.collectionId,
-  }) : super.internal();
-
-  final String collectionId;
-
-  @override
-  Override overrideWith(
-    FutureOr<Collection?> Function(CollectionByIdRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: CollectionByIdProvider._internal(
-        (ref) => create(ref as CollectionByIdRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        collectionId: collectionId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Collection?> createElement() {
-    return _CollectionByIdProviderElement(this);
+  FutureOr<Collection?> create(Ref ref) {
+    final argument = this.argument as String;
+    return collectionById(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CollectionByIdProvider &&
-        other.collectionId == collectionId;
+    return other is CollectionByIdProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, collectionId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin CollectionByIdRef on AutoDisposeFutureProviderRef<Collection?> {
-  /// The parameter `collectionId` of this provider.
-  String get collectionId;
-}
+String _$collectionByIdHash() => r'7c5f4eaf3a5475731b95693a2d512c396ea93456';
 
-class _CollectionByIdProviderElement
-    extends AutoDisposeFutureProviderElement<Collection?>
-    with CollectionByIdRef {
-  _CollectionByIdProviderElement(super.provider);
+/// Fetches a single collection by id.
 
-  @override
-  String get collectionId => (origin as CollectionByIdProvider).collectionId;
-}
-
-String _$fieldDefinitionsStreamHash() =>
-    r'23f69c1585c4ab26dff1461fde1c79acf6afc8b6';
-
-/// Watches field definitions for a specific collection.
-///
-/// Copied from [fieldDefinitionsStream].
-@ProviderFor(fieldDefinitionsStream)
-const fieldDefinitionsStreamProvider = FieldDefinitionsStreamFamily();
-
-/// Watches field definitions for a specific collection.
-///
-/// Copied from [fieldDefinitionsStream].
-class FieldDefinitionsStreamFamily
-    extends Family<AsyncValue<List<FieldDefinition>>> {
-  /// Watches field definitions for a specific collection.
-  ///
-  /// Copied from [fieldDefinitionsStream].
-  const FieldDefinitionsStreamFamily();
-
-  /// Watches field definitions for a specific collection.
-  ///
-  /// Copied from [fieldDefinitionsStream].
-  FieldDefinitionsStreamProvider call(String collectionId) {
-    return FieldDefinitionsStreamProvider(collectionId);
-  }
-
-  @override
-  FieldDefinitionsStreamProvider getProviderOverride(
-    covariant FieldDefinitionsStreamProvider provider,
-  ) {
-    return call(provider.collectionId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fieldDefinitionsStreamProvider';
-}
-
-/// Watches field definitions for a specific collection.
-///
-/// Copied from [fieldDefinitionsStream].
-class FieldDefinitionsStreamProvider
-    extends AutoDisposeStreamProvider<List<FieldDefinition>> {
-  /// Watches field definitions for a specific collection.
-  ///
-  /// Copied from [fieldDefinitionsStream].
-  FieldDefinitionsStreamProvider(String collectionId)
-    : this._internal(
-        (ref) => fieldDefinitionsStream(
-          ref as FieldDefinitionsStreamRef,
-          collectionId,
-        ),
-        from: fieldDefinitionsStreamProvider,
-        name: r'fieldDefinitionsStreamProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$fieldDefinitionsStreamHash,
-        dependencies: FieldDefinitionsStreamFamily._dependencies,
-        allTransitiveDependencies:
-            FieldDefinitionsStreamFamily._allTransitiveDependencies,
-        collectionId: collectionId,
+final class CollectionByIdFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Collection?>, String> {
+  CollectionByIdFamily._()
+    : super(
+        retry: null,
+        name: r'collectionByIdProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
-  FieldDefinitionsStreamProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.collectionId,
-  }) : super.internal();
+  /// Fetches a single collection by id.
 
-  final String collectionId;
+  CollectionByIdProvider call(String collectionId) =>
+      CollectionByIdProvider._(argument: collectionId, from: this);
 
   @override
-  Override overrideWith(
-    Stream<List<FieldDefinition>> Function(FieldDefinitionsStreamRef provider)
-    create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FieldDefinitionsStreamProvider._internal(
-        (ref) => create(ref as FieldDefinitionsStreamRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        collectionId: collectionId,
-      ),
-    );
+  String toString() => r'collectionByIdProvider';
+}
+
+/// Watches field definitions for a specific collection.
+
+@ProviderFor(fieldDefinitionsStream)
+final fieldDefinitionsStreamProvider = FieldDefinitionsStreamFamily._();
+
+/// Watches field definitions for a specific collection.
+
+final class FieldDefinitionsStreamProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<FieldDefinition>>,
+          List<FieldDefinition>,
+          Stream<List<FieldDefinition>>
+        >
+    with
+        $FutureModifier<List<FieldDefinition>>,
+        $StreamProvider<List<FieldDefinition>> {
+  /// Watches field definitions for a specific collection.
+  FieldDefinitionsStreamProvider._({
+    required FieldDefinitionsStreamFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'fieldDefinitionsStreamProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$fieldDefinitionsStreamHash();
+
+  @override
+  String toString() {
+    return r'fieldDefinitionsStreamProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeStreamProviderElement<List<FieldDefinition>> createElement() {
-    return _FieldDefinitionsStreamProviderElement(this);
+  $StreamProviderElement<List<FieldDefinition>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<FieldDefinition>> create(Ref ref) {
+    final argument = this.argument as String;
+    return fieldDefinitionsStream(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
     return other is FieldDefinitionsStreamProvider &&
-        other.collectionId == collectionId;
+        other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, collectionId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin FieldDefinitionsStreamRef
-    on AutoDisposeStreamProviderRef<List<FieldDefinition>> {
-  /// The parameter `collectionId` of this provider.
-  String get collectionId;
-}
+String _$fieldDefinitionsStreamHash() =>
+    r'7bab79d7ef3bd60ccada9979c19fce4d46b16f85';
 
-class _FieldDefinitionsStreamProviderElement
-    extends AutoDisposeStreamProviderElement<List<FieldDefinition>>
-    with FieldDefinitionsStreamRef {
-  _FieldDefinitionsStreamProviderElement(super.provider);
+/// Watches field definitions for a specific collection.
+
+final class FieldDefinitionsStreamFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<List<FieldDefinition>>, String> {
+  FieldDefinitionsStreamFamily._()
+    : super(
+        retry: null,
+        name: r'fieldDefinitionsStreamProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Watches field definitions for a specific collection.
+
+  FieldDefinitionsStreamProvider call(String collectionId) =>
+      FieldDefinitionsStreamProvider._(argument: collectionId, from: this);
 
   @override
-  String get collectionId =>
-      (origin as FieldDefinitionsStreamProvider).collectionId;
+  String toString() => r'fieldDefinitionsStreamProvider';
 }
 
-String _$itemsStreamHash() => r'd0d2e55711023bc0f4781234354e5b828a0a6737';
-
 /// Watches items for a specific collection.
-///
-/// Copied from [itemsStream].
+
 @ProviderFor(itemsStream)
-const itemsStreamProvider = ItemsStreamFamily();
+final itemsStreamProvider = ItemsStreamFamily._();
 
 /// Watches items for a specific collection.
-///
-/// Copied from [itemsStream].
-class ItemsStreamFamily extends Family<AsyncValue<List<Item>>> {
-  /// Watches items for a specific collection.
-  ///
-  /// Copied from [itemsStream].
-  const ItemsStreamFamily();
 
+final class ItemsStreamProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Item>>,
+          List<Item>,
+          Stream<List<Item>>
+        >
+    with $FutureModifier<List<Item>>, $StreamProvider<List<Item>> {
   /// Watches items for a specific collection.
-  ///
-  /// Copied from [itemsStream].
-  ItemsStreamProvider call(String collectionId) {
-    return ItemsStreamProvider(collectionId);
+  ItemsStreamProvider._({
+    required ItemsStreamFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'itemsStreamProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$itemsStreamHash();
+
+  @override
+  String toString() {
+    return r'itemsStreamProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $StreamProviderElement<List<Item>> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<Item>> create(Ref ref) {
+    final argument = this.argument as String;
+    return itemsStream(ref, argument);
   }
 
   @override
-  ItemsStreamProvider getProviderOverride(
-    covariant ItemsStreamProvider provider,
-  ) {
-    return call(provider.collectionId);
+  bool operator ==(Object other) {
+    return other is ItemsStreamProvider && other.argument == argument;
   }
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'itemsStreamProvider';
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
+String _$itemsStreamHash() => r'b2c63c09f2950e22f82476f2f982a09902e1547f';
+
 /// Watches items for a specific collection.
-///
-/// Copied from [itemsStream].
-class ItemsStreamProvider extends AutoDisposeStreamProvider<List<Item>> {
-  /// Watches items for a specific collection.
-  ///
-  /// Copied from [itemsStream].
-  ItemsStreamProvider(String collectionId)
-    : this._internal(
-        (ref) => itemsStream(ref as ItemsStreamRef, collectionId),
-        from: itemsStreamProvider,
+
+final class ItemsStreamFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<List<Item>>, String> {
+  ItemsStreamFamily._()
+    : super(
+        retry: null,
         name: r'itemsStreamProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$itemsStreamHash,
-        dependencies: ItemsStreamFamily._dependencies,
-        allTransitiveDependencies: ItemsStreamFamily._allTransitiveDependencies,
-        collectionId: collectionId,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
-  ItemsStreamProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.collectionId,
-  }) : super.internal();
+  /// Watches items for a specific collection.
 
-  final String collectionId;
+  ItemsStreamProvider call(String collectionId) =>
+      ItemsStreamProvider._(argument: collectionId, from: this);
 
   @override
-  Override overrideWith(
-    Stream<List<Item>> Function(ItemsStreamRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ItemsStreamProvider._internal(
-        (ref) => create(ref as ItemsStreamRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        collectionId: collectionId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeStreamProviderElement<List<Item>> createElement() {
-    return _ItemsStreamProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is ItemsStreamProvider && other.collectionId == collectionId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, collectionId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
+  String toString() => r'itemsStreamProvider';
 }
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ItemsStreamRef on AutoDisposeStreamProviderRef<List<Item>> {
-  /// The parameter `collectionId` of this provider.
-  String get collectionId;
-}
-
-class _ItemsStreamProviderElement
-    extends AutoDisposeStreamProviderElement<List<Item>>
-    with ItemsStreamRef {
-  _ItemsStreamProviderElement(super.provider);
-
-  @override
-  String get collectionId => (origin as ItemsStreamProvider).collectionId;
-}
-
-String _$itemCountStreamHash() => r'd90d66a4b0f8fd0df777ab26260cec5a7615a08c';
 
 /// Watches item count for a collection.
-///
-/// Copied from [itemCountStream].
+
 @ProviderFor(itemCountStream)
-const itemCountStreamProvider = ItemCountStreamFamily();
+final itemCountStreamProvider = ItemCountStreamFamily._();
 
 /// Watches item count for a collection.
-///
-/// Copied from [itemCountStream].
-class ItemCountStreamFamily extends Family<AsyncValue<int>> {
-  /// Watches item count for a collection.
-  ///
-  /// Copied from [itemCountStream].
-  const ItemCountStreamFamily();
 
+final class ItemCountStreamProvider
+    extends $FunctionalProvider<AsyncValue<int>, int, Stream<int>>
+    with $FutureModifier<int>, $StreamProvider<int> {
   /// Watches item count for a collection.
-  ///
-  /// Copied from [itemCountStream].
-  ItemCountStreamProvider call(String collectionId) {
-    return ItemCountStreamProvider(collectionId);
+  ItemCountStreamProvider._({
+    required ItemCountStreamFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'itemCountStreamProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$itemCountStreamHash();
+
+  @override
+  String toString() {
+    return r'itemCountStreamProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  ItemCountStreamProvider getProviderOverride(
-    covariant ItemCountStreamProvider provider,
-  ) {
-    return call(provider.collectionId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $StreamProviderElement<int> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'itemCountStreamProvider';
-}
-
-/// Watches item count for a collection.
-///
-/// Copied from [itemCountStream].
-class ItemCountStreamProvider extends AutoDisposeStreamProvider<int> {
-  /// Watches item count for a collection.
-  ///
-  /// Copied from [itemCountStream].
-  ItemCountStreamProvider(String collectionId)
-    : this._internal(
-        (ref) => itemCountStream(ref as ItemCountStreamRef, collectionId),
-        from: itemCountStreamProvider,
-        name: r'itemCountStreamProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$itemCountStreamHash,
-        dependencies: ItemCountStreamFamily._dependencies,
-        allTransitiveDependencies:
-            ItemCountStreamFamily._allTransitiveDependencies,
-        collectionId: collectionId,
-      );
-
-  ItemCountStreamProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.collectionId,
-  }) : super.internal();
-
-  final String collectionId;
-
-  @override
-  Override overrideWith(
-    Stream<int> Function(ItemCountStreamRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ItemCountStreamProvider._internal(
-        (ref) => create(ref as ItemCountStreamRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        collectionId: collectionId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeStreamProviderElement<int> createElement() {
-    return _ItemCountStreamProviderElement(this);
+  Stream<int> create(Ref ref) {
+    final argument = this.argument as String;
+    return itemCountStream(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ItemCountStreamProvider &&
-        other.collectionId == collectionId;
+    return other is ItemCountStreamProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, collectionId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ItemCountStreamRef on AutoDisposeStreamProviderRef<int> {
-  /// The parameter `collectionId` of this provider.
-  String get collectionId;
-}
+String _$itemCountStreamHash() => r'3fdf25c85b96c75a3db225a9f4748ae18b5e4f76';
 
-class _ItemCountStreamProviderElement
-    extends AutoDisposeStreamProviderElement<int>
-    with ItemCountStreamRef {
-  _ItemCountStreamProviderElement(super.provider);
+/// Watches item count for a collection.
+
+final class ItemCountStreamFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<int>, String> {
+  ItemCountStreamFamily._()
+    : super(
+        retry: null,
+        name: r'itemCountStreamProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Watches item count for a collection.
+
+  ItemCountStreamProvider call(String collectionId) =>
+      ItemCountStreamProvider._(argument: collectionId, from: this);
 
   @override
-  String get collectionId => (origin as ItemCountStreamProvider).collectionId;
+  String toString() => r'itemCountStreamProvider';
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

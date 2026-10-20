@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/extensions/collection_extensions.dart';
 import '../../../core/extensions/color_extensions.dart';
@@ -55,7 +55,7 @@ class CollectionDetailScreen extends ConsumerWidget {
                 color: context.appTextSecondary, size: 20),
             onSelected: (value) {
               if (value == 'edit') {
-                final collection = collectionAsync.valueOrNull;
+                final collection = collectionAsync.value;
                 if (collection != null) {
                   _showEditSheet(context, ref, collection);
                 }

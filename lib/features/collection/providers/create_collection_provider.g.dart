@@ -6,24 +6,53 @@ part of 'create_collection_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$collectionCreationServiceHash() =>
-    r'819f2898673590c0584e2d4eb607a4bade4f8d54';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [collectionCreationService].
 @ProviderFor(collectionCreationService)
-final collectionCreationServiceProvider =
-    Provider<CollectionCreationService>.internal(
-      collectionCreationService,
-      name: r'collectionCreationServiceProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$collectionCreationServiceHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final collectionCreationServiceProvider = CollectionCreationServiceProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CollectionCreationServiceRef = ProviderRef<CollectionCreationService>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class CollectionCreationServiceProvider
+    extends
+        $FunctionalProvider<
+          CollectionCreationService,
+          CollectionCreationService,
+          CollectionCreationService
+        >
+    with $Provider<CollectionCreationService> {
+  CollectionCreationServiceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'collectionCreationServiceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$collectionCreationServiceHash();
+
+  @$internal
+  @override
+  $ProviderElement<CollectionCreationService> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  CollectionCreationService create(Ref ref) {
+    return collectionCreationService(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CollectionCreationService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CollectionCreationService>(value),
+    );
+  }
+}
+
+String _$collectionCreationServiceHash() =>
+    r'7a6949249fbebbd94340eb104c776865ec38c4fb';

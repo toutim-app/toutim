@@ -6,8 +6,8 @@ part of 'item_with_fields.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ItemWithFieldsImpl _$$ItemWithFieldsImplFromJson(Map<String, dynamic> json) =>
-    _$ItemWithFieldsImpl(
+_ItemWithFields _$ItemWithFieldsFromJson(Map<String, dynamic> json) =>
+    _ItemWithFields(
       item: Item.fromJson(json['item'] as Map<String, dynamic>),
       fieldValues:
           (json['fieldValues'] as Map<String, dynamic>?)?.map(
@@ -17,9 +17,8 @@ _$ItemWithFieldsImpl _$$ItemWithFieldsImplFromJson(Map<String, dynamic> json) =>
           const {},
     );
 
-Map<String, dynamic> _$$ItemWithFieldsImplToJson(
-  _$ItemWithFieldsImpl instance,
-) => <String, dynamic>{
-  'item': instance.item,
-  'fieldValues': instance.fieldValues,
-};
+Map<String, dynamic> _$ItemWithFieldsToJson(_ItemWithFields instance) =>
+    <String, dynamic>{
+      'item': instance.item,
+      'fieldValues': instance.fieldValues,
+    };

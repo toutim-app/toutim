@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/extensions/color_extensions.dart';
 import '../../../core/theme/app_colors.dart';
@@ -34,7 +34,7 @@ class FieldEditorScreen extends ConsumerWidget {
         error: (_, _) => const SizedBox.shrink(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddSheet(context, ref, fieldsAsync.valueOrNull),
+        onPressed: () => _showAddSheet(context, ref, fieldsAsync.value),
         backgroundColor: AppColors.blue,
         child: const Icon(LucideIcons.plus, color: Colors.white),
       ),
@@ -72,7 +72,7 @@ class FieldEditorScreen extends ConsumerWidget {
     return ReorderableListView.builder(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
       itemCount: fields.length,
-      onReorder: (oldIndex, newIndex) =>
+      onReorderItem: (oldIndex, newIndex) =>
           _onReorder(ref, fields, oldIndex, newIndex),
       proxyDecorator: (child, index, animation) {
         return Material(
@@ -95,7 +95,6 @@ class FieldEditorScreen extends ConsumerWidget {
 
   void _onReorder(
       WidgetRef ref, List<FieldDefinition> fields, int oldIndex, int newIndex) {
-    if (newIndex > oldIndex) newIndex--;
     final reordered = [...fields];
     final item = reordered.removeAt(oldIndex);
     reordered.insert(newIndex, item);

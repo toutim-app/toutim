@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../../core/extensions/color_extensions.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../../data/models/field_definition.dart';
 
 /// Fallback renderer for unsupported field types.

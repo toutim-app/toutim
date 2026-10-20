@@ -17,10 +17,10 @@
 | Composant        | Choix                            | Version min |
 | ---------------- | -------------------------------- | ----------- |
 | Framework        | Flutter                          | 3.x         |
-| State Management | Riverpod + codegen               | 2.5+        |
+| State Management | Riverpod + codegen               | 3.x         |
 | Base locale      | Drift (SQLite)                   | 2.x         |
 | Navigation       | GoRouter                         | 14+         |
-| Sérialisation    | Freezed + json_serializable      | 2.4+        |
+| Sérialisation    | Freezed + json_serializable      | 3.x         |
 | Theming          | flex_color_scheme + Google Fonts | 7.3+        |
 | Icônes           | Lucide Icons ou Phosphor Icons   | —           |
 
@@ -163,7 +163,7 @@ Widget buildFieldRenderer(FieldDefinition def, FieldValue? value, {required bool
 
 ```dart
 @freezed
-class FieldDefinition with _$FieldDefinition {
+abstract class FieldDefinition with _$FieldDefinition {
   const factory FieldDefinition({
     required String id,
     required String name,
@@ -228,7 +228,7 @@ Proposés à l'onboarding pour démarrer rapidement. Chaque template a une **cou
 
 ### State Management (Riverpod)
 
-- Utiliser l'annotation `@riverpod` avec code generation
+- Utiliser l'annotation `@riverpod` avec code generation (paramètre `Ref ref`, plus de types `XxxRef` en Riverpod 3)
 - Un fichier provider par feature/écran
 - Les providers ne contiennent pas de logique métier, ils délèguent aux repositories
 - Utiliser `AsyncValue` pour les états async, jamais de `FutureBuilder`

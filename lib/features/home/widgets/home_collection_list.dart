@@ -29,8 +29,7 @@ class HomeCollectionList extends ConsumerWidget {
           child: child,
         );
       },
-      onReorder: (oldIndex, newIndex) {
-        if (newIndex > oldIndex) newIndex--;
+      onReorderItem: (oldIndex, newIndex) {
         final reordered = [...collections];
         final item = reordered.removeAt(oldIndex);
         reordered.insert(newIndex, item);

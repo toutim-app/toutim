@@ -6,63 +6,147 @@ part of 'repository_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$collectionRepositoryHash() =>
-    r'9431a4919d5f00135fc98384c26ae3741733156d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Provides the [CollectionRepository] implementation.
+
+@ProviderFor(collectionRepository)
+final collectionRepositoryProvider = CollectionRepositoryProvider._();
 
 /// Provides the [CollectionRepository] implementation.
-///
-/// Copied from [collectionRepository].
-@ProviderFor(collectionRepository)
-final collectionRepositoryProvider = Provider<CollectionRepository>.internal(
-  collectionRepository,
-  name: r'collectionRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$collectionRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CollectionRepositoryRef = ProviderRef<CollectionRepository>;
-String _$itemRepositoryHash() => r'8ce79a24cccdcb8f98e83810aaf1d994c6c3490d';
+final class CollectionRepositoryProvider
+    extends
+        $FunctionalProvider<
+          CollectionRepository,
+          CollectionRepository,
+          CollectionRepository
+        >
+    with $Provider<CollectionRepository> {
+  /// Provides the [CollectionRepository] implementation.
+  CollectionRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'collectionRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$collectionRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<CollectionRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  CollectionRepository create(Ref ref) {
+    return collectionRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CollectionRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CollectionRepository>(value),
+    );
+  }
+}
+
+String _$collectionRepositoryHash() =>
+    r'635e08b96ef5840d8341f55c68a8d37472e3fb66';
 
 /// Provides the [ItemRepository] implementation.
-///
-/// Copied from [itemRepository].
-@ProviderFor(itemRepository)
-final itemRepositoryProvider = Provider<ItemRepository>.internal(
-  itemRepository,
-  name: r'itemRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$itemRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ItemRepositoryRef = ProviderRef<ItemRepository>;
-String _$syncRepositoryHash() => r'975b53b50d79c0eabed31aa7383110e6539b8027';
+@ProviderFor(itemRepository)
+final itemRepositoryProvider = ItemRepositoryProvider._();
+
+/// Provides the [ItemRepository] implementation.
+
+final class ItemRepositoryProvider
+    extends $FunctionalProvider<ItemRepository, ItemRepository, ItemRepository>
+    with $Provider<ItemRepository> {
+  /// Provides the [ItemRepository] implementation.
+  ItemRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'itemRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$itemRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<ItemRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ItemRepository create(Ref ref) {
+    return itemRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ItemRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ItemRepository>(value),
+    );
+  }
+}
+
+String _$itemRepositoryHash() => r'fc7249b90be3d3252474afb8bd204142b869c2c4';
 
 /// Provides the [SyncRepository] implementation.
-///
-/// Copied from [syncRepository].
-@ProviderFor(syncRepository)
-final syncRepositoryProvider = FutureProvider<SyncRepository>.internal(
-  syncRepository,
-  name: r'syncRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$syncRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SyncRepositoryRef = FutureProviderRef<SyncRepository>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+@ProviderFor(syncRepository)
+final syncRepositoryProvider = SyncRepositoryProvider._();
+
+/// Provides the [SyncRepository] implementation.
+
+final class SyncRepositoryProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<SyncRepository>,
+          SyncRepository,
+          FutureOr<SyncRepository>
+        >
+    with $FutureModifier<SyncRepository>, $FutureProvider<SyncRepository> {
+  /// Provides the [SyncRepository] implementation.
+  SyncRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncRepositoryHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<SyncRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<SyncRepository> create(Ref ref) {
+    return syncRepository(ref);
+  }
+}
+
+String _$syncRepositoryHash() => r'405fc8f4fa12fdad983c65dc49c079d865f3ab50';

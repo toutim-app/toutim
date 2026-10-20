@@ -10,7 +10,7 @@ part 'collection_providers.g.dart';
 /// Fetches a single collection by id.
 @riverpod
 Future<Collection?> collectionById(
-  CollectionByIdRef ref,
+  Ref ref,
   String collectionId,
 ) {
   return ref.watch(collectionRepositoryProvider).getCollectionById(collectionId);
@@ -19,7 +19,7 @@ Future<Collection?> collectionById(
 /// Watches field definitions for a specific collection.
 @riverpod
 Stream<List<FieldDefinition>> fieldDefinitionsStream(
-  FieldDefinitionsStreamRef ref,
+  Ref ref,
   String collectionId,
 ) {
   return ref
@@ -30,7 +30,7 @@ Stream<List<FieldDefinition>> fieldDefinitionsStream(
 /// Watches items for a specific collection.
 @riverpod
 Stream<List<Item>> itemsStream(
-  ItemsStreamRef ref,
+  Ref ref,
   String collectionId,
 ) {
   return ref
@@ -41,7 +41,7 @@ Stream<List<Item>> itemsStream(
 /// Watches item count for a collection.
 @riverpod
 Stream<int> itemCountStream(
-  ItemCountStreamRef ref,
+  Ref ref,
   String collectionId,
 ) {
   return ref

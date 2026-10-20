@@ -11,30 +11,30 @@ part 'datasource_providers.g.dart';
 
 @Riverpod(keepAlive: true)
 CollectionLocalDataSource collectionLocalDataSource(
-    CollectionLocalDataSourceRef ref) {
+    Ref ref) {
   return CollectionLocalDataSource(ref.watch(appDatabaseProvider));
 }
 
 @Riverpod(keepAlive: true)
-ItemLocalDataSource itemLocalDataSource(ItemLocalDataSourceRef ref) {
+ItemLocalDataSource itemLocalDataSource(Ref ref) {
   return ItemLocalDataSource(ref.watch(appDatabaseProvider));
 }
 
 /// Provides SharedPreferences instance.
 @Riverpod(keepAlive: true)
-Future<SharedPreferences> sharedPreferences(SharedPreferencesRef ref) {
+Future<SharedPreferences> sharedPreferences(Ref ref) {
   return SharedPreferences.getInstance();
 }
 
 /// Provides FlutterSecureStorage instance.
 @Riverpod(keepAlive: true)
-FlutterSecureStorage secureStorage(SecureStorageRef ref) {
+FlutterSecureStorage secureStorage(Ref ref) {
   return const FlutterSecureStorage();
 }
 
 /// Provides the API client for server communication.
 @Riverpod(keepAlive: true)
-Future<ApiClient> apiClient(ApiClientRef ref) async {
+Future<ApiClient> apiClient(Ref ref) async {
   final prefs = await ref.watch(sharedPreferencesProvider.future);
   final secure = ref.watch(secureStorageProvider);
   return ApiClient(prefs: prefs, secureStorage: secure);

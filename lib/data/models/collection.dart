@@ -6,7 +6,7 @@ part 'collection.freezed.dart';
 part 'collection.g.dart';
 
 @freezed
-class Collection with _$Collection {
+abstract class Collection with _$Collection {
   const factory Collection({
     required String id,
     required String name,

@@ -4,7 +4,7 @@ part 'field_value.freezed.dart';
 part 'field_value.g.dart';
 
 @freezed
-class FieldValue with _$FieldValue {
+abstract class FieldValue with _$FieldValue {
   const factory FieldValue({
     required String id,
     required String itemId,

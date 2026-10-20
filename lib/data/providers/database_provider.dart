@@ -6,7 +6,7 @@ part 'database_provider.g.dart';
 
 /// Provides the singleton AppDatabase instance.
 @Riverpod(keepAlive: true)
-AppDatabase appDatabase(AppDatabaseRef ref) {
+AppDatabase appDatabase(Ref ref) {
   final db = AppDatabase();
   ref.onDispose(() => db.close());
   return db;

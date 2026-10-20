@@ -11,27 +11,26 @@ dependencies:
     sdk: flutter
 
   # State Management
-  flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  flutter_riverpod: ^3.4.3
+  riverpod_annotation: ^4.0.7
 
   # Navigation
   go_router: ^14.8.1
 
   # Database
-  drift: ^2.23.0
-  drift_flutter: ^0.2.4
-  sqlite3_flutter_libs: ^0.5.28
+  drift: ^2.35.2
+  drift_flutter: ^0.3.1
 
   # Serialization
-  freezed_annotation: ^2.4.4
-  json_annotation: ^4.9.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
 
   # Theming
   flex_color_scheme: ^8.1.0
   google_fonts: ^6.2.1
 
   # Icons
-  lucide_icons: ^0.257.0
+  lucide_icons_flutter: ^4.0.0
   cupertino_icons: ^1.0.8
 
   # Media
@@ -64,11 +63,11 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
   # Code generation
-  build_runner: ^2.4.14
-  riverpod_generator: ^2.6.3
-  freezed: ^2.5.7
-  json_serializable: ^6.9.4
-  drift_dev: ^2.23.0
+  build_runner: ^2.10.0
+  riverpod_generator: ^4.0.9
+  freezed: ^4.0.3
+  json_serializable: ^6.11.0
+  drift_dev: ^2.35.0
 
   # App icon generation
   flutter_launcher_icons: ^0.14.3

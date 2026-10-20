@@ -6,45 +6,43 @@ part of 'field_definition.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FieldDefinitionImpl _$$FieldDefinitionImplFromJson(
-  Map<String, dynamic> json,
-) => _$FieldDefinitionImpl(
-  id: json['id'] as String,
-  collectionId: json['collectionId'] as String,
-  name: json['name'] as String,
-  type: $enumDecode(_$FieldTypeEnumMap, json['type']),
-  sortOrder: (json['sortOrder'] as num).toInt(),
-  isRequired: json['isRequired'] as bool? ?? false,
-  showInList: json['showInList'] as bool? ?? true,
-  showInCard: json['showInCard'] as bool? ?? true,
-  searchable: json['searchable'] as bool? ?? true,
-  sortable: json['sortable'] as bool? ?? false,
-  defaultValue: json['defaultValue'],
-  options: json['options'] as Map<String, dynamic>? ?? const {},
-  syncStatus:
-      $enumDecodeNullable(_$SyncStatusEnumMap, json['syncStatus']) ??
-      SyncStatus.pending,
-  serverId: json['serverId'] as String?,
-);
+_FieldDefinition _$FieldDefinitionFromJson(Map<String, dynamic> json) =>
+    _FieldDefinition(
+      id: json['id'] as String,
+      collectionId: json['collectionId'] as String,
+      name: json['name'] as String,
+      type: $enumDecode(_$FieldTypeEnumMap, json['type']),
+      sortOrder: (json['sortOrder'] as num).toInt(),
+      isRequired: json['isRequired'] as bool? ?? false,
+      showInList: json['showInList'] as bool? ?? true,
+      showInCard: json['showInCard'] as bool? ?? true,
+      searchable: json['searchable'] as bool? ?? true,
+      sortable: json['sortable'] as bool? ?? false,
+      defaultValue: json['defaultValue'],
+      options: json['options'] as Map<String, dynamic>? ?? const {},
+      syncStatus:
+          $enumDecodeNullable(_$SyncStatusEnumMap, json['syncStatus']) ??
+          SyncStatus.pending,
+      serverId: json['serverId'] as String?,
+    );
 
-Map<String, dynamic> _$$FieldDefinitionImplToJson(
-  _$FieldDefinitionImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'collectionId': instance.collectionId,
-  'name': instance.name,
-  'type': _$FieldTypeEnumMap[instance.type]!,
-  'sortOrder': instance.sortOrder,
-  'isRequired': instance.isRequired,
-  'showInList': instance.showInList,
-  'showInCard': instance.showInCard,
-  'searchable': instance.searchable,
-  'sortable': instance.sortable,
-  'defaultValue': instance.defaultValue,
-  'options': instance.options,
-  'syncStatus': _$SyncStatusEnumMap[instance.syncStatus]!,
-  'serverId': instance.serverId,
-};
+Map<String, dynamic> _$FieldDefinitionToJson(_FieldDefinition instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'collectionId': instance.collectionId,
+      'name': instance.name,
+      'type': _$FieldTypeEnumMap[instance.type]!,
+      'sortOrder': instance.sortOrder,
+      'isRequired': instance.isRequired,
+      'showInList': instance.showInList,
+      'showInCard': instance.showInCard,
+      'searchable': instance.searchable,
+      'sortable': instance.sortable,
+      'defaultValue': instance.defaultValue,
+      'options': instance.options,
+      'syncStatus': _$SyncStatusEnumMap[instance.syncStatus]!,
+      'serverId': instance.serverId,
+    };
 
 const _$FieldTypeEnumMap = {
   FieldType.text: 'text',

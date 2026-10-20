@@ -6,24 +6,50 @@ part of 'database_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appDatabaseHash() => r'105bd8a8ef41e172ff5db2d8e451479a0697fd42';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Provides the singleton AppDatabase instance.
+
+@ProviderFor(appDatabase)
+final appDatabaseProvider = AppDatabaseProvider._();
 
 /// Provides the singleton AppDatabase instance.
-///
-/// Copied from [appDatabase].
-@ProviderFor(appDatabase)
-final appDatabaseProvider = Provider<AppDatabase>.internal(
-  appDatabase,
-  name: r'appDatabaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$appDatabaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AppDatabaseRef = ProviderRef<AppDatabase>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class AppDatabaseProvider
+    extends $FunctionalProvider<AppDatabase, AppDatabase, AppDatabase>
+    with $Provider<AppDatabase> {
+  /// Provides the singleton AppDatabase instance.
+  AppDatabaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'appDatabaseProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$appDatabaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<AppDatabase> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AppDatabase create(Ref ref) {
+    return appDatabase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AppDatabase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AppDatabase>(value),
+    );
+  }
+}
+
+String _$appDatabaseHash() => r'448adad5717e7b1c0b3ca3ca7e03d0b2116237af';

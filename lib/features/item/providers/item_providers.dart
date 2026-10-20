@@ -8,7 +8,7 @@ part 'item_providers.g.dart';
 /// Watches a single item with all its field values.
 @riverpod
 Stream<ItemWithFields?> itemWithFieldsStream(
-  ItemWithFieldsStreamRef ref,
+  Ref ref,
   String itemId,
 ) {
   return ref.watch(itemRepositoryProvider).watchItemWithFields(itemId);

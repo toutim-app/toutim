@@ -6,80 +6,182 @@ part of 'settings_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authStateHash() => r'e050191d3388d93cccdb0444c9eae05413227249';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Provides the current auth state.
+
+@ProviderFor(authState)
+final authStateProvider = AuthStateProvider._();
 
 /// Provides the current auth state.
-///
-/// Copied from [authState].
-@ProviderFor(authState)
-final authStateProvider = AutoDisposeFutureProvider<AuthState>.internal(
-  authState,
-  name: r'authStateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$authStateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AuthStateRef = AutoDisposeFutureProviderRef<AuthState>;
-String _$serverUrlHash() => r'309ba086c956e6b13964eb3db8a5cdfc5d4fd31e';
+final class AuthStateProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<AuthState>,
+          AuthState,
+          FutureOr<AuthState>
+        >
+    with $FutureModifier<AuthState>, $FutureProvider<AuthState> {
+  /// Provides the current auth state.
+  AuthStateProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'authStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$authStateHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<AuthState> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<AuthState> create(Ref ref) {
+    return authState(ref);
+  }
+}
+
+String _$authStateHash() => r'e496f23757531043acdcad76fdf78a1ff4505660';
 
 /// Provides the current server URL.
-///
-/// Copied from [serverUrl].
-@ProviderFor(serverUrl)
-final serverUrlProvider = AutoDisposeFutureProvider<String>.internal(
-  serverUrl,
-  name: r'serverUrlProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$serverUrlHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ServerUrlRef = AutoDisposeFutureProviderRef<String>;
-String _$userEmailSettingHash() => r'818692961591cb0533c07f6e853883a9535a4280';
+@ProviderFor(serverUrl)
+final serverUrlProvider = ServerUrlProvider._();
+
+/// Provides the current server URL.
+
+final class ServerUrlProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
+    with $FutureModifier<String>, $FutureProvider<String> {
+  /// Provides the current server URL.
+  ServerUrlProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'serverUrlProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$serverUrlHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<String> create(Ref ref) {
+    return serverUrl(ref);
+  }
+}
+
+String _$serverUrlHash() => r'49f8ca3adf135e6ca0ac80424e6acbbc29e37cac';
 
 /// Provides the authenticated user's email.
-///
-/// Copied from [userEmailSetting].
-@ProviderFor(userEmailSetting)
-final userEmailSettingProvider = AutoDisposeFutureProvider<String?>.internal(
-  userEmailSetting,
-  name: r'userEmailSettingProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$userEmailSettingHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef UserEmailSettingRef = AutoDisposeFutureProviderRef<String?>;
+@ProviderFor(userEmailSetting)
+final userEmailSettingProvider = UserEmailSettingProvider._();
+
+/// Provides the authenticated user's email.
+
+final class UserEmailSettingProvider
+    extends $FunctionalProvider<AsyncValue<String?>, String?, FutureOr<String?>>
+    with $FutureModifier<String?>, $FutureProvider<String?> {
+  /// Provides the authenticated user's email.
+  UserEmailSettingProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userEmailSettingProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userEmailSettingHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<String?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<String?> create(Ref ref) {
+    return userEmailSetting(ref);
+  }
+}
+
+String _$userEmailSettingHash() => r'd5d75e219415929146ed026427ffcb79300ab581';
+
+/// Notifier for sync actions (trigger sync, track state).
+
+@ProviderFor(SyncAction)
+final syncActionProvider = SyncActionProvider._();
+
+/// Notifier for sync actions (trigger sync, track state).
+final class SyncActionProvider
+    extends $NotifierProvider<SyncAction, AsyncValue<SyncResult?>> {
+  /// Notifier for sync actions (trigger sync, track state).
+  SyncActionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncActionProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncActionHash();
+
+  @$internal
+  @override
+  SyncAction create() => SyncAction();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<SyncResult?> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<SyncResult?>>(value),
+    );
+  }
+}
+
 String _$syncActionHash() => r'99bb1bd2e8ebaa2ed5b7c76e0c547d336a14dec8';
 
 /// Notifier for sync actions (trigger sync, track state).
-///
-/// Copied from [SyncAction].
-@ProviderFor(SyncAction)
-final syncActionProvider =
-    AutoDisposeNotifierProvider<SyncAction, AsyncValue<SyncResult?>>.internal(
-      SyncAction.new,
-      name: r'syncActionProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$syncActionHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
 
-typedef _$SyncAction = AutoDisposeNotifier<AsyncValue<SyncResult?>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$SyncAction extends $Notifier<AsyncValue<SyncResult?>> {
+  AsyncValue<SyncResult?> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref =
+        this.ref as $Ref<AsyncValue<SyncResult?>, AsyncValue<SyncResult?>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<SyncResult?>, AsyncValue<SyncResult?>>,
+              AsyncValue<SyncResult?>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}

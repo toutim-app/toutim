@@ -7,6 +7,6 @@ part 'home_providers.g.dart';
 
 /// Watches all collections for the home screen.
 @riverpod
-Stream<List<Collection>> collectionsStream(CollectionsStreamRef ref) {
+Stream<List<Collection>> collectionsStream(Ref ref) {
   return ref.watch(collectionRepositoryProvider).watchAllCollections();
 }

@@ -6,99 +6,242 @@ part of 'datasource_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$collectionLocalDataSourceHash() =>
-    r'70e9f9c0399c769aa36bb2a5c528c040d1706e96';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [collectionLocalDataSource].
 @ProviderFor(collectionLocalDataSource)
-final collectionLocalDataSourceProvider =
-    Provider<CollectionLocalDataSource>.internal(
-      collectionLocalDataSource,
-      name: r'collectionLocalDataSourceProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$collectionLocalDataSourceHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
+final collectionLocalDataSourceProvider = CollectionLocalDataSourceProvider._();
+
+final class CollectionLocalDataSourceProvider
+    extends
+        $FunctionalProvider<
+          CollectionLocalDataSource,
+          CollectionLocalDataSource,
+          CollectionLocalDataSource
+        >
+    with $Provider<CollectionLocalDataSource> {
+  CollectionLocalDataSourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'collectionLocalDataSourceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$collectionLocalDataSourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<CollectionLocalDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  CollectionLocalDataSource create(Ref ref) {
+    return collectionLocalDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CollectionLocalDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CollectionLocalDataSource>(value),
     );
+  }
+}
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CollectionLocalDataSourceRef = ProviderRef<CollectionLocalDataSource>;
-String _$itemLocalDataSourceHash() =>
-    r'95c4d6cbccbfbaa3797f4ef66c0395758b5d6ffd';
+String _$collectionLocalDataSourceHash() =>
+    r'ccf9ca8342f6e421b5993eef6822c41d724f16fa';
 
-/// See also [itemLocalDataSource].
 @ProviderFor(itemLocalDataSource)
-final itemLocalDataSourceProvider = Provider<ItemLocalDataSource>.internal(
-  itemLocalDataSource,
-  name: r'itemLocalDataSourceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$itemLocalDataSourceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final itemLocalDataSourceProvider = ItemLocalDataSourceProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ItemLocalDataSourceRef = ProviderRef<ItemLocalDataSource>;
-String _$sharedPreferencesHash() => r'd0f94d4bd61259b4c06d24df95d1afc7eb5bd1c6';
+final class ItemLocalDataSourceProvider
+    extends
+        $FunctionalProvider<
+          ItemLocalDataSource,
+          ItemLocalDataSource,
+          ItemLocalDataSource
+        >
+    with $Provider<ItemLocalDataSource> {
+  ItemLocalDataSourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'itemLocalDataSourceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$itemLocalDataSourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<ItemLocalDataSource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ItemLocalDataSource create(Ref ref) {
+    return itemLocalDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ItemLocalDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ItemLocalDataSource>(value),
+    );
+  }
+}
+
+String _$itemLocalDataSourceHash() =>
+    r'540e49ba6c7eecc547a50c21a809e58361694c6c';
 
 /// Provides SharedPreferences instance.
-///
-/// Copied from [sharedPreferences].
-@ProviderFor(sharedPreferences)
-final sharedPreferencesProvider = FutureProvider<SharedPreferences>.internal(
-  sharedPreferences,
-  name: r'sharedPreferencesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$sharedPreferencesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SharedPreferencesRef = FutureProviderRef<SharedPreferences>;
-String _$secureStorageHash() => r'1803ee54eebc4038de1cd19ff9f0850676721a7f';
+@ProviderFor(sharedPreferences)
+final sharedPreferencesProvider = SharedPreferencesProvider._();
+
+/// Provides SharedPreferences instance.
+
+final class SharedPreferencesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<SharedPreferences>,
+          SharedPreferences,
+          FutureOr<SharedPreferences>
+        >
+    with
+        $FutureModifier<SharedPreferences>,
+        $FutureProvider<SharedPreferences> {
+  /// Provides SharedPreferences instance.
+  SharedPreferencesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'sharedPreferencesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$sharedPreferencesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<SharedPreferences> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<SharedPreferences> create(Ref ref) {
+    return sharedPreferences(ref);
+  }
+}
+
+String _$sharedPreferencesHash() => r'48e60558ea6530114ea20ea03e69b9fb339ab129';
 
 /// Provides FlutterSecureStorage instance.
-///
-/// Copied from [secureStorage].
-@ProviderFor(secureStorage)
-final secureStorageProvider = Provider<FlutterSecureStorage>.internal(
-  secureStorage,
-  name: r'secureStorageProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$secureStorageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SecureStorageRef = ProviderRef<FlutterSecureStorage>;
-String _$apiClientHash() => r'0e7e444c1a34b05ea5f4fcd86d5c3655a31820cb';
+@ProviderFor(secureStorage)
+final secureStorageProvider = SecureStorageProvider._();
+
+/// Provides FlutterSecureStorage instance.
+
+final class SecureStorageProvider
+    extends
+        $FunctionalProvider<
+          FlutterSecureStorage,
+          FlutterSecureStorage,
+          FlutterSecureStorage
+        >
+    with $Provider<FlutterSecureStorage> {
+  /// Provides FlutterSecureStorage instance.
+  SecureStorageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'secureStorageProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$secureStorageHash();
+
+  @$internal
+  @override
+  $ProviderElement<FlutterSecureStorage> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FlutterSecureStorage create(Ref ref) {
+    return secureStorage(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FlutterSecureStorage value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FlutterSecureStorage>(value),
+    );
+  }
+}
+
+String _$secureStorageHash() => r'a4f75721472cf77465bf47f759c90de5ca30856e';
 
 /// Provides the API client for server communication.
-///
-/// Copied from [apiClient].
-@ProviderFor(apiClient)
-final apiClientProvider = FutureProvider<ApiClient>.internal(
-  apiClient,
-  name: r'apiClientProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$apiClientHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ApiClientRef = FutureProviderRef<ApiClient>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+@ProviderFor(apiClient)
+final apiClientProvider = ApiClientProvider._();
+
+/// Provides the API client for server communication.
+
+final class ApiClientProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ApiClient>,
+          ApiClient,
+          FutureOr<ApiClient>
+        >
+    with $FutureModifier<ApiClient>, $FutureProvider<ApiClient> {
+  /// Provides the API client for server communication.
+  ApiClientProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'apiClientProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$apiClientHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<ApiClient> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<ApiClient> create(Ref ref) {
+    return apiClient(ref);
+  }
+}
+
+String _$apiClientHash() => r'73fb571f46ba723d717763ef68f3fc714e10022a';

@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'collection.dart';
@@ -9,416 +9,310 @@ part of 'collection.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-Collection _$CollectionFromJson(Map<String, dynamic> json) {
-  return _Collection.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Collection {
-  String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  String? get icon => throw _privateConstructorUsedError;
-  String get color => throw _privateConstructorUsedError;
-  String? get templateId => throw _privateConstructorUsedError;
-  int get sortOrder => throw _privateConstructorUsedError;
-  ViewMode get viewMode => throw _privateConstructorUsedError;
-  SyncStatus get syncStatus => throw _privateConstructorUsedError;
-  String? get serverId => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+
+ String get id; String get name; String? get description; String? get icon; String get color; String? get templateId; int get sortOrder; ViewMode get viewMode; SyncStatus get syncStatus; String? get serverId; DateTime get createdAt; DateTime get updatedAt;
+/// Create a copy of Collection
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CollectionCopyWith<Collection> get copyWith => _$CollectionCopyWithImpl<Collection>(this as Collection, _$identity);
 
   /// Serializes this Collection to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Collection
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CollectionCopyWith<Collection> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  final _this = this as Collection;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Collection&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.templateId, _this.templateId) || other.templateId == _this.templateId)&&(identical(other.sortOrder, _this.sortOrder) || other.sortOrder == _this.sortOrder)&&(identical(other.viewMode, _this.viewMode) || other.viewMode == _this.viewMode)&&(identical(other.syncStatus, _this.syncStatus) || other.syncStatus == _this.syncStatus)&&(identical(other.serverId, _this.serverId) || other.serverId == _this.serverId)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as Collection;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.description,_this.icon,_this.color,_this.templateId,_this.sortOrder,_this.viewMode,_this.syncStatus,_this.serverId,_this.createdAt,_this.updatedAt);
+}
+
+@override
+String toString() {
+  final _this = this as Collection;
+  return 'Collection(id: ${_this.id}, name: ${_this.name}, description: ${_this.description}, icon: ${_this.icon}, color: ${_this.color}, templateId: ${_this.templateId}, sortOrder: ${_this.sortOrder}, viewMode: ${_this.viewMode}, syncStatus: ${_this.syncStatus}, serverId: ${_this.serverId}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CollectionCopyWith<$Res> {
-  factory $CollectionCopyWith(
-    Collection value,
-    $Res Function(Collection) then,
-  ) = _$CollectionCopyWithImpl<$Res, Collection>;
-  @useResult
-  $Res call({
-    String id,
-    String name,
-    String? description,
-    String? icon,
-    String color,
-    String? templateId,
-    int sortOrder,
-    ViewMode viewMode,
-    SyncStatus syncStatus,
-    String? serverId,
-    DateTime createdAt,
-    DateTime updatedAt,
-  });
-}
+abstract mixin class $CollectionCopyWith<$Res>  {
+  factory $CollectionCopyWith(Collection value, $Res Function(Collection) _then) = _$CollectionCopyWithImpl;
+@useResult
+$Res call({
+ String id, String name, String? description, String? icon, String color, String? templateId, int sortOrder, ViewMode viewMode, SyncStatus syncStatus, String? serverId, DateTime createdAt, DateTime updatedAt
+});
 
+
+
+
+}
 /// @nodoc
-class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
+class _$CollectionCopyWithImpl<$Res>
     implements $CollectionCopyWith<$Res> {
-  _$CollectionCopyWithImpl(this._value, this._then);
+  _$CollectionCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Collection _self;
+  final $Res Function(Collection) _then;
 
-  /// Create a copy of Collection
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = freezed,
-    Object? icon = freezed,
-    Object? color = null,
-    Object? templateId = freezed,
-    Object? sortOrder = null,
-    Object? viewMode = null,
-    Object? syncStatus = null,
-    Object? serverId = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            name: null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            icon: freezed == icon
-                ? _value.icon
-                : icon // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            color: null == color
-                ? _value.color
-                : color // ignore: cast_nullable_to_non_nullable
-                      as String,
-            templateId: freezed == templateId
-                ? _value.templateId
-                : templateId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            sortOrder: null == sortOrder
-                ? _value.sortOrder
-                : sortOrder // ignore: cast_nullable_to_non_nullable
-                      as int,
-            viewMode: null == viewMode
-                ? _value.viewMode
-                : viewMode // ignore: cast_nullable_to_non_nullable
-                      as ViewMode,
-            syncStatus: null == syncStatus
-                ? _value.syncStatus
-                : syncStatus // ignore: cast_nullable_to_non_nullable
-                      as SyncStatus,
-            serverId: freezed == serverId
-                ? _value.serverId
-                : serverId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            createdAt: null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
-            updatedAt: null == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of Collection
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? description = freezed,Object? icon = freezed,Object? color = null,Object? templateId = freezed,Object? sortOrder = null,Object? viewMode = null,Object? syncStatus = null,Object? serverId = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+  return _then(Collection(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
+as String?,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
+as int,viewMode: null == viewMode ? _self.viewMode : viewMode // ignore: cast_nullable_to_non_nullable
+as ViewMode,syncStatus: null == syncStatus ? _self.syncStatus : syncStatus // ignore: cast_nullable_to_non_nullable
+as SyncStatus,serverId: freezed == serverId ? _self.serverId : serverId // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
 }
 
-/// @nodoc
-abstract class _$$CollectionImplCopyWith<$Res>
-    implements $CollectionCopyWith<$Res> {
-  factory _$$CollectionImplCopyWith(
-    _$CollectionImpl value,
-    $Res Function(_$CollectionImpl) then,
-  ) = __$$CollectionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String id,
-    String name,
-    String? description,
-    String? icon,
-    String color,
-    String? templateId,
-    int sortOrder,
-    ViewMode viewMode,
-    SyncStatus syncStatus,
-    String? serverId,
-    DateTime createdAt,
-    DateTime updatedAt,
-  });
 }
 
-/// @nodoc
-class __$$CollectionImplCopyWithImpl<$Res>
-    extends _$CollectionCopyWithImpl<$Res, _$CollectionImpl>
-    implements _$$CollectionImplCopyWith<$Res> {
-  __$$CollectionImplCopyWithImpl(
-    _$CollectionImpl _value,
-    $Res Function(_$CollectionImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of Collection
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = freezed,
-    Object? icon = freezed,
-    Object? color = null,
-    Object? templateId = freezed,
-    Object? sortOrder = null,
-    Object? viewMode = null,
-    Object? syncStatus = null,
-    Object? serverId = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-  }) {
-    return _then(
-      _$CollectionImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        name: null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: freezed == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        icon: freezed == icon
-            ? _value.icon
-            : icon // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        color: null == color
-            ? _value.color
-            : color // ignore: cast_nullable_to_non_nullable
-                  as String,
-        templateId: freezed == templateId
-            ? _value.templateId
-            : templateId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        sortOrder: null == sortOrder
-            ? _value.sortOrder
-            : sortOrder // ignore: cast_nullable_to_non_nullable
-                  as int,
-        viewMode: null == viewMode
-            ? _value.viewMode
-            : viewMode // ignore: cast_nullable_to_non_nullable
-                  as ViewMode,
-        syncStatus: null == syncStatus
-            ? _value.syncStatus
-            : syncStatus // ignore: cast_nullable_to_non_nullable
-                  as SyncStatus,
-        serverId: freezed == serverId
-            ? _value.serverId
-            : serverId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        createdAt: null == createdAt
-            ? _value.createdAt
-            : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
-        updatedAt: null == updatedAt
-            ? _value.updatedAt
-            : updatedAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [Collection].
+extension CollectionPatterns on Collection {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Collection value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Collection() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Collection value)  $default,){
+final _that = this;
+switch (_that) {
+case _Collection():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Collection value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Collection() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? description,  String? icon,  String color,  String? templateId,  int sortOrder,  ViewMode viewMode,  SyncStatus syncStatus,  String? serverId,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Collection() when $default != null:
+return $default(_that.id,_that.name,_that.description,_that.icon,_that.color,_that.templateId,_that.sortOrder,_that.viewMode,_that.syncStatus,_that.serverId,_that.createdAt,_that.updatedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? description,  String? icon,  String color,  String? templateId,  int sortOrder,  ViewMode viewMode,  SyncStatus syncStatus,  String? serverId,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+switch (_that) {
+case _Collection():
+return $default(_that.id,_that.name,_that.description,_that.icon,_that.color,_that.templateId,_that.sortOrder,_that.viewMode,_that.syncStatus,_that.serverId,_that.createdAt,_that.updatedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? description,  String? icon,  String color,  String? templateId,  int sortOrder,  ViewMode viewMode,  SyncStatus syncStatus,  String? serverId,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _Collection() when $default != null:
+return $default(_that.id,_that.name,_that.description,_that.icon,_that.color,_that.templateId,_that.sortOrder,_that.viewMode,_that.syncStatus,_that.serverId,_that.createdAt,_that.updatedAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CollectionImpl implements _Collection {
-  const _$CollectionImpl({
-    required this.id,
-    required this.name,
-    this.description,
-    this.icon,
-    required this.color,
-    this.templateId,
-    this.sortOrder = 0,
-    this.viewMode = ViewMode.list,
-    this.syncStatus = SyncStatus.pending,
-    this.serverId,
-    required this.createdAt,
-    required this.updatedAt,
-  });
 
-  factory _$CollectionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CollectionImplFromJson(json);
+class _Collection implements Collection {
+  const _Collection({required this.id, required this.name, this.description, this.icon, required this.color, this.templateId, this.sortOrder = 0, this.viewMode = ViewMode.list, this.syncStatus = SyncStatus.pending, this.serverId, required this.createdAt, required this.updatedAt});
+  factory _Collection.fromJson(Map<String, dynamic> json) => _$CollectionFromJson(json);
 
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? description;
-  @override
-  final String? icon;
-  @override
-  final String color;
-  @override
-  final String? templateId;
-  @override
-  @JsonKey()
-  final int sortOrder;
-  @override
-  @JsonKey()
-  final ViewMode viewMode;
-  @override
-  @JsonKey()
-  final SyncStatus syncStatus;
-  @override
-  final String? serverId;
-  @override
-  final DateTime createdAt;
-  @override
-  final DateTime updatedAt;
+@override final  String id;
+@override final  String name;
+@override final  String? description;
+@override final  String? icon;
+@override final  String color;
+@override final  String? templateId;
+@override@JsonKey() final  int sortOrder;
+@override@JsonKey() final  ViewMode viewMode;
+@override@JsonKey() final  SyncStatus syncStatus;
+@override final  String? serverId;
+@override final  DateTime createdAt;
+@override final  DateTime updatedAt;
 
-  @override
-  String toString() {
+/// Create a copy of Collection
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CollectionCopyWith<_Collection> get copyWith => __$CollectionCopyWithImpl<_Collection>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CollectionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Collection&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.viewMode, viewMode) || other.viewMode == viewMode)&&(identical(other.syncStatus, syncStatus) || other.syncStatus == syncStatus)&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,id,name,description,icon,color,templateId,sortOrder,viewMode,syncStatus,serverId,createdAt,updatedAt);
+}
+
+@override
+String toString() {
     return 'Collection(id: $id, name: $name, description: $description, icon: $icon, color: $color, templateId: $templateId, sortOrder: $sortOrder, viewMode: $viewMode, syncStatus: $syncStatus, serverId: $serverId, createdAt: $createdAt, updatedAt: $updatedAt)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CollectionImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.icon, icon) || other.icon == icon) &&
-            (identical(other.color, color) || other.color == color) &&
-            (identical(other.templateId, templateId) ||
-                other.templateId == templateId) &&
-            (identical(other.sortOrder, sortOrder) ||
-                other.sortOrder == sortOrder) &&
-            (identical(other.viewMode, viewMode) ||
-                other.viewMode == viewMode) &&
-            (identical(other.syncStatus, syncStatus) ||
-                other.syncStatus == syncStatus) &&
-            (identical(other.serverId, serverId) ||
-                other.serverId == serverId) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    name,
-    description,
-    icon,
-    color,
-    templateId,
-    sortOrder,
-    viewMode,
-    syncStatus,
-    serverId,
-    createdAt,
-    updatedAt,
-  );
-
-  /// Create a copy of Collection
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CollectionImplCopyWith<_$CollectionImpl> get copyWith =>
-      __$$CollectionImplCopyWithImpl<_$CollectionImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CollectionImplToJson(this);
-  }
 }
 
-abstract class _Collection implements Collection {
-  const factory _Collection({
-    required final String id,
-    required final String name,
-    final String? description,
-    final String? icon,
-    required final String color,
-    final String? templateId,
-    final int sortOrder,
-    final ViewMode viewMode,
-    final SyncStatus syncStatus,
-    final String? serverId,
-    required final DateTime createdAt,
-    required final DateTime updatedAt,
-  }) = _$CollectionImpl;
 
-  factory _Collection.fromJson(Map<String, dynamic> json) =
-      _$CollectionImpl.fromJson;
-
-  @override
-  String get id;
-  @override
-  String get name;
-  @override
-  String? get description;
-  @override
-  String? get icon;
-  @override
-  String get color;
-  @override
-  String? get templateId;
-  @override
-  int get sortOrder;
-  @override
-  ViewMode get viewMode;
-  @override
-  SyncStatus get syncStatus;
-  @override
-  String? get serverId;
-  @override
-  DateTime get createdAt;
-  @override
-  DateTime get updatedAt;
-
-  /// Create a copy of Collection
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CollectionImplCopyWith<_$CollectionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$CollectionCopyWith<$Res> implements $CollectionCopyWith<$Res> {
+  factory _$CollectionCopyWith(_Collection value, $Res Function(_Collection) _then) = __$CollectionCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String name, String? description, String? icon, String color, String? templateId, int sortOrder, ViewMode viewMode, SyncStatus syncStatus, String? serverId, DateTime createdAt, DateTime updatedAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$CollectionCopyWithImpl<$Res>
+    implements _$CollectionCopyWith<$Res> {
+  __$CollectionCopyWithImpl(this._self, this._then);
+
+  final _Collection _self;
+  final $Res Function(_Collection) _then;
+
+/// Create a copy of Collection
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? description = freezed,Object? icon = freezed,Object? color = null,Object? templateId = freezed,Object? sortOrder = null,Object? viewMode = null,Object? syncStatus = null,Object? serverId = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+  return _then(_Collection(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
+as String?,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
+as int,viewMode: null == viewMode ? _self.viewMode : viewMode // ignore: cast_nullable_to_non_nullable
+as ViewMode,syncStatus: null == syncStatus ? _self.syncStatus : syncStatus // ignore: cast_nullable_to_non_nullable
+as SyncStatus,serverId: freezed == serverId ? _self.serverId : serverId // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
+
+// dart format on

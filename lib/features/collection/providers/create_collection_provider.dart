@@ -61,6 +61,6 @@ class CollectionCreationService {
 
 @Riverpod(keepAlive: true)
 CollectionCreationService collectionCreationService(
-    CollectionCreationServiceRef ref) {
+    Ref ref) {
   return CollectionCreationService(ref.watch(collectionRepositoryProvider));
 }

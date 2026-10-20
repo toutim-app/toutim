@@ -26,7 +26,7 @@ abstract final class AppRoutes {
 }
 
 @riverpod
-GoRouter appRouter(AppRouterRef ref) {
+GoRouter appRouter(Ref ref) {
   return GoRouter(
     initialLocation: AppRoutes.home,
     routes: [

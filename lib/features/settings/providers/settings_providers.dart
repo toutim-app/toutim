@@ -10,7 +10,7 @@ enum AuthState { notConfigured, loggedOut, loggedIn }
 
 /// Provides the current auth state.
 @riverpod
-Future<AuthState> authState(AuthStateRef ref) async {
+Future<AuthState> authState(Ref ref) async {
   final syncRepo = await ref.watch(syncRepositoryProvider.future);
   if (!syncRepo.isConfigured) return AuthState.notConfigured;
   final authenticated = await syncRepo.isAuthenticated;
@@ -19,14 +19,14 @@ Future<AuthState> authState(AuthStateRef ref) async {
 
 /// Provides the current server URL.
 @riverpod
-Future<String> serverUrl(ServerUrlRef ref) async {
+Future<String> serverUrl(Ref ref) async {
   final syncRepo = await ref.watch(syncRepositoryProvider.future);
   return syncRepo.serverUrl;
 }
 
 /// Provides the authenticated user's email.
 @riverpod
-Future<String?> userEmailSetting(UserEmailSettingRef ref) async {
+Future<String?> userEmailSetting(Ref ref) async {
   final syncRepo = await ref.watch(syncRepositoryProvider.future);
   return syncRepo.userEmail;
 }
@@ -42,10 +42,12 @@ class SyncAction extends _$SyncAction {
     try {
       final syncRepo = await ref.read(syncRepositoryProvider.future);
       final result = await syncRepo.sync();
+      if (!ref.mounted) return;
       state = AsyncData(result);
       // Refresh auth state after sync.
       ref.invalidate(authStateProvider);
     } catch (e, st) {
+      if (!ref.mounted) return;
       state = AsyncError(e, st);
     }
   }

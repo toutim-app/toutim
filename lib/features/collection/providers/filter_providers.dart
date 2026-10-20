@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/models/enums/field_type.dart';
@@ -19,7 +19,7 @@ final collectionFiltersProvider =
 /// Watches all items with their field values for a collection.
 @riverpod
 Stream<List<ItemWithFields>> allItemsWithFieldsStream(
-  AllItemsWithFieldsStreamRef ref,
+  Ref ref,
   String collectionId,
 ) {
   return ref
@@ -39,7 +39,7 @@ const _filterableTypes = {
 /// - tags: always filterable (options are derived from item values at runtime)
 @riverpod
 List<FieldDefinition> filterableFields(
-  FilterableFieldsRef ref,
+  Ref ref,
   String collectionId,
 ) {
   final fieldsAsync = ref.watch(fieldDefinitionsStreamProvider(collectionId));
@@ -59,7 +59,7 @@ List<FieldDefinition> filterableFields(
 /// Returns a map of fieldDefinitionId -> sorted list of unique tag strings.
 @riverpod
 Map<String, List<String>> uniqueTagValues(
-  UniqueTagValuesRef ref,
+  Ref ref,
   String collectionId,
 ) {
   final allItemsAsync =
@@ -89,7 +89,7 @@ Map<String, List<String>> uniqueTagValues(
 /// OR logic within a field, AND logic between fields.
 @riverpod
 List<ItemWithFields> filteredItems(
-  FilteredItemsRef ref,
+  Ref ref,
   String collectionId,
 ) {
   final allItemsAsync =

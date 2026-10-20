@@ -8,7 +8,7 @@ part 'item_with_fields.g.dart';
 
 /// Aggregate model: an Item with all its field values, keyed by fieldDefinitionId.
 @freezed
-class ItemWithFields with _$ItemWithFields {
+abstract class ItemWithFields with _$ItemWithFields {
   const factory ItemWithFields({
     required Item item,
     @Default({}) Map<String, FieldValue> fieldValues,
