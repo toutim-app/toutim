@@ -28,7 +28,7 @@ Toutim est une application mobile (Android/iOS) gratuite et open source pour org
 
 ```bash
 # Cloner le depot
-git clone https://codeberg.org/toutim/toutim.git
+git clone https://github.com/toutim-app/toutim.git
 cd toutim
 
 # Installer les dependances
@@ -45,8 +45,8 @@ flutter run
 
 | Depot | Description |
 |-------|-------------|
-| [toutim](https://codeberg.org/toutim/toutim) | Application mobile (Flutter) |
-| [toutim-server](https://codeberg.org/toutim/toutim-server) | Serveur de synchronisation (Go) |
+| [toutim](https://github.com/toutim-app/toutim) | Application mobile (Flutter) |
+| [toutim-server](https://github.com/toutim-app/toutim-server) | Serveur de synchronisation (Go) |
 
 ## Licence
 
